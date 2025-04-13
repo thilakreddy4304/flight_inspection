@@ -1,46 +1,112 @@
-# Getting Started with Create React App
+# Flight Inspection Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern React application for flight inspection management. This project provides a user interface for inspecting and managing flights, with features for viewing flight details, inspection histories, and more.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+- Dashboard with flight overview
+- Flight details and inspection history
+- Intuitive UI based on Figma designs
+- TypeScript for type safety
+- Responsive design for all device sizes
 
-### `npm start`
+## 🛠️ Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- React 18+
+- TypeScript
+- React Router for navigation
+- Styled Components for styling
+- Axios for API requests
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 📂 Project Structure
 
-### `npm test`
+```
+frontend_flight_inspection/
+├── public/            # Static files
+├── src/
+│   ├── assets/        # Images, icons, and other static assets
+│   │   ├── images/    # Image files
+│   │   ├── icons/     # Icon files
+│   │   └── fonts/     # Font files
+│   ├── components/    # Reusable UI components
+│   │   ├── Button/    # Button component
+│   │   ├── FlightCard/# Flight card component
+│   │   └── Layout/    # Layout component with header and footer
+│   ├── context/       # React context for global state management
+│   ├── hooks/         # Custom React hooks
+│   ├── pages/         # Page components
+│   ├── services/      # API services
+│   ├── styles/        # Global styles
+│   ├── types/         # TypeScript type definitions
+│   └── utils/         # Utility functions
+├── package.json       # Project dependencies and scripts
+└── tsconfig.json      # TypeScript configuration
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🔧 Getting Started
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js 14+ and npm
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository
 
-### `npm run eject`
+```bash
+git clone <repository-url>
+cd frontend_flight_inspection
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. Install dependencies
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+3. Start the development server
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+npm start
+```
 
-## Learn More
+The app will be available at [http://localhost:3000](http://localhost:3000).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🔌 Backend Integration
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This frontend is designed to work with a RESTful API. The API endpoints are configured in the `src/services/api.ts` file. The main endpoints include:
+
+- `/flights` - Get all flights, create a new flight
+- `/flights/:id` - Get, update, or delete a specific flight
+- `/inspections` - Get all inspections, create a new inspection
+- `/inspections/:id` - Get, update, or delete a specific inspection
+
+## 🧪 Testing
+
+Run tests with:
+
+```bash
+npm test
+```
+
+## 📦 Building for Production
+
+To build the app for production:
+
+```bash
+npm run build
+```
+
+The build output will be in the `build/` directory.
+
+## 🤝 Collaboration with Backend Team
+
+For backend developers working on this project:
+
+1. The frontend expects a RESTful API as defined in the API service files
+2. All API responses should follow the format defined in the `src/types/index.ts` file
+3. Authentication is handled through JWT tokens in the Authorization header
+
+## 📝 License
+
+This project is licensed under the MIT License.

@@ -1,25 +1,77 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import './styles/global.css';
+
+// Auth
+import { AuthProvider, useAuth } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+
+// Layout
+import Layout from './components/Layout';
+
+// Pages
+import Home from './pages/Home';
+import FlightDetail from './pages/FlightDetail';
+import SignIn from './pages/SignIn/SignIn';
+import SignUp from './pages/SignUp/SignUp';
+import TeamSelection from './pages/TeamSelection';
+import Dashboard from './pages/Dashboard';
+
+// Team Selection Guard
+const TeamSelectionGuard = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthenticated, isLoading, hasSelectedTeam } = useAuth();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" replace />;
+  }
+
+  if (!hasSelectedTeam) {
+    return <Navigate to="/select-team" replace />;
+  }
+
+  return <>{children}</>;
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Auth Routes */}
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/select-team" element={
+            <ProtectedRoute>
+              <TeamSelection />
+            </ProtectedRoute>
+          } />
+
+          {/* Protected Routes that require both auth and team selection */}
+          <Route path="/" element={
+            <TeamSelectionGuard>
+              <Dashboard />
+            </TeamSelectionGuard>
+          } />
+          <Route path="/home" element={
+            <TeamSelectionGuard>
+              <Home />
+            </TeamSelectionGuard>
+          } />
+          <Route path="/flights/:id" element={
+            <TeamSelectionGuard>
+              <FlightDetail />
+            </TeamSelectionGuard>
+          } />
+
+          {/* Redirect any unknown routes to sign in */}
+          <Route path="*" element={<Navigate to="/signin" replace />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
