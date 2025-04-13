@@ -79,4 +79,7 @@ export interface PaginatedResponse<T> {
   perPage: number;
   totalItems: number;
   totalPages: number;
-} 
+}
+
+// Dashboard view types
+export type DashboardView = 'home' | 'inspections' | 'tasks' | 'stats' | 'profile' | 'settings' | 'call'; 

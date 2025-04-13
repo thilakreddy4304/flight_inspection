@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { DashboardView } from '../../types';
 import SideNavbar from '../../components/SideNavbar/sideNavbar';
 import InspectionScheduler from '../../components/InspectionScheduler/inspectionScheduler';
 import InspectionChart from '../../components/InspectionChart/inspectionChart';
 import InspectionStatus from '../../components/InspectionStatus/inspectionStatus';
+import FlightInspection from '../../components/FlightInspection/FlightInspection';
+import StatusPanel from '../../components/StatusPanel/StatusPanel';
 
 const DashboardContainer = styled.div`
   display: grid;
@@ -37,12 +40,6 @@ const SidePanel = styled.div`
 
 const TopSection = styled.div`
   margin-bottom: 40px;
-`;
-
-const MainLayout = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
 `;
 
 const TeamSelector = styled.div`
@@ -77,32 +74,114 @@ const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const { user, selectedTeam } = useAuth();
   
+  // State to track the current view
+  const [currentView, setCurrentView] = useState<DashboardView>('home');
+  
+  // Handle navigation from sidebar
+  const handleNavigation = (view: DashboardView) => {
+    setCurrentView(view);
+  };
+  
   const handleViewSchedule = () => {
     navigate('/schedule');
+  };
+  
+  // Mock data for the status panel
+  const statusItems = [
+    { number: 74, label: 'Inspections - Scheduled' },
+    { number: 23, label: 'Inspections - In-progress' },
+    { number: 22, label: 'Inspections - Ready-to-Review' },
+    { number: 5, label: 'Inspections - Complete' }
+  ];
+  
+  // Render different content based on the current view
+  const renderMainContent = () => {
+    switch (currentView) {
+      case 'home':
+        return (
+          <>
+            <TopSection>
+              <TeamSelector>
+                Team: {selectedTeam?.name} <TeamSelectorIcon>▼</TeamSelectorIcon>
+              </TeamSelector>
+              
+              <WelcomeHeader>Hi Andrew,</WelcomeHeader>
+            </TopSection>
+            
+            <InspectionScheduler onViewSchedule={handleViewSchedule} />
+            <InspectionChart />
+          </>
+        );
+        
+      case 'inspections':
+        return <FlightInspection flightId="DL4890" />;
+        
+      case 'tasks':
+        return (
+          <>
+            <WelcomeHeader>Tasks</WelcomeHeader>
+            <p>Task management coming soon...</p>
+          </>
+        );
+        
+      case 'stats':
+        return (
+          <>
+            <WelcomeHeader>Statistics</WelcomeHeader>
+            <p>Statistics dashboard coming soon...</p>
+          </>
+        );
+        
+      case 'profile':
+        return (
+          <>
+            <WelcomeHeader>User Profile</WelcomeHeader>
+            <p>Profile management coming soon...</p>
+          </>
+        );
+        
+      case 'settings':
+        return (
+          <>
+            <WelcomeHeader>Settings</WelcomeHeader>
+            <p>Application settings coming soon...</p>
+          </>
+        );
+        
+      default:
+        return null;
+    }
+  };
+  
+  // Render different side panel content based on the current view
+  const renderSidePanel = () => {
+    switch (currentView) {
+      case 'home':
+        return <InspectionStatus />;
+        
+      case 'inspections':
+        return <StatusPanel items={statusItems} />;
+        
+      default:
+        return <InspectionStatus />;
+    }
   };
   
   return (
     <DashboardContainer>
       <SideNav>
-        <SideNavbar activePage="home" />
+        <SideNavbar 
+          activePage={currentView} 
+          onNavigate={handleNavigation}
+        />
       </SideNav>
+      
       <MainContent>
-        <TopSection>
-          <TeamSelector>
-            Team: {selectedTeam?.name} <TeamSelectorIcon>▼</TeamSelectorIcon>
-          </TeamSelector>
-          
-          <WelcomeHeader>Hi Andrew,</WelcomeHeader>
-        </TopSection>
-        
-        <MainLayout>
-          <InspectionScheduler onViewSchedule={handleViewSchedule} />
-          <InspectionChart />
-        </MainLayout>
+        {renderMainContent()}
       </MainContent>
       
       <SidePanel>
-        <InspectionStatus />
+        {renderSidePanel()}
       </SidePanel>
     </DashboardContainer>
   );

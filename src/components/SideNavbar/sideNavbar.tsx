@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuth } from '../../context/AuthContext';
+import { DashboardView } from '../../types';
 
 const IconContainer = styled.div`
   display: flex;
@@ -66,11 +67,13 @@ const ProfileIcon = () => <span>👤</span>;
 const SettingsIcon = () => <span>⚙️</span>;
 const LogoutIcon = () => <span>🚪</span>;
 
+// Use the shared type from types module
 interface SideNavbarProps {
-  activePage: string;
+  activePage: DashboardView;
+  onNavigate?: (view: DashboardView) => void;
 }
 
-const SideNavbar: React.FC<SideNavbarProps> = ({ activePage }) => {
+const SideNavbar: React.FC<SideNavbarProps> = ({ activePage, onNavigate }) => {
   const navigate = useNavigate();
   const { logout } = useAuth();
   
@@ -79,44 +82,64 @@ const SideNavbar: React.FC<SideNavbarProps> = ({ activePage }) => {
     navigate('/signin');
   };
   
+  const handleIconClick = (view: DashboardView) => {
+    if (onNavigate) {
+      onNavigate(view);
+    } else {
+      // Fall back to navigation if onNavigate is not provided
+      const routes: Record<DashboardView, string> = {
+        home: '/',
+        inspections: '/flight/DL4890',
+        tasks: '/tasks',
+        stats: '/stats',
+        profile: '/profile',
+        settings: '/settings',
+        call: '/call'
+      };
+      navigate(routes[view]);
+    }
+  };
+  
   return (
     <IconContainer>
       <Logo>aX</Logo>
       
       <IconGroup>
-        <NavIcon active={activePage === 'home'} onClick={() => navigate('/')}>
+        <NavIcon 
+          active={activePage === 'home'} 
+          onClick={() => handleIconClick('home')}
+        >
           <HomeIcon />
         </NavIcon>
         
-        <NavIcon active={activePage === 'inspections'} onClick={() => navigate('/flight/DL4890')}>
+        <NavIcon active={activePage === 'inspections'} onClick={() => handleIconClick('inspections')}>  
           <InspectionsIcon />
         </NavIcon>
         
-        <NavIcon active={activePage === 'tasks'} onClick={() => navigate('/tasks')}>
+        <NavIcon active={activePage === 'tasks'} onClick={() => handleIconClick('tasks')}>
           <TasksIcon />
         </NavIcon>
         
-        <NavIcon active={activePage === 'settings'} onClick={() => navigate('/settings')}>
+        <NavIcon active={activePage === 'settings'} onClick={() => handleIconClick('settings')}>
           <SettingsIcon />
         </NavIcon>
         
-        <NavIcon active={activePage === 'stats'} onClick={() => navigate('/stats')}>
+        <NavIcon active={activePage === 'stats'} onClick={() => handleIconClick('stats')}>
           <StatsIcon />
         </NavIcon>
         
       </IconGroup>
       
-      
       <BottomIconGroup>
 
-      <NavIcon active={activePage === 'call'} onClick={() => navigate('/call')}>
+      <NavIcon active={activePage === 'call'} onClick={() => handleIconClick('call')}>
           <CallIcon />
         </NavIcon>
 
-      <NavIcon active={activePage === 'profile'} onClick={() => navigate('/profile')}>
+      <NavIcon active={activePage === 'profile'} onClick={() => handleIconClick('profile')}>
           <ProfileIcon />
         </NavIcon>
-
+        
         <NavIcon onClick={handleLogout}>
           <LogoutIcon />
         </NavIcon>

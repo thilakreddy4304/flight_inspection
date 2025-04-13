@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import { DashboardView } from '../types';
 import SideNavbar from '../components/SideNavbar/sideNavbar';
+import FlightInspection from '../components/FlightInspection/FlightInspection';
+import StatusPanel from '../components/StatusPanel/StatusPanel';
 
 const FlightDetailContainer = styled.div`
   display: grid;
@@ -29,6 +32,7 @@ const SidePanel = styled.div`
   background-color: #181818;
   padding: 24px;
   border-left: 1px solid #333;
+  margin-top: 100px;
 `;
 
 const TopBar = styled.div`
@@ -69,6 +73,7 @@ const SearchContainer = styled.div`
   align-items: center;
   gap: 16px;
   margin-bottom: 30px;
+  border-radius: 50px;
 `;
 
 const SearchInput = styled.input`
@@ -224,28 +229,13 @@ const StatusLabel = styled.span`
 const FlightDetail: React.FC = () => {
   const { flightId } = useParams<{ flightId: string }>();
   
-  // Mock data for different flights
-  const flightData: Record<string, any> = {
-    'DL4890': {
-      identifier: 'DL4890',
-      make: 'Boeing 737 MAX',
-      model: '737-10',
-      engines: '2x Turbofans',
-      wingspan: '35.9m (117ft 10in)',
-      length: '43.8m (143ft 8in)'
-    },
-    'AA137': {
-      identifier: 'AA137',
-      make: 'Airbus A320neo',
-      model: 'A320-251N',
-      engines: '2x LEAP-1A',
-      wingspan: '35.8m (117ft 5in)',
-      length: '37.6m (123ft 3in)'
-    }
-  };
-  
-  // Use the data for the specified flightId, or fallback to DL4890
-  const currentFlight = flightData[flightId || ''] || flightData['DL4890'];
+  // Mock data for the status panel
+  const statusItems = [
+    { number: 74, label: 'Inspections - Scheduled' },
+    { number: 23, label: 'Inspections - In-progress' },
+    { number: 22, label: 'Inspections - Ready-to-Review' },
+    { number: 5, label: 'Inspections - Complete' }
+  ];
   
   return (
     <FlightDetailContainer>
@@ -254,92 +244,11 @@ const FlightDetail: React.FC = () => {
       </SideNav>
       
       <MainContent>
-        <TopBar>
-          <TeamSelector>
-            Team: Boeing-Everett-MRO <TeamSelectorIcon>▼</TeamSelectorIcon>
-          </TeamSelector>
-        </TopBar>
-        
-        <PageTitle>Inspections</PageTitle>
-        
-        <SearchContainer>
-          <SearchInput placeholder="Enter flight identifier" defaultValue={currentFlight.identifier} />
-          <OrText>Or</OrText>
-          <DropdownSelect>Aircraft Make <span>▼</span></DropdownSelect>
-          <DropdownSelect>Aircraft Model <span>▼</span></DropdownSelect>
-          <SearchButton>🔍</SearchButton>
-        </SearchContainer>
-        
-        <AircraftInfoContainer>
-          <FlightInfo>
-            <InfoGroup>
-              <InfoLabel>Identifier</InfoLabel>
-              <InfoValue>{currentFlight.identifier}</InfoValue>
-            </InfoGroup>
-            <InfoGroup>
-              <InfoLabel>Make</InfoLabel>
-              <InfoValue>{currentFlight.make}</InfoValue>
-            </InfoGroup>
-            <InfoGroup>
-              <InfoLabel>Model</InfoLabel>
-              <InfoValue>{currentFlight.model}</InfoValue>
-            </InfoGroup>
-            <InfoGroup>
-              <InfoLabel>Engines</InfoLabel>
-              <InfoValue>{currentFlight.engines}</InfoValue>
-            </InfoGroup>
-            <InfoGroup>
-              <InfoLabel>Wingspan</InfoLabel>
-              <InfoValue>{currentFlight.wingspan}</InfoValue>
-            </InfoGroup>
-            <InfoGroup>
-              <InfoLabel>Length</InfoLabel>
-              <InfoValue>{currentFlight.length}</InfoValue>
-            </InfoGroup>
-          </FlightInfo>
-        </AircraftInfoContainer>
-        
-        <ModelViewContainer>
-          <ModelCard>
-            <ModelImage>
-              <img src="https://placehold.co/600x400/3498db/FFFFFF?text=3D+Realistic+Model" alt="Boeing 737 MAX" />
-            </ModelImage>
-            <ModelCaption>3D Realistic Model</ModelCaption>
-          </ModelCard>
-          
-          <ModelCard>
-            <ModelImage>
-              <img src="https://placehold.co/600x400/333333/999999?text=3D+Mesh+Model" alt="Boeing 737 MAX Wireframe" />
-            </ModelImage>
-            <ModelCaption>3D Mesh Model</ModelCaption>
-          </ModelCard>
-        </ModelViewContainer>
-        
-        <ActionButton>Select & Continue</ActionButton>
+        <FlightInspection flightId={flightId} />
       </MainContent>
       
       <SidePanel>
-        <InspectionStatusContainer>
-          <StatusTitle>Inspections Status [today]</StatusTitle>
-          <StatusList>
-            <StatusItem>
-              <StatusNumber>74</StatusNumber>
-              <StatusLabel>Inspections - Scheduled</StatusLabel>
-            </StatusItem>
-            <StatusItem>
-              <StatusNumber>23</StatusNumber>
-              <StatusLabel>Inspections - In-progress</StatusLabel>
-            </StatusItem>
-            <StatusItem>
-              <StatusNumber>22</StatusNumber>
-              <StatusLabel>Inspections - Ready-to-Review</StatusLabel>
-            </StatusItem>
-            <StatusItem>
-              <StatusNumber>05</StatusNumber>
-              <StatusLabel>Inspections - Complete</StatusLabel>
-            </StatusItem>
-          </StatusList>
-        </InspectionStatusContainer>
+        <StatusPanel items={statusItems} />
       </SidePanel>
     </FlightDetailContainer>
   );
