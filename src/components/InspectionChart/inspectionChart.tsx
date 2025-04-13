@@ -5,7 +5,7 @@ const ChartContainer = styled.div`
   background-color: #1E1E1E;
   border-radius: 12px;
   padding: 24px;
-  margin-top: 10px;
+  margin-top: 30px;
   width: 70%;
   height: 300px;
 `;
