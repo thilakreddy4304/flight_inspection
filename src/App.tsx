@@ -15,7 +15,7 @@ import FlightDetail from './pages/FlightDetail';
 import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/SignUp/SignUp';
 import TeamSelection from './pages/TeamSelection';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Dashboard/dashboard';
 
 // Team Selection Guard
 const TeamSelectionGuard = ({ children }: { children: React.ReactNode }) => {
@@ -62,6 +62,11 @@ function App() {
             </TeamSelectionGuard>
           } />
           <Route path="/flights/:id" element={
+            <TeamSelectionGuard>
+              <FlightDetail />
+            </TeamSelectionGuard>
+          } />
+          <Route path="/flight/:flightId" element={
             <TeamSelectionGuard>
               <FlightDetail />
             </TeamSelectionGuard>

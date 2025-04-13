@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import SideNavbar from '../../components/SideNavbar';
-import InspectionScheduler from '../../components/InspectionScheduler';
-import InspectionChart from '../../components/InspectionChart';
-import InspectionStatus from '../../components/InspectionStatus';
+import SideNavbar from '../../components/SideNavbar/sideNavbar';
+import InspectionScheduler from '../../components/InspectionScheduler/inspectionScheduler';
+import InspectionChart from '../../components/InspectionChart/inspectionChart';
+import InspectionStatus from '../../components/InspectionStatus/inspectionStatus';
 
 const DashboardContainer = styled.div`
   display: grid;

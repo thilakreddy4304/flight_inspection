@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuth } from '../../context/AuthContext';
 
-// For the demo, we'll use simple styled components to represent icons
-// In a real app, you'd import actual icon components
 const IconContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -56,19 +54,23 @@ const NavIcon = styled.div<{ active?: boolean }>`
 
 // Simple icon components using basic unicode symbols for demo
 const HomeIcon = () => <span>🏠</span>;
-const EyeIcon = () => <span>👁️</span>;
-const ReportIcon = () => <span>📊</span>;
-const ScheduleIcon = () => <span>📅</span>;
-const UserIcon = () => <span>👤</span>;
-const SettingsIcon = () => <span>⚙️</span>;
+const TasksIcon = () => <span>📋</span>;
+const InspectionsIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 5C7 5 2.73 8.11 1 12.5C2.73 16.89 7 20 12 20C17 20 21.27 16.89 23 12.5C21.27 8.11 17 5 12 5ZM12 17.5C9.24 17.5 7 15.26 7 12.5C7 9.74 9.24 7.5 12 7.5C14.76 7.5 17 9.74 17 12.5C17 15.26 14.76 17.5 12 17.5ZM12 9.5C10.34 9.5 9 10.84 9 12.5C9 14.16 10.34 15.5 12 15.5C13.66 15.5 15 14.16 15 12.5C15 10.84 13.66 9.5 12 9.5Z" fill="currentColor"/>
+  </svg>
+);
+const StatsIcon = () => <span>📊</span>;
 const CallIcon = () => <span>📞</span>;
+const ProfileIcon = () => <span>👤</span>;
+const SettingsIcon = () => <span>⚙️</span>;
 const LogoutIcon = () => <span>🚪</span>;
 
 interface SideNavbarProps {
-  activePage?: string;
+  activePage: string;
 }
 
-const SideNavbar: React.FC<SideNavbarProps> = ({ activePage = 'home' }) => {
+const SideNavbar: React.FC<SideNavbarProps> = ({ activePage }) => {
   const navigate = useNavigate();
   const { logout } = useAuth();
   
@@ -82,51 +84,39 @@ const SideNavbar: React.FC<SideNavbarProps> = ({ activePage = 'home' }) => {
       <Logo>aX</Logo>
       
       <IconGroup>
-        <NavIcon 
-          active={activePage === 'home'} 
-          onClick={() => navigate('/')}
-        >
+        <NavIcon active={activePage === 'home'} onClick={() => navigate('/')}>
           <HomeIcon />
         </NavIcon>
         
-        <NavIcon 
-          active={activePage === 'inspections'} 
-          onClick={() => navigate('/inspections')}
-        >
-          <EyeIcon />
+        <NavIcon active={activePage === 'inspections'} onClick={() => navigate('/flight/DL4890')}>
+          <InspectionsIcon />
         </NavIcon>
         
-        <NavIcon 
-          active={activePage === 'reports'} 
-          onClick={() => navigate('/reports')}
-        >
-          <ReportIcon />
+        <NavIcon active={activePage === 'tasks'} onClick={() => navigate('/tasks')}>
+          <TasksIcon />
         </NavIcon>
         
-        <NavIcon 
-          active={activePage === 'schedule'} 
-          onClick={() => navigate('/schedule')}
-        >
-          <ScheduleIcon />
-        </NavIcon>
-        
-        <NavIcon 
-          active={activePage === 'settings'} 
-          onClick={() => navigate('/settings')}
-        >
+        <NavIcon active={activePage === 'settings'} onClick={() => navigate('/settings')}>
           <SettingsIcon />
         </NavIcon>
+        
+        <NavIcon active={activePage === 'stats'} onClick={() => navigate('/stats')}>
+          <StatsIcon />
+        </NavIcon>
+        
       </IconGroup>
       
+      
       <BottomIconGroup>
-        <NavIcon onClick={() => navigate('/call')}>
+
+      <NavIcon active={activePage === 'call'} onClick={() => navigate('/call')}>
           <CallIcon />
         </NavIcon>
-        
-        <NavIcon onClick={() => navigate('/profile')}>
-          <UserIcon />
+
+      <NavIcon active={activePage === 'profile'} onClick={() => navigate('/profile')}>
+          <ProfileIcon />
         </NavIcon>
-        
+
         <NavIcon onClick={handleLogout}>
           <LogoutIcon />
         </NavIcon>
