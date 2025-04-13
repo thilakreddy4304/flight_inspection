@@ -1,68 +1,67 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StatusContainer = styled.div`
+const Container = styled.div`
+  width: 100%;
+`;
+
+const InspectionStatusContainer = styled.div`
   background-color: #1E1E1E;
   border-radius: 12px;
-  padding: 24px;
+  padding: 20px;
+  margin-bottom: 20px;
   margin-top: 150px;
 `;
 
-const StatusTitle = styled.h2`
+const StatusTitle = styled.h3`
   font-size: 1.2rem;
-  margin: 0 0 24px 0;
+  margin: 0 0 16px 0;
   color: white;
 `;
 
 const StatusList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 `;
 
 const StatusItem = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
 `;
 
-const StatusName = styled.div`
-  color: #CCC;
-`;
-
-const StatusCount = styled.div<{ status: string }>`
+const StatusNumber = styled.span`
   font-weight: 600;
-  color: #CCC;
 `;
 
-interface StatusData {
-  status: string;
-  label: string;
-  count: number;
-}
+const StatusLabel = styled.span`
+  color: #ccc;
+`;
 
 const InspectionStatus: React.FC = () => {
   // Mock data for inspection statuses
-  const statuses: StatusData[] = [
-    { status: 'scheduled', label: 'Scheduled', count: 74 },
-    { status: 'in-progress', label: 'In-progress', count: 23 },
-    { status: 'review', label: 'Ready-to-Review', count: 22 },
-    { status: 'complete', label: 'Complete', count: 5 },
+  const items = [
+    { number: 74, label: ' Inspections-Scheduled' },
+    { number: 23, label: 'Inspections-In-progress' },
+    { number: 22, label: 'Inspections-Ready-to-Review' },
+    { number: 5, label: 'Inspections-Complete' },
   ];
   
   return (
-    <StatusContainer>
-      <StatusTitle>Inspections Status [today]</StatusTitle>
-      
-      <StatusList>
-        {statuses.map((item, index) => (
-          <StatusItem key={index}>
-            <StatusName>{item.count} Inspections - </StatusName>
-            <StatusCount status={item.status}>{item.label}</StatusCount>
-          </StatusItem>
-        ))}
-      </StatusList>
-    </StatusContainer>
+    <Container>
+      <InspectionStatusContainer>
+        <StatusTitle>Inspections Status [today]</StatusTitle>
+        <StatusList>
+          {items.map((item, index) => (
+            <StatusItem key={index}>
+              <StatusNumber>{item.number}</StatusNumber>
+              <StatusLabel>{item.label}</StatusLabel>
+            </StatusItem>
+          ))}
+        </StatusList>
+      </InspectionStatusContainer>
+    </Container>
   );
 };
 

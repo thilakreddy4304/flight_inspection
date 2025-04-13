@@ -6,7 +6,7 @@ import { DashboardView } from '../../types';
 import SideNavbar from '../../components/SideNavbar/sideNavbar';
 import InspectionScheduler from '../../components/InspectionScheduler/inspectionScheduler';
 import InspectionChart from '../../components/InspectionChart/inspectionChart';
-import InspectionStatus from '../../components/InspectionStatus/inspectionStatus';
+// import InspectionStatus from '../../components/InspectionStatus/inspectionStatus';
 import FlightInspection from '../../components/FlightInspection/FlightInspection';
 import StatusPanel from '../../components/StatusPanel/StatusPanel';
 
@@ -157,13 +157,13 @@ const Dashboard: React.FC = () => {
   const renderSidePanel = () => {
     switch (currentView) {
       case 'home':
-        return <InspectionStatus />;
+        return <StatusPanel items={statusItems} />;
         
       case 'inspections':
         return <StatusPanel items={statusItems} />;
         
       default:
-        return <InspectionStatus />;
+        return <StatusPanel items={statusItems} />;
     }
   };
   

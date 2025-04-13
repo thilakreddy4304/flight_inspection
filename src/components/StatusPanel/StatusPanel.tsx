@@ -10,6 +10,7 @@ const InspectionStatusContainer = styled.div`
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
+  margin-top: 110px;
 `;
 
 const StatusTitle = styled.h3`

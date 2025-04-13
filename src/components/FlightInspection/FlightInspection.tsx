@@ -132,24 +132,29 @@ const ModelViewContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
   margin-bottom: 40px;
+  justify-items: center;
+  text-align: center;
 `;
 
 const ModelCard = styled.div`
   background-color: #1E1E1E;
-  border-radius: 12px;
+  border-radius: 50px;
   overflow: hidden;
   display: flex;
-  border-radius: 50px;
   flex-direction: column;
+  width: 90%;
+  margin-left: 60px;
 `;
 
 const ModelImage = styled.div`
   height: 200px;
+  width: 400px;
   background-color: #222;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+
   
   img {
     width: 100%;
@@ -159,14 +164,23 @@ const ModelImage = styled.div`
 `;
 
 const ModelCaption = styled.div`
-  padding: 16px;
+  padding: 12px;
   text-align: center;
   font-size: 1rem;
   color: #ccc;
+  margin-top: 8px;
+`;
+
+const ActionButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 20px;
+  margin-left: 180px;
 `;
 
 const ActionButton = styled.button`
-  background-color:rgb(40, 43, 45);
+  background-color: rgb(40, 43, 45);
   color: white;
   border: none;
   border-radius: 8px;
@@ -174,8 +188,6 @@ const ActionButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
-  align-self: flex-end;
-  margin-top: auto;
   
   &:hover {
     background-color: #34495e;
@@ -260,22 +272,28 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
       </AircraftInfoContainer>
       
       <ModelViewContainer>
-        <ModelCard>
-          <ModelImage>
-            <img src="https://placehold.co/600x400/3498db/FFFFFF?text=3D+Realistic+Model" alt="Boeing 737 MAX" />
-          </ModelImage>
+        <div>
+          <ModelCard>
+            <ModelImage>
+              <img src="https://placehold.co/600x400/3498db/FFFFFF?text=3D+Realistic+Model" alt="Boeing 737 MAX" />
+            </ModelImage>
+          </ModelCard>
           <ModelCaption>3D Realistic Model</ModelCaption>
-        </ModelCard>
+        </div>
         
-        <ModelCard>
-          <ModelImage>
-            <img src="https://placehold.co/600x400/333333/999999?text=3D+Mesh+Model" alt="Boeing 737 MAX Wireframe" />
-          </ModelImage>
+        <div>
+          <ModelCard>
+            <ModelImage>
+              <img src="https://placehold.co/600x400/333333/999999?text=3D+Mesh+Model" alt="Boeing 737 MAX Wireframe" />
+            </ModelImage>
+          </ModelCard>
           <ModelCaption>3D Mesh Model</ModelCaption>
-        </ModelCard>
+        </div>
       </ModelViewContainer>
       
-      <ActionButton>Select & Continue</ActionButton>
+      <ActionButtonContainer>
+        <ActionButton>Select & Continue</ActionButton>
+      </ActionButtonContainer>
     </MainContent>
   );
 };
