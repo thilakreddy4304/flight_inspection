@@ -16,6 +16,7 @@ import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/SignUp/SignUp';
 import TeamSelection from './pages/TeamSelection';
 import Dashboard from './pages/Dashboard/dashboard';
+import SimulationPage from './pages/SimulationPage/SimulationPage';
 
 // Team Selection Guard
 const TeamSelectionGuard = ({ children }: { children: React.ReactNode }) => {
@@ -56,6 +57,11 @@ function App() {
               <Dashboard />
             </TeamSelectionGuard>
           } />
+          <Route path="/dashboard/:view" element={
+            <TeamSelectionGuard>
+              <Dashboard />
+            </TeamSelectionGuard>
+          } />
           <Route path="/home" element={
             <TeamSelectionGuard>
               <Home />
@@ -69,6 +75,13 @@ function App() {
           <Route path="/flight/:flightId" element={
             <TeamSelectionGuard>
               <FlightDetail />
+            </TeamSelectionGuard>
+          } />
+          
+          {/* Simulation Page - Standalone without side panel */}
+          <Route path="/simulation/:flightId/:inspectionType/:inspectionName" element={
+            <TeamSelectionGuard>
+              <SimulationPage />
             </TeamSelectionGuard>
           } />
 

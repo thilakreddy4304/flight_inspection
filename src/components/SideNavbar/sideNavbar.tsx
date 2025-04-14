@@ -62,9 +62,11 @@ const InspectionsIcon = () => (
   </svg>
 );
 const StatsIcon = () => <span>📊</span>;
+const CollaborateIcon = () => <span>👥</span>;
+const RocketIcon = () => <span>🚀</span>;
+const SettingsIcon = () => <span>⚙️</span>;
 const CallIcon = () => <span>📞</span>;
 const ProfileIcon = () => <span>👤</span>;
-const SettingsIcon = () => <span>⚙️</span>;
 const LogoutIcon = () => <span>🚪</span>;
 
 // Use the shared type from types module
@@ -92,9 +94,11 @@ const SideNavbar: React.FC<SideNavbarProps> = ({ activePage, onNavigate }) => {
         inspections: '/flight/DL4890',
         tasks: '/tasks',
         stats: '/stats',
-        profile: '/profile',
+        collaborate: '/collaborate',
+        rocket: '/rocket',
         settings: '/settings',
-        call: '/call'
+        call: '/call',
+        profile: '/profile'
       };
       navigate(routes[view]);
     }
@@ -120,23 +124,29 @@ const SideNavbar: React.FC<SideNavbarProps> = ({ activePage, onNavigate }) => {
           <TasksIcon />
         </NavIcon>
         
-        <NavIcon active={activePage === 'settings'} onClick={() => handleIconClick('settings')}>
-          <SettingsIcon />
-        </NavIcon>
-        
         <NavIcon active={activePage === 'stats'} onClick={() => handleIconClick('stats')}>
           <StatsIcon />
         </NavIcon>
         
+        <NavIcon active={activePage === 'collaborate'} onClick={() => handleIconClick('collaborate')}>
+          <CollaborateIcon />
+        </NavIcon>
+        
+        <NavIcon active={activePage === 'rocket'} onClick={() => handleIconClick('rocket')}>
+          <RocketIcon />
+        </NavIcon>
+        
+        <NavIcon active={activePage === 'settings'} onClick={() => handleIconClick('settings')}>
+          <SettingsIcon />
+        </NavIcon>
       </IconGroup>
       
       <BottomIconGroup>
-
-      <NavIcon active={activePage === 'call'} onClick={() => handleIconClick('call')}>
+        <NavIcon active={activePage === 'call'} onClick={() => handleIconClick('call')}>
           <CallIcon />
         </NavIcon>
 
-      <NavIcon active={activePage === 'profile'} onClick={() => handleIconClick('profile')}>
+        <NavIcon active={activePage === 'profile'} onClick={() => handleIconClick('profile')}>
           <ProfileIcon />
         </NavIcon>
         

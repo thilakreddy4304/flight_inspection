@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import SimulationProcessing from '../SimulationProcessing/SimulationProcessing';
 
@@ -215,6 +216,7 @@ const InspectionReport: React.FC<InspectionReportProps> = ({
   hideSidePanel
 }) => {
   const { selectedTeam } = useAuth();
+  const navigate = useNavigate();
   const [isRunning, setIsRunning] = useState(false);
   
   // Effect to hide/show side panel
@@ -248,7 +250,8 @@ const InspectionReport: React.FC<InspectionReportProps> = ({
   ];
   
   const handleRunClick = () => {
-    setIsRunning(true);
+    // Navigate to the standalone simulation page
+    navigate(`/simulation/${flight.identifier}/${inspectionType}/${inspectionName}`);
   };
   
   if (isRunning) {

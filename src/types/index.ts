@@ -82,4 +82,4 @@ export interface PaginatedResponse<T> {
 }
 
 // Dashboard view types
-export type DashboardView = 'home' | 'inspections' | 'tasks' | 'stats' | 'profile' | 'settings' | 'call'; 
+export type DashboardView = 'home' | 'inspections' | 'tasks' | 'stats' | 'collaborate' | 'rocket' | 'settings' | 'call' | 'profile'; 
