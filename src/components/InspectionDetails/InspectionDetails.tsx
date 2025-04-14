@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../context/AuthContext';
+import InspectionReport from '../InspectionReport/InspectionReport';
 
 // Container for the entire page
 const Container = styled.div`
@@ -38,12 +39,44 @@ const TeamSelectorIcon = styled.span`
 const PageTitle = styled.h1`
   font-size: 2rem;
   font-weight: 600;
-  margin: 0 0 24px 0;
+  margin: 0 0 8px 0;
 `;
 
 const FlightIdentifier = styled.span`
-  color: #999;
+//   color: #999;
   margin-left: 12px;
+`;
+
+const InstructionText = styled.div`
+  color: #999;
+  font-size: 1rem;
+  margin-bottom: 24px;
+`;
+
+// Search component
+const SearchContainer = styled.div`
+  margin-bottom: 20px;
+  width: 100%;
+`;
+
+const SearchInput = styled.input`
+  background-color: #222;
+  border: none;
+  border-radius: 24px;
+  color: #999;
+  font-size: 1rem;
+  padding: 12px 16px;
+  width: 100%;
+  max-width: 600px;
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px #444;
+  }
+  
+  &::placeholder {
+    color: #666;
+  }
 `;
 
 // Grid layout for inspection boxes
@@ -52,7 +85,7 @@ const InspectionGrid = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   margin-bottom: 5px;
-  margin-top: 50px;
+  margin-top: 10px;
   width: 120%;
   padding: 4px;
 `;
@@ -246,19 +279,60 @@ const inspections = [
 
 const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack }) => {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedInspection, setSelectedInspection] = useState<{ id: number; title: string } | null>(null);
   const { selectedTeam } = useAuth();
   
   // Fixed to 6 dots for pagination
   const totalDots = 6;
-  const totalSlides = Math.ceil(inspections.length / 1);
+  const totalSlides = Math.ceil(inspections.length / 3);
   
   const handlePrev = () => {
-    setActiveSlide(prev => (prev > 0 ? prev - 1 : 0));
+    setActiveSlide(prev => {
+      // If at the first slide, jump to the last slide
+      if (prev === 0) {
+        return totalSlides - 1;
+      }
+      // Otherwise go to previous slide
+      return prev - 1;
+    });
   };
   
   const handleNext = () => {
-    setActiveSlide(prev => (prev < totalSlides - 1 ? prev + 1 : totalSlides - 1));
+    setActiveSlide(prev => {
+      // If at the last slide, jump to the first slide
+      if (prev === totalSlides - 1) {
+        return 0;
+      }
+      // Otherwise go to next slide
+      return prev + 1;
+    });
   };
+  
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+  
+  // Function to handle dot click with infinite scrolling
+  const handleDotClick = (index: number) => {
+    setActiveSlide(index % totalSlides);
+  };
+  
+  const handleRunClick = (inspection: { id: number; title: string }) => {
+    setSelectedInspection(inspection);
+  };
+  
+  // If an inspection is selected, show the report
+  if (selectedInspection) {
+    return (
+      <InspectionReport 
+        inspectionName={selectedInspection.title}
+        inspectionType={selectedInspection.id === 3 ? 'A-Check' : 'Inspection'}
+        onBack={() => setSelectedInspection(null)}
+        flight={flight}
+      />
+    );
+  }
   
   return (
     <Container>
@@ -269,10 +343,18 @@ const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack })
       </TopBar>
       
       <PageTitle>
-        Inspections <FlightIdentifier>{flight.identifier} ({flight.make} {flight.model})</FlightIdentifier>
+        Inspections &gt; <FlightIdentifier>{flight.identifier} ({flight.make.slice(0, 6)} {flight.model})</FlightIdentifier>
       </PageTitle>
+      <InstructionText>Select your choice of Inspection from below</InstructionText>
       
-      <div>Select your choice of Inspection from below</div>
+      <SearchContainer>
+        <SearchInput 
+          type="text" 
+          placeholder="Search Inspection by Name" 
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
+      </SearchContainer>
       
       <InspectionGrid>
         {inspections.slice(0, 9).map((inspection) => (
@@ -283,7 +365,7 @@ const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack })
               <span>Runtime: {inspection.runtime}</span>
             </InspectionMetadata>
             <ButtonContainer>
-              <RunButton>Run</RunButton>
+              <RunButton onClick={() => handleRunClick(inspection)}>Run</RunButton>
               <AddToFlowButton>Add to Flow</AddToFlowButton>
             </ButtonContainer>
           </InspectionBox>
@@ -297,7 +379,7 @@ const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack })
           <CarouselDot 
             key={index} 
             active={index === activeSlide % 6}
-            onClick={() => setActiveSlide(index)}
+            onClick={() => handleDotClick(index)}
           />
         ))}
         

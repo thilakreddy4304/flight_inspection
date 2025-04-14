@@ -170,6 +170,20 @@ const ModelCaption = styled.div`
   font-size: 1rem;
   color: #ccc;
   margin-top: 8px;
+  margin-left: 70px;
+  animation: slideFromRight 0.8s ease-out forwards;
+  position: relative;
+  
+  @keyframes slideFromRight {
+    0% {
+      opacity: 0;
+      transform: translateX(400px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 `;
 
 const ActionButtonContainer = styled.div`
