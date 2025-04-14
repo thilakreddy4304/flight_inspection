@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import { useAuth } from '../../context/AuthContext';
 
 const FullWidthContainer = styled.div`
-  width: 100vw;
-  margin-left: -24px; /* Offset the padding from the parent container */
+  width: 100%;
+  height: 100vh;
+  background-color: #121212;
+  margin-left: -24px;
   padding: 0 24px;
 `;
 
@@ -13,6 +15,7 @@ const TopBar = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  padding-top: 1px;
 `;
 
 const TeamSelector = styled.div`
@@ -70,56 +73,22 @@ const BackButton = styled.button`
 `;
 
 const ContentContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 40px;
-  margin-top: 24px;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 `;
 
 const StepsContainer = styled.div`
-  padding-right: 20px;
-`;
-
-const ImageContainer = styled.div`
-  border-radius: 20px;
-  overflow: hidden;
-  background-color: #1E1E1E;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 100px;
-`;
-
-const StageIndicator = styled.div`
-  width: 100%;
-  padding: 12px 20px;
-  background-color: rgba(0, 0, 0, 0.3);
-  text-align: center;
-  font-size: 0.9rem;
-  color: #ccc;
-`;
-
-const AircraftImage = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
+  flex: 0 0 350px;
 `;
 
 const StepSection = styled.div`
-  margin-bottom: 24px;
+  margin-bottom: 5px;
 `;
 
 const StepTitle = styled.h3`
   font-size: 1.2rem;
-  margin: 0 0 12px 0;
+  margin: 0 0 5px 0;
   display: flex;
   align-items: center;
   
@@ -146,7 +115,7 @@ const StepList = styled.ul`
 const StepItem = styled.li`
   position: relative;
   padding-left: 20px;
-  margin-bottom: 8px;
+  margin-bottom: 2px;
   color: #ccc;
   font-size: 0.9rem;
   
@@ -158,17 +127,87 @@ const StepItem = styled.li`
   }
 `;
 
+const ImageContainer = styled.div`
+//   flex: 1;
+  max-width: 100%;
+  max-height: 600px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #1E1E1E;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+`;
+
+const StageIndicator = styled.div`
+  width: 100%;
+  padding: 12px 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+  text-align: center;
+  font-size: 0.9rem;
+  color: #ccc;
+`;
+
+const AircraftImage = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  
+  img {
+    width: 95%;
+    height: auto;
+    object-fit: contain;
+  }
+`;
+
+const InspectionStatusPanel = styled.div`
+  flex: 0 0 250px;
+  background-color: #1E1E1E;
+  border-radius: 12px;
+  padding: 20px;
+  height: fit-content;
+  margin-top: 50px;
+`;
+
+const StatusTitle = styled.h3`
+  font-size: 1.2rem;
+  margin: 0 0 16px 0;
+  color: white;
+`;
+
+const StatusList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+const StatusItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const StatusNumber = styled.span`
+  font-weight: 600;
+`;
+
+const StatusLabel = styled.span`
+  color: #ccc;
+`;
+
 const TimeEstimate = styled.div`
   font-style: italic;
   color: #999;
-  margin-top: 16px;
+  margin-top: 100px;
   margin-bottom: 24px;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   gap: 16px;
-  margin-top: 24px;
+  margin-top: 10px;
 `;
 
 const PauseButton = styled.button`
@@ -287,7 +326,7 @@ const SimulationProcessing: React.FC<SimulationProcessingProps> = ({
       </TopBar>
       
       <PageTitle>
-        Inspections &gt; <FlightIdentifier>{flight.identifier} <FlightModel>({flight.make} {flight.model})</FlightModel></FlightIdentifier>
+        Inspections &gt; <FlightIdentifier>{flight.identifier} <FlightModel>({flight.make} {flight.model.slice(-2)})</FlightModel></FlightIdentifier>
       </PageTitle>
       
       <BackButton onClick={onBack}>
@@ -307,7 +346,7 @@ const SimulationProcessing: React.FC<SimulationProcessingProps> = ({
             </StepSection>
           ))}
           
-          <TimeEstimate>Estimated Time: 1 hour 30 minutes</TimeEstimate>
+          <TimeEstimate style={{ textDecoration: 'underline' }}>Estimated Time: 1 hour 30 minutes</TimeEstimate>
           
           <ButtonContainer>
             <PauseButton>Pause</PauseButton>
@@ -320,7 +359,7 @@ const SimulationProcessing: React.FC<SimulationProcessingProps> = ({
             Stage 1: Preparation | Stage 2: Inspection | Stage 3: Processing | Stage 4: Review | Stage 5: Compliance & Filing
           </StageIndicator>
           <AircraftImage>
-            <img src="https://placehold.co/800x600/333333/FFFFFF?text=Boeing+737+MAX+Wireframe" alt="Boeing 737 MAX Wireframe" />
+            <img src="https://placehold.co/800x400/333333/FFFFFF?text=Boeing+737+MAX+Wireframe" alt="Boeing 737 MAX Wireframe" />
           </AircraftImage>
         </ImageContainer>
       </ContentContainer>
