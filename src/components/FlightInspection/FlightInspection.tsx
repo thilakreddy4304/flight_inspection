@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import InspectionDetails from '../InspectionDetails/InspectionDetails';
 
 const MainContent = styled.div`
   width: 100%;
@@ -222,9 +223,18 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
   const params = useParams<{ flightId: string }>();
   const currentFlightId = flightId || params.flightId || 'DL4890';
   const { selectedTeam } = useAuth();
+  const [view, setView] = useState<'selection' | 'details'>('selection');
   
   // Use the data for the specified flightId, or fallback to DL4890
   const currentFlight = FLIGHT_DATA[currentFlightId] || FLIGHT_DATA['DL4890'];
+  
+  const handleSelectAndContinue = () => {
+    setView('details');
+  };
+  
+  if (view === 'details') {
+    return <InspectionDetails flight={currentFlight} onBack={() => setView('selection')} />;
+  }
   
   return (
     <MainContent>
@@ -292,7 +302,7 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
       </ModelViewContainer>
       
       <ActionButtonContainer>
-        <ActionButton>Select & Continue</ActionButton>
+        <ActionButton onClick={handleSelectAndContinue}>Select & Continue</ActionButton>
       </ActionButtonContainer>
     </MainContent>
   );
