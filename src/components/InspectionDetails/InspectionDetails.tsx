@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../context/AuthContext';
 import InspectionReport from '../InspectionReport/InspectionReport';
@@ -217,6 +217,7 @@ interface Flight {
 interface InspectionDetailsProps {
   flight: Flight;
   onBack: () => void;
+  hideSidePanel?: (hide: boolean) => void;
 }
 
 // Mock inspection data
@@ -277,11 +278,26 @@ const inspections = [
   }
 ];
 
-const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack }) => {
+const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack, hideSidePanel }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedInspection, setSelectedInspection] = useState<{ id: number; title: string } | null>(null);
   const { selectedTeam } = useAuth();
+  
+  // Effect to hide/show side panel
+  useEffect(() => {
+    // On mount, hide the side panel if the prop is provided
+    if (hideSidePanel) {
+      hideSidePanel(false); // Keep side panel visible for inspection details view
+    }
+    
+    // On unmount, ensure side panel visibility is reset
+    return () => {
+      if (hideSidePanel) {
+        hideSidePanel(false);
+      }
+    };
+  }, [hideSidePanel]);
   
   // Fixed to 6 dots for pagination
   const totalDots = 6;
@@ -330,6 +346,7 @@ const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack })
         inspectionType={selectedInspection.id === 3 ? 'A-Check' : 'Inspection'}
         onBack={() => setSelectedInspection(null)}
         flight={flight}
+        hideSidePanel={hideSidePanel}
       />
     );
   }
@@ -343,7 +360,7 @@ const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack })
       </TopBar>
       
       <PageTitle>
-        Inspections &gt; <FlightIdentifier>{flight.identifier} ({flight.make.slice(0, 6)} {flight.model})</FlightIdentifier>
+        Inspections &gt;<FlightIdentifier>{flight.identifier} ({flight.make.slice(0, 6)} {flight.model})</FlightIdentifier>
       </PageTitle>
       <InstructionText>Select your choice of Inspection from below</InstructionText>
       

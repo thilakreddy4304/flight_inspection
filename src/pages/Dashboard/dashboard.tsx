@@ -76,6 +76,8 @@ const Dashboard: React.FC = () => {
   
   // State to track the current view
   const [currentView, setCurrentView] = useState<DashboardView>('home');
+  // State to track whether side panel should be hidden
+  const [hideSidePanel, setHideSidePanel] = useState(false);
   
   // Handle navigation from sidebar
   const handleNavigation = (view: DashboardView) => {
@@ -84,6 +86,11 @@ const Dashboard: React.FC = () => {
   
   const handleViewSchedule = () => {
     navigate('/schedule');
+  };
+  
+  // Function to toggle side panel visibility
+  const handleToggleSidePanel = (hide: boolean) => {
+    setHideSidePanel(hide);
   };
   
   // Mock data for the status panel
@@ -114,7 +121,7 @@ const Dashboard: React.FC = () => {
         );
         
       case 'inspections':
-        return <FlightInspection flightId="DL4890" />;
+        return <FlightInspection flightId="DL4890" hideSidePanel={handleToggleSidePanel} />;
         
       case 'tasks':
         return (
@@ -176,13 +183,15 @@ const Dashboard: React.FC = () => {
         />
       </SideNav>
       
-      <MainContent>
+      <MainContent style={{ gridColumn: hideSidePanel ? '2 / 4' : '2 / 3' }}>
         {renderMainContent()}
       </MainContent>
       
-      <SidePanel>
-        {renderSidePanel()}
-      </SidePanel>
+      {!hideSidePanel && (
+        <SidePanel>
+          {renderSidePanel()}
+        </SidePanel>
+      )}
     </DashboardContainer>
   );
 };

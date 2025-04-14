@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -231,9 +231,10 @@ const FLIGHT_DATA: Record<string, any> = {
 
 interface FlightInspectionProps {
   flightId?: string;
+  hideSidePanel?: (hide: boolean) => void;
 }
 
-const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
+const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId, hideSidePanel }) => {
   const params = useParams<{ flightId: string }>();
   const currentFlightId = flightId || params.flightId || 'DL4890';
   const { selectedTeam } = useAuth();
@@ -242,12 +243,31 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
   // Use the data for the specified flightId, or fallback to DL4890
   const currentFlight = FLIGHT_DATA[currentFlightId] || FLIGHT_DATA['DL4890'];
   
+  // Effect to hide/show side panel
+  useEffect(() => {
+    // On mount, hide the side panel if the prop is provided
+    if (hideSidePanel) {
+      hideSidePanel(false); // Keep side panel visible for flight inspection view
+    }
+    
+    // On unmount, ensure side panel visibility is reset
+    return () => {
+      if (hideSidePanel) {
+        hideSidePanel(false);
+      }
+    };
+  }, [hideSidePanel]);
+  
   const handleSelectAndContinue = () => {
     setView('details');
   };
   
   if (view === 'details') {
-    return <InspectionDetails flight={currentFlight} onBack={() => setView('selection')} />;
+    return <InspectionDetails 
+      flight={currentFlight} 
+      onBack={() => setView('selection')} 
+      hideSidePanel={hideSidePanel}
+    />;
   }
   
   return (

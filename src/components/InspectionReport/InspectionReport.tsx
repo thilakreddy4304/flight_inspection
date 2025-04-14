@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../context/AuthContext';
+import SimulationProcessing from '../SimulationProcessing/SimulationProcessing';
 
 const Container = styled.div`
   width: 100%;
@@ -47,8 +48,8 @@ const PageTitle = styled.h1`
 const BackButton = styled.button`
   background: none;
   border: none;
-  color: #999;
-  font-size: 1rem;
+  color: white;
+  font-size: 1.8rem;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -74,15 +75,39 @@ const ReportTitle = styled.h2`
   margin: 0;
 `;
 
+const InfoRow = styled.div`
+  margin-bottom: 0;
+  margin-top: 0;
+  font-size: 1.5rem;
+  white-space: nowrap;
+  padding-bottom: 1px;
+
+  .label {
+    color: #fff;
+    margin-bottom: 0;
+    font-size: 1rem;
+    margin-left: 20px;
+  }
+
+  .value {
+    margin-left: 5px;
+    font-weight: 200;
+    margin-bottom: 0;
+    font-size: 1rem;
+    color: #ccc;
+  }
+`;
+
 const ChecklistContainer = styled.div`
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 `;
 
 const ChecklistItem = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 6px;
+  margin-left: 20px;
   color: #ccc;
 `;
 
@@ -107,24 +132,29 @@ const InspectionText = styled.div`
 const MetadataContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
+  gap: 2px;
   margin-top: 40px;
 `;
 
 const MetadataItem = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0;
+  margin-bottom: 0;
 `;
 
 const MetadataLabel = styled.div`
   font-size: 0.9rem;
-  color: #777;
+  color: #fff;
+  display: none;
+  margin-bottom: 1px;
 `;
 
 const MetadataValue = styled.div`
   font-size: 1rem;
   color: #fff;
+  margin-bottom: 1px;
+  display: none;
 `;
 
 const RunButton = styled.button`
@@ -132,18 +162,37 @@ const RunButton = styled.button`
   color: white;
   border: none;
   border-radius: 4px;
-  padding: 12px 24px;
+  padding: 12px 24px 12px 24px;
   font-weight: 600;
-  margin-top: 32px;
+  margin-top: 100px;
+  margin-right: -170px;
   cursor: pointer;
-  align-self: flex-end;
+  justify-content: center;
   float: right;
+  display: flex;
+  width: 120px;
   transition: background-color 0.2s;
   
   &:hover {
     background-color: #444;
   }
 `;
+
+// Inspection report data
+const INSPECTION_REPORT_DATA: Record<string, any> = {
+  'DL4890': {
+    estimated_run_time: '1 hour 30 minutes',
+    estimated_price: '$2,500',
+    sensing_assets: '2 units needed',
+    compliance_type: 'FAA-mandated',
+  },
+  'AA137': {
+    estimated_run_time: '2 hours 15 minutes',
+    estimated_price: '$3,200',
+    sensing_assets: '3 units needed',
+    compliance_type: 'FAA-mandated',
+  }
+};
 
 interface InspectionReportProps {
   inspectionName: string;
@@ -155,15 +204,36 @@ interface InspectionReportProps {
     model: string;
     [key: string]: any;
   };
+  hideSidePanel?: (hide: boolean) => void;
 }
 
 const InspectionReport: React.FC<InspectionReportProps> = ({ 
   inspectionName = 'FAA-Mandated',
   inspectionType = 'A-Check',
   onBack,
-  flight
+  flight,
+  hideSidePanel
 }) => {
   const { selectedTeam } = useAuth();
+  const [isRunning, setIsRunning] = useState(false);
+  
+  // Effect to hide/show side panel
+  useEffect(() => {
+    // On mount, hide the side panel if the prop is provided
+    if (hideSidePanel) {
+      hideSidePanel(false); // Keep side panel visible for inspection report view
+    }
+    
+    // On unmount, ensure side panel visibility is reset
+    return () => {
+      if (hideSidePanel) {
+        hideSidePanel(false);
+      }
+    };
+  }, [hideSidePanel]);
+  
+  // Get report data for the current flight, or use default
+  const reportData = INSPECTION_REPORT_DATA[flight.identifier] || INSPECTION_REPORT_DATA['DL4890'];
   
   const checklistItems = [
     'Visual Inspection - Check for corrosion, deformation, damage or wear.',
@@ -177,6 +247,22 @@ const InspectionReport: React.FC<InspectionReportProps> = ({
     'Nose Damage Inspection'
   ];
   
+  const handleRunClick = () => {
+    setIsRunning(true);
+  };
+  
+  if (isRunning) {
+    return (
+      <SimulationProcessing 
+        flight={flight}
+        inspectionName={inspectionName}
+        inspectionType={inspectionType}
+        onBack={() => setIsRunning(false)}
+        hideSidePanel={hideSidePanel}
+      />
+    );
+  }
+  
   return (
     <Container>
       <TopBar>
@@ -186,11 +272,11 @@ const InspectionReport: React.FC<InspectionReportProps> = ({
       </TopBar>
       
       <PageTitle>
-        Inspections &gt; <FlightIdentifier>{flight.identifier} ({flight.make.slice(0, 6)} {flight.model})</FlightIdentifier>
+        Inspections &gt;<FlightIdentifier>{flight.identifier} ({flight.make.slice(0, 6)} {flight.model})</FlightIdentifier>
       </PageTitle>
       
       <BackButton onClick={onBack}>
-        ← {inspectionType}: {inspectionName}
+        &lt; {inspectionType}: {inspectionName}
       </BackButton>
       
       <ChecklistContainer>
@@ -204,27 +290,35 @@ const InspectionReport: React.FC<InspectionReportProps> = ({
       
       <MetadataContainer>
         <MetadataItem>
-          <MetadataLabel>Estimated Run Time:</MetadataLabel>
-          <MetadataValue>1 hour 30 minutes</MetadataValue>
+          <InfoRow>
+            <span className="label">Estimated Run Time:</span>
+            <span className="value">{reportData.estimated_run_time}</span>
+          </InfoRow>
         </MetadataItem>
         
         <MetadataItem>
-          <MetadataLabel>Estimated Price:</MetadataLabel>
-          <MetadataValue>$2,500</MetadataValue>
+          <InfoRow>
+            <span className="label">Estimated Price:</span>
+            <span className="value">{reportData.estimated_price}</span>
+          </InfoRow>
         </MetadataItem>
         
         <MetadataItem>
-          <MetadataLabel>Sensing Assets:</MetadataLabel>
-          <MetadataValue>2 units needed</MetadataValue>
+          <InfoRow>
+            <span className="label">Sensing Assets:</span>
+            <span className="value">{reportData.sensing_assets}</span>
+          </InfoRow>
         </MetadataItem>
         
         <MetadataItem>
-          <MetadataLabel>Compliance Type:</MetadataLabel>
-          <MetadataValue>FAA-mandated</MetadataValue>
+          <InfoRow>
+            <span className="label">Compliance Type:</span>
+            <span className="value">{reportData.compliance_type}</span>
+          </InfoRow>
         </MetadataItem>
       </MetadataContainer>
       
-      <RunButton>Run</RunButton>
+      <RunButton onClick={handleRunClick}>Run</RunButton>
     </Container>
   );
 };
