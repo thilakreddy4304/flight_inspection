@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -45,7 +45,7 @@ const TeamSelector = styled.div`
   font-size: 0.9rem;
   cursor: pointer;
   width: fit-content;
-  
+  position: relative;
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
@@ -53,6 +53,30 @@ const TeamSelector = styled.div`
 
 const TeamSelectorIcon = styled.span`
   font-size: 0.7rem;
+  transition: transform 0.3s ease;
+`;
+
+const TeamDropdown = styled.div<{ isOpen: boolean }>`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #222;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
+  z-index: 10;
+  display: ${props => props.isOpen ? 'block' : 'none'};
+`;
+
+const TeamOption = styled.div`
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 `;
 
 const PageTitle = styled.h1`
@@ -262,7 +286,8 @@ interface InspectionStage5Props {}
 const InspectionStage5: React.FC<InspectionStage5Props> = () => {
   const navigate = useNavigate();
   const params = useParams<{ flightId: string, inspectionType: string, inspectionName: string }>();
-  const { selectedTeam } = useAuth();
+  const { selectedTeam, teams, selectTeam } = useAuth();
+  const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
   
   const flightId = params.flightId || 'DL4890';
   const inspectionType = params.inspectionType || 'A-Check';
@@ -274,6 +299,16 @@ const InspectionStage5: React.FC<InspectionStage5Props> = () => {
     return lastSpaceIndex === -1 ? name : name.substring(0, lastSpaceIndex);
   };
   
+  const toggleTeamDropdown = () => {
+    setIsTeamDropdownOpen(!isTeamDropdownOpen);
+  };
+  
+  // Function to handle team selection
+  const handleTeamSelect = (teamId: string) => {
+    selectTeam(teamId);
+    setIsTeamDropdownOpen(false);
+  };
+
   const flight = FLIGHT_DATA[flightId] || FLIGHT_DATA['DL4890'];
   
   const handleBack = () => {
@@ -336,8 +371,22 @@ const InspectionStage5: React.FC<InspectionStage5Props> = () => {
       
       <MainContainer>
         <TopBar>
-          <TeamSelector>
-            Team: {selectedTeam?.name || 'Boeing-Everett-MRO'} <TeamSelectorIcon>▼</TeamSelectorIcon>
+          <TeamSelector onClick={toggleTeamDropdown}>
+            Team: {selectedTeam?.name || 'Boeing-Everett-MRO'} 
+            <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}>▼</TeamSelectorIcon>
+            <TeamDropdown isOpen={isTeamDropdownOpen}>
+              {teams.map(team => (
+                <TeamOption 
+                  key={team.id} 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleTeamSelect(team.id);
+                  }}
+                >
+                  {team.name}
+                </TeamOption>
+              ))}
+            </TeamDropdown>
           </TeamSelector>
         </TopBar>
         

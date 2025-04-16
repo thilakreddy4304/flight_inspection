@@ -59,10 +59,9 @@ width: 100%;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   background-color: white;
-  font-weight: 600;
   color: black;
   font-size: 1.8rem;
-  font-weight: bold;
+  font-weight: Bold;
   text-align: center;
   cursor: pointer;
   transition: all 0.2s;
@@ -76,27 +75,6 @@ width: 100%;
     border-color:rgb(93, 95, 95);
   }
 `;
-//   width: 100%;
-//   padding: 16px;
-//   border: none;
-//   border-radius: 8px;
-//   background-color: white;
-//   color: black;
-//   font-size: 1.1rem;
-//   font-weight: 600;
-//   cursor: pointer;
-//   margin-top: 20px;
-//   transition: opacity 0.2s;
-  
-//   &:hover {
-//     opacity: 0.9;
-//   }
-  
-//   &:disabled {
-//     opacity: 0.5;
-//     cursor: not-allowed;
-//   }
-// `;
 
 const TeamSelection: React.FC = () => {
   const navigate = useNavigate();

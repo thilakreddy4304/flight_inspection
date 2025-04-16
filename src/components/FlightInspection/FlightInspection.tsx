@@ -25,6 +25,7 @@ const TeamSelector = styled.div`
   font-size: 0.9rem;
   cursor: pointer;
   width: fit-content;
+  position: relative;
   
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
@@ -33,6 +34,30 @@ const TeamSelector = styled.div`
 
 const TeamSelectorIcon = styled.span`
   font-size: 0.7rem;
+  transition: transform 0.3s ease;
+`;
+
+const TeamDropdown = styled.div<{ isOpen: boolean }>`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #222;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
+  z-index: 10;
+  display: ${props => props.isOpen ? 'block' : 'none'};
+`;
+
+const TeamOption = styled.div`
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 `;
 
 const PageTitle = styled.h1`
@@ -237,8 +262,10 @@ interface FlightInspectionProps {
 const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId, hideSidePanel }) => {
   const params = useParams<{ flightId: string }>();
   const currentFlightId = flightId || params.flightId || 'DL4890';
-  const { selectedTeam } = useAuth();
+  const { selectedTeam, teams, selectTeam } = useAuth();
   const [view, setView] = useState<'selection' | 'details'>('selection');
+  // State to control team selector dropdown
+  const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
   
   // Use the data for the specified flightId, or fallback to DL4890
   const currentFlight = FLIGHT_DATA[currentFlightId] || FLIGHT_DATA['DL4890'];
@@ -258,6 +285,17 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId, hideSideP
     };
   }, [hideSidePanel]);
   
+  // Function to toggle team dropdown
+  const toggleTeamDropdown = () => {
+    setIsTeamDropdownOpen(!isTeamDropdownOpen);
+  };
+  
+  // Function to handle team selection
+  const handleTeamSelect = (teamId: string) => {
+    selectTeam(teamId);
+    setIsTeamDropdownOpen(false);
+  };
+  
   const handleSelectAndContinue = () => {
     setView('details');
   };
@@ -273,8 +311,22 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId, hideSideP
   return (
     <MainContent>
       <TopBar>
-        <TeamSelector>
-          Team: {selectedTeam?.name || 'Boeing-Everett-MRO'} <TeamSelectorIcon>▼</TeamSelectorIcon>
+        <TeamSelector onClick={toggleTeamDropdown}>
+          Team: {selectedTeam?.name || 'Boeing-Everett-MRO'} 
+          <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}>▼</TeamSelectorIcon>
+          <TeamDropdown isOpen={isTeamDropdownOpen}>
+            {teams.map(team => (
+              <TeamOption 
+                key={team.id} 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleTeamSelect(team.id);
+                }}
+              >
+                {team.name}
+              </TeamOption>
+            ))}
+          </TeamDropdown>
         </TeamSelector>
       </TopBar>
       

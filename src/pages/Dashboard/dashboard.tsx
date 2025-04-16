@@ -53,6 +53,7 @@ const TeamSelector = styled.div`
   margin-bottom: 24px;
   cursor: pointer;
   width: fit-content;
+  position: relative;
   
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
@@ -61,6 +62,30 @@ const TeamSelector = styled.div`
 
 const TeamSelectorIcon = styled.span`
   font-size: 0.7rem;
+  transition: transform 0.3s ease;
+`;
+
+const TeamDropdown = styled.div<{ isOpen: boolean }>`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #222;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
+  z-index: 10;
+  display: ${props => props.isOpen ? 'block' : 'none'};
+`;
+
+const TeamOption = styled.div`
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 `;
 
 const WelcomeHeader = styled.h1`
@@ -72,12 +97,14 @@ const WelcomeHeader = styled.h1`
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  const { user, selectedTeam } = useAuth();
+  const { user, selectedTeam, teams, selectTeam } = useAuth();
   
   // State to track the current view
   const [currentView, setCurrentView] = useState<DashboardView>('home');
   // State to track whether side panel should be hidden
   const [hideSidePanel, setHideSidePanel] = useState(false);
+  // State to control team selector dropdown
+  const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
   
   // Handle navigation from sidebar
   const handleNavigation = (view: DashboardView) => {
@@ -91,6 +118,17 @@ const Dashboard: React.FC = () => {
   // Function to toggle side panel visibility
   const handleToggleSidePanel = (hide: boolean) => {
     setHideSidePanel(hide);
+  };
+  
+  // Function to toggle team dropdown
+  const toggleTeamDropdown = () => {
+    setIsTeamDropdownOpen(!isTeamDropdownOpen);
+  };
+  
+  // Function to handle team selection
+  const handleTeamSelect = (teamId: string) => {
+    selectTeam(teamId);
+    setIsTeamDropdownOpen(false);
   };
   
   // Mock data for the status panel
@@ -108,8 +146,22 @@ const Dashboard: React.FC = () => {
         return (
           <>
             <TopSection>
-              <TeamSelector>
-                Team: {selectedTeam?.name} <TeamSelectorIcon>▼</TeamSelectorIcon>
+              <TeamSelector onClick={toggleTeamDropdown}>
+                Team: {selectedTeam?.name} 
+                <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}>▼</TeamSelectorIcon>
+                <TeamDropdown isOpen={isTeamDropdownOpen}>
+                  {teams.map(team => (
+                    <TeamOption 
+                      key={team.id} 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleTeamSelect(team.id);
+                      }}
+                    >
+                      {team.name}
+                    </TeamOption>
+                  ))}
+                </TeamDropdown>
               </TeamSelector>
               
               <WelcomeHeader>Hi Andrew,</WelcomeHeader>
