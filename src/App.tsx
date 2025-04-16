@@ -72,13 +72,13 @@ function App() {
             </TeamSelectionGuard>
           } />
           
-          {/* Simulation Page - Standalone without side panel */}
-          <Route path="/simulation/:flightId/:inspectionType/:inspectionName" element={
+          {/* InspectionPages - using state-based navigation */}
+          <Route path="/InspectionPages" element={
             <TeamSelectionGuard>
               <SimulationPage />
             </TeamSelectionGuard>
           } />
-
+          
           {/* Redirect any unknown routes to sign in */}
           <Route path="*" element={<Navigate to="/signin" replace />} />
         </Routes>

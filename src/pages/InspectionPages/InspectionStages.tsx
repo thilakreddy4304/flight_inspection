@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import SideNavbar from '../../components/SideNavbar/sideNavbar';
 import InspectionStage1 from './InspectionStage1';
@@ -89,7 +89,7 @@ const PageTitle = styled.h1`
 
 const FlightIdentifier = styled.span`
   margin-left: 12px;
-  font-size: 1.5rem;
+  font-size: 2rem;
 `;
 
 const FlightModel = styled.span`
@@ -102,7 +102,7 @@ const BackButton = styled.button`
   background: none;
   border: none;
   color: white;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -285,22 +285,32 @@ interface InspectionPagesProps {}
 
 const InspectionPages: React.FC<InspectionPagesProps> = () => {
   const navigate = useNavigate();
-  const params = useParams<{ flightId: string, inspectionType: string, inspectionName: string }>();
+  const location = useLocation();
   const { selectedTeam, teams, selectTeam } = useAuth();
   const [showStage1, setShowStage1] = useState(false);
   const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
   
-  const flightId = params.flightId || 'DL4890';
-  const inspectionType = params.inspectionType || 'A-Check';
-  const inspectionName = params.inspectionName || 'FAA-Mandated';
+  // Get data from location state or use defaults
+  const locationState = location.state as { 
+    flightId: string, 
+    inspectionType: string, 
+    inspectionName: string,
+    flightData: any
+  } || {};
+
+  const flightId = locationState.flightId;
+  const inspectionType = locationState.inspectionType;
+  const inspectionName = locationState.inspectionName;
+  
+  // Use flight data from location state or fall back to the mock data
+  const flightDataFromState = locationState.flightData;
+  const flight = flightDataFromState || FLIGHT_DATA[flightId] || FLIGHT_DATA['DL4890'];
   
   // Format inspection name to remove the last word
   const formatInspectionName = (name: string) => {
     const lastSpaceIndex = name.lastIndexOf(' ');
     return lastSpaceIndex === -1 ? name : name.substring(0, lastSpaceIndex);
   };
-  
-  const flight = FLIGHT_DATA[flightId] || FLIGHT_DATA['DL4890'];
   
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -367,7 +377,12 @@ const InspectionPages: React.FC<InspectionPagesProps> = () => {
   };
   
   if (showStage1) {
-    return <InspectionStage1 />;
+    return <InspectionStage1 
+      flightId={flightId}
+      inspectionType={inspectionType}
+      inspectionName={inspectionName}
+      flightData={flight}
+    />;
   }
   
   return (
@@ -382,7 +397,7 @@ const InspectionPages: React.FC<InspectionPagesProps> = () => {
       <MainContainer>
         <TopBar>
           <TeamSelector onClick={toggleTeamDropdown}>
-            Team: {selectedTeam?.name || 'Boeing-Everett-MRO'} 
+            Team: {selectedTeam?.name} 
             <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}>▼</TeamSelectorIcon>
             <TeamDropdown isOpen={isTeamDropdownOpen}>
               {teams.map(team => (

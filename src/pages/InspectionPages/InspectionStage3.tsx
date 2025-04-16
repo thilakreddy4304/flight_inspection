@@ -89,7 +89,7 @@ const PageTitle = styled.h1`
 
 const FlightIdentifier = styled.span`
   margin-left: 12px;
-  font-size: 1.5rem;
+  font-size: 2rem;
 `;
 
 const FlightModel = styled.span`
@@ -102,7 +102,7 @@ const BackButton = styled.button`
   background: none;
   border: none;
   color: white;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -299,18 +299,23 @@ const FLIGHT_DATA: Record<string, any> = {
   }
 };
 
-interface InspectionStage3Props {}
+interface InspectionStage3Props {
+  flightId: string;
+  inspectionType: string;
+  inspectionName: string;
+  flightData: any;
+}
 
-const InspectionStage3: React.FC<InspectionStage3Props> = () => {
+const InspectionStage3: React.FC<InspectionStage3Props> = ({
+  flightId,
+  inspectionType,
+  inspectionName,
+  flightData
+}) => {
   const navigate = useNavigate();
-  const params = useParams<{ flightId: string, inspectionType: string, inspectionName: string }>();
   const { selectedTeam, teams, selectTeam } = useAuth();
   const [showStage4, setShowStage4] = useState(false);
   const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
-  
-  const flightId = params.flightId || 'DL4890';
-  const inspectionType = params.inspectionType || 'A-Check';
-  const inspectionName = params.inspectionName || 'FAA-Mandated';
   
   // Format inspection name to remove the last word
   const formatInspectionName = (name: string) => {
@@ -326,7 +331,7 @@ const InspectionStage3: React.FC<InspectionStage3Props> = () => {
     return () => clearTimeout(timer);
   }, []);
   
-  const flight = FLIGHT_DATA[flightId] || FLIGHT_DATA['DL4890'];
+  const flight = flightData || FLIGHT_DATA[flightId] || FLIGHT_DATA['DL4890'];
   
   const handleBack = () => {
     navigate('/dashboard/inspections');
@@ -384,7 +389,12 @@ const InspectionStage3: React.FC<InspectionStage3Props> = () => {
   };
   
   if (showStage4) {
-    return <InspectionStage4 />;
+    return <InspectionStage4 
+      flightId={flightId}
+      inspectionType={inspectionType}
+      inspectionName={inspectionName}
+      flightData={flight}
+    />;
   }
   
   return (
@@ -399,7 +409,7 @@ const InspectionStage3: React.FC<InspectionStage3Props> = () => {
       <MainContainer>
       <TopBar>
           <TeamSelector onClick={toggleTeamDropdown}>
-            Team: {selectedTeam?.name || 'Boeing-Everett-MRO'} 
+            Team: {selectedTeam?.name}
             <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}>▼</TeamSelectorIcon>
             <TeamDropdown isOpen={isTeamDropdownOpen}>
               {teams.map(team => (

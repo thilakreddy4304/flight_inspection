@@ -75,7 +75,7 @@ const BackButton = styled.button`
   background: none;
   border: none;
   color: white;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -292,8 +292,15 @@ const InspectionReport: React.FC<InspectionReportProps> = ({
   ];
   
   const handleRunClick = () => {
-    // Navigate to the standalone simulation page
-    navigate(`/simulation/${flight.identifier}/${inspectionType}/${inspectionName}`);
+    // Navigate to the inspection stages page with all data in state
+    navigate('/InspectionPages', { 
+      state: { 
+        flightId: flight.identifier,
+        inspectionType: inspectionType,
+        inspectionName: inspectionName,
+        flightData: flight
+      } 
+    });
   };
   
   if (isRunning) {
