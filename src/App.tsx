@@ -16,7 +16,7 @@ import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/SignUp/SignUp';
 import TeamSelection from './pages/TeamSelection';
 import Dashboard from './pages/Dashboard/dashboard';
-import SimulationPage from './pages/SimulationPage/SimulationPage';
+import SimulationPage from './pages/InspectionPages/InspectionStages';
 
 // Team Selection Guard
 const TeamSelectionGuard = ({ children }: { children: React.ReactNode }) => {

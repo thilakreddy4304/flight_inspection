@@ -237,6 +237,11 @@ const InspectionReport: React.FC<InspectionReportProps> = ({
   // Get report data for the current flight, or use default
   const reportData = INSPECTION_REPORT_DATA[flight.identifier] || INSPECTION_REPORT_DATA['DL4890'];
   
+  const formatInspectionName = (name: string) => {
+    const lastSpaceIndex = name.lastIndexOf(' ');
+    return lastSpaceIndex === -1 ? name : name.substring(0, lastSpaceIndex);
+  };
+  
   const checklistItems = [
     'Visual Inspection - Check for corrosion, deformation, damage or wear.',
     'Visual Inspection on all exterior panels, wings, tail, engines and doors.',
@@ -279,8 +284,8 @@ const InspectionReport: React.FC<InspectionReportProps> = ({
       </PageTitle>
       
       <BackButton onClick={onBack}>
-        &lt; {inspectionType}: {inspectionName}
-      </BackButton>
+          &lt; {inspectionType}: {formatInspectionName(inspectionName)}
+        </BackButton>
       
       <ChecklistContainer>
         {checklistItems.map((item, index) => (

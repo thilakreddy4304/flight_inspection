@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import SideNavbar from '../../components/SideNavbar/sideNavbar';
+import InspectionStage2 from './InspectionStage2';
 
 const PageContainer = styled.div`
   display: grid;
@@ -92,22 +93,27 @@ const BackButton = styled.button`
 const ContentContainer = styled.div`
   display: flex;
   gap: 30px;
-  margin-top: 40px;
+  margin-top: 0;
+  position: relative;
 `;
 
 const StepsContainer = styled.div`
   flex: 0 0 350px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 `;
 
-const StepSection = styled.div`
+const StepSection = styled.div<{ isActive?: boolean }>`
   margin-bottom: 5px;
+  opacity: ${props => props.isActive ? 1 : 0.5};
 `;
 
-const StepTitle = styled.h3`
+const StepTitle = styled.h3<{ isActive?: boolean }>`
   font-size: 1.2rem;
   margin: 0 0 5px 0;
   display: flex;
   align-items: center;
+  color: ${props => props.isActive ? '#ccc' : '#999'};
   
   &::before {
     content: attr(data-number);
@@ -117,7 +123,7 @@ const StepTitle = styled.h3`
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: ${props => props.isActive ? 'rgba(52, 152, 219, 0.2)' : 'rgba(255, 255, 255, 0.1)'};
     margin-right: 12px;
     font-size: 0.9rem;
   }
@@ -129,18 +135,18 @@ const StepList = styled.ul`
   margin: 0 0 0 36px;
 `;
 
-const StepItem = styled.li`
+const StepItem = styled.li<{ isActive?: boolean }>`
   position: relative;
   padding-left: 20px;
   margin-bottom: 2px;
-  color: #ccc;
+  color: ${props => props.isActive ? '#fff' : '#999'};
   font-size: 0.9rem;
   
   &::before {
     content: "•";
     position: absolute;
     left: 0;
-    color: #777;
+    color: ${props => props.isActive ? '#3498db' : '#777'};
   }
 `;
 
@@ -150,20 +156,42 @@ const ImageContainer = styled.div`
   border-radius: 20px;
   overflow: hidden;
   background-color: #1E1E1E;
-  position: relative;
+  position: absolute;
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
+  margin-top: 1px;
+  border-color: white;
+  border-width: 1px;
+  border-style: solid;
+  right: 0;
+  top: -60px;
+  width: calc(100% - 380px);
 `;
 
 const StageIndicator = styled.div`
-  width: 100%;
-  padding: 12px 20px;
-  background-color: rgba(0, 0, 0, 0.3);
-  text-align: center;
-  font-style: italic;
+  position: relative;
+  padding: 10px 10px;
+  background-color: transparent;
   font-size: 0.9rem;
-  color: #ccc;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 1;
+  max-width: 100%;
+`;
+
+const StageTitle = styled.div`
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 1.2rem;
+`;
+
+const StageText = styled.div`
+  font-style: italic;
+  margin-bottom: 5px;
 `;
 
 const AircraftImage = styled.div`
@@ -246,16 +274,31 @@ const FLIGHT_DATA: Record<string, any> = {
   }
 };
 
-interface SimulationPageProps {}
+interface InspectionStage1Props {}
 
-const SimulationPage: React.FC<SimulationPageProps> = () => {
+const InspectionStage1: React.FC<InspectionStage1Props> = () => {
   const navigate = useNavigate();
   const params = useParams<{ flightId: string, inspectionType: string, inspectionName: string }>();
   const { selectedTeam } = useAuth();
+  const [showStage2, setShowStage2] = useState(false);
   
   const flightId = params.flightId || 'DL4890';
   const inspectionType = params.inspectionType || 'A-Check';
   const inspectionName = params.inspectionName || 'FAA-Mandated';
+  
+  // Format inspection name to remove the last word
+  const formatInspectionName = (name: string) => {
+    const lastSpaceIndex = name.lastIndexOf(' ');
+    return lastSpaceIndex === -1 ? name : name.substring(0, lastSpaceIndex);
+  };
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowStage2(true);
+    }, 5000);
+    
+    return () => clearTimeout(timer);
+  }, []);
   
   const flight = FLIGHT_DATA[flightId] || FLIGHT_DATA['DL4890'];
   
@@ -304,6 +347,10 @@ const SimulationPage: React.FC<SimulationPageProps> = () => {
     }
   ];
   
+  if (showStage2) {
+    return <InspectionStage2 />;
+  }
+  
   return (
     <PageContainer>
       <SideNav>
@@ -321,27 +368,27 @@ const SimulationPage: React.FC<SimulationPageProps> = () => {
         </TopBar>
         
         <PageTitle>
-          Inspections &gt; <FlightIdentifier>{flight.identifier} <FlightModel>({flight.make} {flight.model.slice(-2)})</FlightModel></FlightIdentifier>
+          Inspections &gt;<FlightIdentifier>{flight.identifier} <FlightModel>({flight.make} {flight.model.slice(-2)})</FlightModel></FlightIdentifier>
         </PageTitle>
         
         <BackButton onClick={handleBack}>
-          &lt; {inspectionType}: {inspectionName}
+          &lt; {inspectionType}: {formatInspectionName(inspectionName)}
         </BackButton>
         
         <ContentContainer>
           <StepsContainer>
             {processingSteps.map((section, index) => (
-              <StepSection key={index}>
-                <StepTitle data-number={index + 1}>{section.title}</StepTitle>
+              <StepSection key={index} isActive={index === 0}>
+                <StepTitle data-number={index + 1} isActive={index === 0}>{section.title}</StepTitle>
                 <StepList>
                   {section.steps.map((step, stepIndex) => (
-                    <StepItem key={stepIndex}>{step}</StepItem>
+                    <StepItem key={stepIndex} isActive={index === 0}>{step}</StepItem>
                   ))}
                 </StepList>
               </StepSection>
             ))}
             
-            <TimeEstimate>Estimated Time: 1 hour 30 minutes</TimeEstimate>
+            <TimeEstimate>Run in Background</TimeEstimate>
             
             <ButtonContainer>
               <PauseButton>Pause</PauseButton>
@@ -351,7 +398,9 @@ const SimulationPage: React.FC<SimulationPageProps> = () => {
           
           <ImageContainer>
             <StageIndicator>
-              Stage 1: Preparation | Stage 2: Inspection | Stage 3: Processing | Stage 4: Review | Stage 5: Compliance & Filing
+              <StageTitle>Stage 1: Preparation...90%</StageTitle>
+              <StageText>Preparing Sensing Hardware units.</StageText>
+              <StageText>Verify Aircraft placement on the hanger pad.</StageText>
             </StageIndicator>
             <AircraftImage>
               <img src="https://placehold.co/800x400/333333/FFFFFF?text=Boeing+737+MAX+Wireframe" alt="Boeing 737 MAX Wireframe" />
@@ -363,4 +412,4 @@ const SimulationPage: React.FC<SimulationPageProps> = () => {
   );
 };
 
-export default SimulationPage; 
+export default InspectionStage1; 
