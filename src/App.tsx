@@ -10,7 +10,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 
 // Pages
-import Home from './pages/Home';
 import FlightDetail from './pages/FlightDetail';
 import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/SignUp/SignUp';
@@ -60,11 +59,6 @@ function App() {
           <Route path="/dashboard/:view" element={
             <TeamSelectionGuard>
               <Dashboard />
-            </TeamSelectionGuard>
-          } />
-          <Route path="/home" element={
-            <TeamSelectionGuard>
-              <Home />
             </TeamSelectionGuard>
           } />
           <Route path="/flights/:id" element={

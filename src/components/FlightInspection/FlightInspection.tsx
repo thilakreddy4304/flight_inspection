@@ -205,7 +205,7 @@ const ActionButton = styled.button`
   transition: background-color 0.2s;
   
   &:hover {
-    background-color: #34495e;
+    background-color: #444;
   }
 `;
 

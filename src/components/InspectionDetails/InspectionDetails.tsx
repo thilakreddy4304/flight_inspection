@@ -171,7 +171,7 @@ const CarouselPagination = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 30px;
-  padding: 12px 16px;
+  padding: 10px 12px;
   gap: 8px;
   margin: 24px auto 0;
   width: fit-content;
@@ -179,8 +179,8 @@ const CarouselPagination = styled.div`
 `;
 
 const CarouselDot = styled.button<{ active: boolean }>`
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background-color: ${props => props.active ? 'white' : '#555'};
   border: none;
@@ -193,8 +193,8 @@ const CarouselNav = styled.button<{ direction: 'prev' | 'next' }>`
   background: transparent;
   color: #777;
   border: none;
-  width: 30px;
-  height: 30px;
+  width: 10px;
+  height: 10px;
   display: flex;
   align-items: center;
   justify-content: center;

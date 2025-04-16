@@ -58,8 +58,9 @@ width: 100%;
   padding: 16px;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  background-color: #f3f4f6;
+  background-color: white;
   font-weight: 600;
+  color: black;
   font-size: 1.8rem;
   font-weight: bold;
   text-align: center;
@@ -67,12 +68,12 @@ width: 100%;
   transition: all 0.2s;
   
   &:hover {
-    background-color: #f3f4f6;
+    background-color:rgb(93, 95, 95);
   }
   
   &:focus {
     outline: none;
-    border-color: #3182ce;
+    border-color:rgb(93, 95, 95);
   }
 `;
 //   width: 100%;
