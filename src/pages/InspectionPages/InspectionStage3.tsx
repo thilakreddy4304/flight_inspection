@@ -334,7 +334,7 @@ const InspectionStage3: React.FC<InspectionStage3Props> = ({
   const flight = flightData || FLIGHT_DATA[flightId] || FLIGHT_DATA['DL4890'];
   
   const handleBack = () => {
-    navigate('/dashboard/inspections');
+    navigate('/inspections');
   };
   
   const processingSteps = [
@@ -402,7 +402,7 @@ const InspectionStage3: React.FC<InspectionStage3Props> = ({
       <SideNav>
         <SideNavbar 
           activePage="inspections" 
-          onNavigate={(view) => navigate(`/dashboard/${view}`)}
+          onNavigate={(view) => navigate(`/introHome`)}
         />
       </SideNav>
       

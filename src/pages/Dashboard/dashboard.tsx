@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { DashboardView } from '../../types';
 import SideNavbar from '../../components/SideNavbar/sideNavbar';
-import InspectionScheduler from '../../components/InspectionScheduler/inspectionScheduler';
-import InspectionChart from '../../components/InspectionChart/inspectionChart';
-// import InspectionStatus from '../../components/InspectionStatus/inspectionStatus';
+import IntroHome from '../../components/IntroHome/IntroHome';
 import FlightInspection from '../../components/FlightInspection/FlightInspection';
 import StatusPanel from '../../components/StatusPanel/StatusPanel';
 
@@ -97,6 +95,7 @@ const WelcomeHeader = styled.h1`
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, selectedTeam, teams, selectTeam } = useAuth();
   
   // State to track the current view
@@ -106,9 +105,35 @@ const Dashboard: React.FC = () => {
   // State to control team selector dropdown
   const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
   
+  // Effect to update URL when currentView changes to 'home'
+  useEffect(() => {
+    if (currentView === 'home' && location.pathname !== '/introHome') {
+      navigate('/introHome', { replace: true });
+    }
+  }, [currentView, navigate, location.pathname]);
+  
+  // Effect to set the correct view based on URL when component mounts
+  useEffect(() => {
+    if (location.pathname === '/introHome') {
+      setCurrentView('home');
+    } else if (location.pathname.startsWith('/')) {
+      const viewFromUrl = location.pathname.split('/').pop() as DashboardView;
+      if (viewFromUrl && viewFromUrl !== currentView) {
+        setCurrentView(viewFromUrl);
+      }
+    }
+  }, [location.pathname]);
+  
   // Handle navigation from sidebar
   const handleNavigation = (view: DashboardView) => {
     setCurrentView(view);
+    
+    // Update URL based on view
+    if (view === 'home') {
+      navigate('/introHome', { replace: true });
+    } else {
+      navigate(`/${view}`, { replace: true });
+    }
   };
   
   const handleViewSchedule = () => {
@@ -167,19 +192,18 @@ const Dashboard: React.FC = () => {
               <WelcomeHeader>Hi Andrew,</WelcomeHeader>
             </TopSection>
             
-            <InspectionScheduler onViewSchedule={handleViewSchedule} />
-            <InspectionChart />
+            <IntroHome onViewSchedule={handleViewSchedule} />
           </>
         );
         
       case 'inspections':
         return <FlightInspection flightId="DL4890" hideSidePanel={handleToggleSidePanel} />;
         
-      case 'tasks':
+      case 'workOrderManagement':
         return (
           <>
-            <WelcomeHeader>Tasks</WelcomeHeader>
-            <p>Task management coming soon...</p>
+            <WelcomeHeader>Work Order Management</WelcomeHeader>
+            <p>Work Order Management coming soon...</p>
           </>
         );
         
