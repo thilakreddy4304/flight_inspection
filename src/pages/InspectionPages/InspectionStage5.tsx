@@ -317,11 +317,11 @@ const InspectionStage5: React.FC<InspectionStage5Props> = ({
   };
 
   const handleBack = () => {
-    navigate('/dashboard/inspections');
+    navigate('/inspections');
   };
   
   const handleFinish = () => {
-    navigate('/dashboard/inspections');
+    navigate('/inspections');
   };
   
   const processingSteps = [
@@ -370,7 +370,7 @@ const InspectionStage5: React.FC<InspectionStage5Props> = ({
       <SideNav>
         <SideNavbar 
           activePage="inspections" 
-          onNavigate={(view) => navigate(`/dashboard/${view}`)}
+          onNavigate={(view) => navigate(`/introHome`)}
         />
       </SideNav>
       

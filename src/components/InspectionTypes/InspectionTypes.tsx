@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../context/AuthContext';
-import InspectionReport from '../InspectionReport/InspectionReport';
+import InspectionSteps from '../InspectionSteps/InspectionSteps';
 
 // Container for the entire page
 const Container = styled.div`
@@ -379,7 +379,7 @@ const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack, h
   // If an inspection is selected, show the report
   if (selectedInspection) {
     return (
-      <InspectionReport 
+      <InspectionSteps 
         inspectionName={selectedInspection.title}
         inspectionType={selectedInspection.id === 3 ? 'A-Check' : 'Inspection'}
         onBack={() => setSelectedInspection(null)}

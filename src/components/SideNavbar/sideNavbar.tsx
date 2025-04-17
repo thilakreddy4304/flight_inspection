@@ -90,9 +90,9 @@ const SideNavbar: React.FC<SideNavbarProps> = ({ activePage, onNavigate }) => {
     } else {
       // Fall back to navigation if onNavigate is not provided
       const routes: Record<DashboardView, string> = {
-        home: '/',
+        home: '/introHome',
         inspections: '/flight/DL4890',
-        tasks: '/tasks',
+        workOrderManagement: '/workOrderManagement',
         stats: '/stats',
         collaborate: '/collaborate',
         rocket: '/rocket',
@@ -110,9 +110,7 @@ const SideNavbar: React.FC<SideNavbarProps> = ({ activePage, onNavigate }) => {
       
       <IconGroup>
         <NavIcon 
-          active={activePage === 'home'} 
-          onClick={() => handleIconClick('home')}
-        >
+          active={activePage === 'home'} onClick={() => handleIconClick('home')} >
           <HomeIcon />
         </NavIcon>
         
@@ -120,7 +118,7 @@ const SideNavbar: React.FC<SideNavbarProps> = ({ activePage, onNavigate }) => {
           <InspectionsIcon />
         </NavIcon>
         
-        <NavIcon active={activePage === 'tasks'} onClick={() => handleIconClick('tasks')}>
+        <NavIcon active={activePage === 'workOrderManagement'} onClick={() => handleIconClick('workOrderManagement')}>
           <TasksIcon />
         </NavIcon>
         

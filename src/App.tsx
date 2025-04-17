@@ -6,14 +6,11 @@ import './styles/global.css';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
-// Layout
-import Layout from './components/Layout';
-
 // Pages
 import FlightDetail from './pages/FlightDetail';
 import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/SignUp/SignUp';
-import TeamSelection from './pages/TeamSelection';
+import TeamSelection from './pages/TeamSelection/teamSelection';
 import Dashboard from './pages/Dashboard/dashboard';
 import SimulationPage from './pages/InspectionPages/InspectionStages';
 
@@ -56,7 +53,12 @@ function App() {
               <Dashboard />
             </TeamSelectionGuard>
           } />
-          <Route path="/dashboard/:view" element={
+          <Route path="/introHome" element={
+            <TeamSelectionGuard>
+              <Dashboard />
+            </TeamSelectionGuard>
+          } />
+          <Route path="/:view" element={
             <TeamSelectionGuard>
               <Dashboard />
             </TeamSelectionGuard>

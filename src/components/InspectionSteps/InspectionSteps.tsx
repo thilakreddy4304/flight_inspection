@@ -212,15 +212,45 @@ const INSPECTION_REPORT_DATA: Record<string, any> = {
     sensing_assets: '2 units needed',
     compliance_type: 'FAA-mandated',
   },
+  'DL5678': {
+    estimated_run_time: '1 hour 30 minutes',
+    estimated_price: '$2,500',
+    sensing_assets: '2 units needed',
+    compliance_type: 'FAA-mandated',
+  },
   'AA137': {
     estimated_run_time: '2 hours 15 minutes',
     estimated_price: '$3,200',
     sensing_assets: '3 units needed',
     compliance_type: 'FAA-mandated',
+  },
+  'BA2901': {
+    estimated_run_time: '3 hours 45 minutes',
+    estimated_price: '$4,500',
+    sensing_assets: '4 units needed',
+    compliance_type: 'FAA-mandated',
+  },
+  'UA5432': {
+    estimated_run_time: '4 hours 30 minutes',
+    estimated_price: '$5,200',
+    sensing_assets: '5 units needed',
+    compliance_type: 'FAA-mandated',
+  },
+  'DL1234': {
+    estimated_run_time: '1 hour 45 minutes',
+    estimated_price: '$2,800',
+    sensing_assets: '2 units needed',
+    compliance_type: 'FAA-mandated',
+  },
+  'AA1234': {
+    estimated_run_time: '2 hours 30 minutes',
+    estimated_price: '$3,500',
+    sensing_assets: '3 units needed',
+    compliance_type: 'FAA-mandated',
   }
 };
 
-interface InspectionReportProps {
+interface InspectionStepsProps {
   inspectionName: string;
   inspectionType: string;
   onBack: () => void;
@@ -233,9 +263,9 @@ interface InspectionReportProps {
   hideSidePanel?: (hide: boolean) => void;
 }
 
-const InspectionReport: React.FC<InspectionReportProps> = ({ 
-  inspectionName = 'FAA-Mandated',
-  inspectionType = 'A-Check',
+const InspectionSteps: React.FC<InspectionStepsProps> = ({ 
+  inspectionName,
+  inspectionType,
   onBack,
   flight,
   hideSidePanel
@@ -272,8 +302,7 @@ const InspectionReport: React.FC<InspectionReportProps> = ({
   };
   
   // Get report data for the current flight, or use default
-  const reportData = INSPECTION_REPORT_DATA[flight.identifier] || INSPECTION_REPORT_DATA['DL4890'];
-  
+  const reportData = INSPECTION_REPORT_DATA[flight.identifier];
   const formatInspectionName = (name: string) => {
     const lastSpaceIndex = name.lastIndexOf(' ');
     return lastSpaceIndex === -1 ? name : name.substring(0, lastSpaceIndex);
@@ -319,7 +348,7 @@ const InspectionReport: React.FC<InspectionReportProps> = ({
     <Container>
       <TopBar>
         <TeamSelector onClick={toggleTeamDropdown}>
-          Team: {selectedTeam?.name || 'Boeing-Everett-MRO'} 
+          Team: {selectedTeam?.name}
           <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}>▼</TeamSelectorIcon>
           <TeamDropdown isOpen={isTeamDropdownOpen}>
             {teams.map(team => (
@@ -389,4 +418,4 @@ const InspectionReport: React.FC<InspectionReportProps> = ({
   );
 };
 
-export default InspectionReport; 
+export default InspectionSteps; 
