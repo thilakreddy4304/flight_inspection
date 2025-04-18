@@ -5,9 +5,11 @@ import styled from 'styled-components';
 const SchedulerContainer = styled.div`
   background-color: #1E1E1E;
   border-radius: 12px;
-  padding: 24px;
+  padding: 12px;
   width: 50%;
   text-align: left;
+  margin-bottom: 70px;
+  border: 1px solid #444;
 `;
 
 const SchedulerTitle = styled.h2`
@@ -20,7 +22,7 @@ const SchedulerTitle = styled.h2`
 const SchedulerGrid = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 6px;
   margin-bottom: 16px;
 `;
 
@@ -47,11 +49,11 @@ const SchedulerText = styled.div`
 `;
 
 const ActionButton = styled.button`
-  background-color: #2c3e50;
+  background-color: #444;
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 12px 24px;
+  padding: 10px 24px;
   font-weight: 600;
   margin-top: 12px;
   cursor: pointer;
@@ -59,7 +61,7 @@ const ActionButton = styled.button`
   align-self: flex-start;
   
   &:hover {
-    background-color: #34495e;
+    background-color: #333;
   }
 `;
 

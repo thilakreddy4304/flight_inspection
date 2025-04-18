@@ -124,10 +124,6 @@ const DropdownSelect = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
-  
-  &:hover {
-    background-color: #333;
-  }
 `;
 
 const AircraftInfoContainer = styled.div`
@@ -186,7 +182,6 @@ const ModelImage = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-
   
   img {
     width: 100%;
