@@ -657,6 +657,7 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId, hideSideP
               {filteredFlights.length > 0 ? (
                 filteredFlights.map(flight => (
                   <SearchResultItem 
+                  
                     key={flight.identifier}
                     onClick={() => handleFlightSelect(flight.identifier)}
                   >
