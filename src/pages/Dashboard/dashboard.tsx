@@ -7,10 +7,11 @@ import SideNavbar from '../../components/SideNavbar/sideNavbar';
 import IntroHome from '../../components/IntroHome/IntroHome';
 import FlightInspection from '../../components/FlightInspection/FlightInspection';
 import StatusPanel from '../../components/StatusPanel/StatusPanel';
+import WorkOrderManagement from '../WorkOrderManagement/workOrderManagement';
 
-const DashboardContainer = styled.div`
+const DashboardContainer = styled.div<{ fullWidth: boolean }>`
   display: grid;
-  grid-template-columns: 80px 1fr 350px;
+  grid-template-columns: ${props => props.fullWidth ? '80px 1fr' : '80px 1fr 350px'};
   min-height: 100vh;
   background-color: #121212;
   color: white;
@@ -25,9 +26,10 @@ const SideNav = styled.div`
   border-right: 1px solid #333;
 `;
 
-const MainContent = styled.div`
+const MainContent = styled.div<{ isWorkOrderView?: boolean }>`
   padding: 24px;
-  max-width: 900px;
+  max-width: ${props => props.isWorkOrderView ? 'none' : '900px'};
+  width: ${props => props.isWorkOrderView ? '100%' : 'auto'};
 `;
 
 const SidePanel = styled.div`
@@ -124,6 +126,16 @@ const Dashboard: React.FC = () => {
     }
   }, [location.pathname]);
   
+  // Also update the useEffect to reset hideSidePanel when view changes
+  useEffect(() => {
+    // Reset side panel visibility when changing views except for workOrderManagement
+    if (currentView !== 'workOrderManagement' && currentView !== 'inspections' && hideSidePanel) {
+      handleToggleSidePanel(false);
+    } else if (currentView === 'workOrderManagement' && !hideSidePanel) {
+      handleToggleSidePanel(true);
+    }
+  }, [currentView]);
+  
   // Handle navigation from sidebar
   const handleNavigation = (view: DashboardView) => {
     setCurrentView(view);
@@ -200,12 +212,11 @@ const Dashboard: React.FC = () => {
         return <FlightInspection flightId="DL4890" hideSidePanel={handleToggleSidePanel} />;
         
       case 'workOrderManagement':
-        return (
-          <>
-            <WelcomeHeader>Work Order Management</WelcomeHeader>
-            <p>Work Order Management coming soon...</p>
-          </>
-        );
+        // Hide side panel when showing work order management
+        if (!hideSidePanel) {
+          handleToggleSidePanel(true);
+        }
+        return <WorkOrderManagement />;
         
       case 'stats':
         return (
@@ -251,7 +262,7 @@ const Dashboard: React.FC = () => {
   };
   
   return (
-    <DashboardContainer>
+    <DashboardContainer fullWidth={currentView === 'workOrderManagement'}>
       <SideNav>
         <SideNavbar 
           activePage={currentView} 
@@ -259,11 +270,14 @@ const Dashboard: React.FC = () => {
         />
       </SideNav>
       
-      <MainContent style={{ gridColumn: hideSidePanel ? '2 / 4' : '2 / 3' }}>
+      <MainContent 
+        isWorkOrderView={currentView === 'workOrderManagement'}
+        style={{ gridColumn: currentView === 'workOrderManagement' ? '2 / 3' : hideSidePanel ? '2 / 4' : '2 / 3' }}
+      >
         {renderMainContent()}
       </MainContent>
       
-      {!hideSidePanel && (
+      {currentView !== 'workOrderManagement' && !hideSidePanel && (
         <SidePanel>
           {renderSidePanel()}
         </SidePanel>
