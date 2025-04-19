@@ -15,6 +15,9 @@ import Dashboard from './pages/Dashboard/dashboard';
 import InspectionPages from './pages/InspectionPages/InspectionStages';
 import FlightInspection from './components/FlightInspection/FlightInspection';
 import InspectionTypes from './components/InspectionTypes/InspectionTypes';
+import WorkOrderManagement from './pages/WorkOrderManagement/workOrderManagement';
+import WorkOrderDetail from './pages/WorkOrderManagement/workOrderManagement2';
+import WorkOrderManagementPages from './pages/WorkOrderManagement/WorkOrderManagementPages';
 
 // Team Selection Guard
 const TeamSelectionGuard = ({ children }: { children: React.ReactNode }) => {
@@ -102,6 +105,33 @@ function App() {
           <Route path="/InspectionPages" element={
             <TeamSelectionGuard>
               <InspectionPages />
+            </TeamSelectionGuard>
+          } />
+          
+          {/* Work Order Management Pages */}
+          <Route path="/workOrderManagement" element={
+            <TeamSelectionGuard>
+              <Dashboard />
+            </TeamSelectionGuard>
+          } />
+          
+          {/* Work Order Detail Page using aircraft name parameter */}
+          <Route path="/workOrderManagement/:aircraftName" element={
+            <TeamSelectionGuard>
+              <Dashboard />
+            </TeamSelectionGuard>
+          } />
+          
+          {/* Work Order Pages - direct access without Dashboard wrapper */}
+          <Route path="/work-orders" element={
+            <TeamSelectionGuard>
+              <WorkOrderManagementPages />
+            </TeamSelectionGuard>
+          } />
+          
+          <Route path="/work-orders/:aircraftName" element={
+            <TeamSelectionGuard>
+              <WorkOrderManagementPages />
             </TeamSelectionGuard>
           } />
           
