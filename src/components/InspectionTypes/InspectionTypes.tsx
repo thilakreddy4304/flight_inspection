@@ -67,7 +67,7 @@ const PageTitle = styled.h1`
 `;
 
 const FlightIdentifier = styled.span`
-//   color: #999;
+  color: #999;
   margin-left: 12px;
 `;
 
@@ -238,10 +238,9 @@ interface Flight {
   [key: string]: any;
 }
 
-interface InspectionDetailsProps {
+interface InspectionTypesProps {
   flight: Flight;
   onBack: () => void;
-  hideSidePanel?: (hide: boolean) => void;
 }
 
 // Mock inspection data
@@ -254,15 +253,15 @@ const inspections = [
   },
   {
     id: 2,
-    title: '50-hour/100-hour Inspection',
-    description: 'Runs a comprehensive 50-hour or 100-hour inspection on the aircraft.',
-    runtime: '60-200 minutes'
+    title: '50-hour Inspection',
+    description: 'Runs a comprehensive 50-hour inspection on the aircraft.',
+    runtime: '100 minutes'
   },
   {
     id: 3,
-    title: 'FAA-mandated Inspection',
-    description: 'Select A-,B-,C- or D-check specific inspection for the aircraft.',
-    runtime: '60-240 minutes'
+    title: '100-hour Inspection',
+    description: 'Runs a comprehensive 100-hour inspection on the aircraft.',
+    runtime: '120 minutes'
   },
   {
     id: 4,
@@ -296,13 +295,67 @@ const inspections = [
   },
   {
     id: 9,
+    title: 'Lightening Strike Inspection',
+    description: 'Inspect the full body for lightening strike entry & exit damage or pinholes.',
+    runtime: '55 minutes'
+  },
+  {
+    id: 10,
+    title: 'A-Check Inspection',
+    description: 'FAA-mandated A-Check inspection for the aircraft.',
+    runtime: '100 minutes'
+  },
+  {
+    id: 11,
+    title: 'B-Check Inspection',
+    description: 'FAA-mandated B-Check inspection for the aircraft.',
+    runtime: '100 minutes'
+  },
+  {
+    id: 12,
+    title: 'C-Check Inspection',
+    description: 'FAA-mandated C-Check inspection for the aircraft.',
+    runtime: '120 minutes'
+  },
+  {
+    id: 13,
+    title: 'D-Check Inspection',
+    description: 'FAA-mandated D-Check inspection for the aircraft.',
+    runtime: '250 minutes'
+  },
+  {
+    id: 14,
+    title: 'Hard-Landing Inspection',
+    description: 'Inspect the landing gear, wingtips and tail underbody of the aircraft for damages.',
+    runtime: '90 minutes'
+  },
+  {
+    id: 15,
+    title: 'Paint & Tape Inspection',
+    description: 'Inspect the exterior for paint-peel and tapeing of the aircraft.',
+    runtime: '60 minutes'
+  },
+  {
+    id: 16,
+    title: 'Wings & Engine Inspection',
+    description: 'Inspect the wings exterior, ad=nd Engine blades and Thermal Inspection of the aircraft includes FOD.',
+    runtime: '60 minutes'
+  },
+  {
+    id: 17,
+    title: 'Nose Inspection',
+    description: 'Inspect the nose of the aircraft for FOD, dents and lightning strike.',
+    runtime: '60 minutes'
+  },
+  {
+    id: 18,
     title: 'Exterior Openings Inspection',
     description: 'Inspect all doors (and drains), service panel openings, and landing gear.',
-    runtime: '20-45 minutes'
-  }
+    runtime: '20~45 minutes'
+  },
 ];
 
-const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack, hideSidePanel }) => {
+const InspectionTypes: React.FC<InspectionTypesProps> = ({ flight, onBack }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedInspection, setSelectedInspection] = useState<{ id: number; title: string } | null>(null);
@@ -310,21 +363,6 @@ const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack, h
   
   // State to control team selector dropdown
   const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
-  
-  // Effect to hide/show side panel
-  useEffect(() => {
-    // On mount, hide the side panel if the prop is provided
-    if (hideSidePanel) {
-      hideSidePanel(false); // Keep side panel visible for inspection details view
-    }
-    
-    // On unmount, ensure side panel visibility is reset
-    return () => {
-      if (hideSidePanel) {
-        hideSidePanel(false);
-      }
-    };
-  }, [hideSidePanel]);
   
   // Function to toggle team dropdown
   const toggleTeamDropdown = () => {
@@ -337,9 +375,9 @@ const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack, h
     setIsTeamDropdownOpen(false);
   };
   
-  // Fixed to 6 dots for pagination
-  const totalDots = 6;
-  const totalSlides = Math.ceil(inspections.length / 3);
+  // Change to 2 dots for pagination - first 9 and second 9 inspections
+  const totalDots = 2;
+  const totalSlides = Math.ceil(inspections.length / 9);
   
   const handlePrev = () => {
     setActiveSlide(prev => {
@@ -367,9 +405,9 @@ const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack, h
     setSearchQuery(e.target.value);
   };
   
-  // Function to handle dot click with infinite scrolling
+  // Function to handle dot click
   const handleDotClick = (index: number) => {
-    setActiveSlide(index % totalSlides);
+    setActiveSlide(index);
   };
   
   const handleRunClick = (inspection: { id: number; title: string }) => {
@@ -384,10 +422,12 @@ const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack, h
         inspectionType={selectedInspection.id === 3 ? 'A-Check' : 'Inspection'}
         onBack={() => setSelectedInspection(null)}
         flight={flight}
-        hideSidePanel={hideSidePanel}
       />
     );
   }
+
+  // Get the current set of inspections to display based on activeSlide
+  const currentInspections = inspections.slice(activeSlide * 9, (activeSlide + 1) * 9);
   
   return (
     <Container>
@@ -426,7 +466,7 @@ const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack, h
       </SearchContainer>
       
       <InspectionGrid>
-        {inspections.slice(0, 9).map((inspection) => (
+        {currentInspections.map((inspection) => (
           <InspectionBox key={inspection.id}>
             <InspectionTitle>{inspection.title}</InspectionTitle>
             <InspectionDescription>{inspection.description}</InspectionDescription>
@@ -444,10 +484,10 @@ const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack, h
       <CarouselPagination>
         <CarouselNav direction="prev" onClick={handlePrev}>{'<'}</CarouselNav>
         
-        {Array.from({ length: 6 }).map((_, index) => (
+        {Array.from({ length: totalDots }).map((_, index) => (
           <CarouselDot 
             key={index} 
-            active={index === activeSlide % 6}
+            active={index === activeSlide}
             onClick={() => handleDotClick(index)}
           />
         ))}
@@ -458,4 +498,4 @@ const InspectionDetails: React.FC<InspectionDetailsProps> = ({ flight, onBack, h
   );
 };
 
-export default InspectionDetails; 
+export default InspectionTypes; 

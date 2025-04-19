@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import InspectionDetails from '../InspectionTypes/InspectionTypes';
 
@@ -411,8 +412,9 @@ const getAllUniqueModels = () => {
   return Object.keys(modelsMap).sort();
 };
 
-const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId, hideSidePanel }) => {
+const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
   const params = useParams<{ flightId: string }>();
+  const navigate = useNavigate();
   const currentFlightId = flightId || params.flightId || '';
   const { selectedTeam, teams, selectTeam } = useAuth();
   const [view, setView] = useState<'selection' | 'details'>('selection');
@@ -455,21 +457,18 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId, hideSideP
   const makeDropdownRef = useRef<HTMLDivElement>(null);
   const modelDropdownRef = useRef<HTMLDivElement>(null);
   
-  // Effect to hide/show side panel
-  useEffect(() => {
-    // On mount, hide the side panel if the prop is provided
-    if (hideSidePanel) {
-      hideSidePanel(false); // Keep side panel visible for flight inspection view
-    }
-    
-    // On unmount, ensure side panel visibility is reset
-    return () => {
-      if (hideSidePanel) {
-        hideSidePanel(false);
+    useEffect(() => {
+    if (currentFlightId && FLIGHT_DATA[currentFlightId]) {
+      setSelectedFlightId(currentFlightId);
+      setSearchQuery(currentFlightId);
+      
+      const flight = FLIGHT_DATA[currentFlightId];
+      if (flight) {
+        setSelectedMake(flight.make);
+        setSelectedModel(flight.model);
       }
-    };
-  }, [hideSidePanel]);
-  
+    }
+  }, [currentFlightId]);
   // Add click outside event handler
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -533,7 +532,10 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId, hideSideP
     if (flight) {
       setSelectedMake(flight.make);
       setSelectedModel(flight.model);
+      setShowDropdown(false);
     }
+
+    navigate(`/inspections/${flightId}`);
   };
   
   // Handle make selection
@@ -612,7 +614,7 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId, hideSideP
     return <InspectionDetails 
       flight={currentFlight} 
       onBack={() => setView('selection')} 
-      hideSidePanel={hideSidePanel}
+      // hideSidePanel={hideSidePanel}
     />;
   }
   
@@ -620,7 +622,7 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId, hideSideP
     <MainContent>
       <TopBar>
         <TeamSelector onClick={toggleTeamDropdown}>
-          Team: {selectedTeam?.name || 'Boeing-Everett-MRO'} 
+          Team: {selectedTeam?.name} 
           <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}>▼</TeamSelectorIcon>
           <TeamDropdown isOpen={isTeamDropdownOpen}>
             {teams.map(team => (

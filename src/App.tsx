@@ -7,12 +7,14 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
 // Pages
-import FlightDetail from './pages/FlightDetail';
+// import FlightDetail from './pages/FlightDetail';
 import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/SignUp/SignUp';
 import TeamSelection from './pages/TeamSelection/teamSelection';
 import Dashboard from './pages/Dashboard/dashboard';
-import SimulationPage from './pages/InspectionPages/InspectionStages';
+import InspectionPages from './pages/InspectionPages/InspectionStages';
+import FlightInspection from './components/FlightInspection/FlightInspection';
+import InspectionTypes from './components/InspectionTypes/InspectionTypes';
 
 // Team Selection Guard
 const TeamSelectionGuard = ({ children }: { children: React.ReactNode }) => {
@@ -63,7 +65,7 @@ function App() {
               <Dashboard />
             </TeamSelectionGuard>
           } />
-          <Route path="/flights/:id" element={
+          {/* <Route path="/flights/:id" element={
             <TeamSelectionGuard>
               <FlightDetail />
             </TeamSelectionGuard>
@@ -72,12 +74,34 @@ function App() {
             <TeamSelectionGuard>
               <FlightDetail />
             </TeamSelectionGuard>
+          } /> */}
+          
+          {/* Add dedicated route for inspections with query parameters */}
+          <Route path="/inspections" element={
+            <TeamSelectionGuard>
+              {/* <FlightInspection /> */}
+              <Dashboard />
+            </TeamSelectionGuard>
           } />
           
+          {/* Route for individual flight inspections */}
+          <Route path="/inspections/:flightId" element={
+            <TeamSelectionGuard>
+              <Dashboard />
+            </TeamSelectionGuard>
+          } />
+          
+          {/* Route for inspection types page
+          <Route path="/inspections/:flightId/inspectiontypes" element={
+            <TeamSelectionGuard>
+              <InspectionTypes />
+            </TeamSelectionGuard>
+          } />
+           */}
           {/* InspectionPages - using state-based navigation */}
           <Route path="/InspectionPages" element={
             <TeamSelectionGuard>
-              <SimulationPage />
+              <InspectionPages />
             </TeamSelectionGuard>
           } />
           

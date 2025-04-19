@@ -6,10 +6,10 @@ const SchedulerContainer = styled.div`
   background-color: #1E1E1E;
   border-radius: 12px;
   padding: 12px;
-  width: 50%;
+  width: 70%;
   text-align: left;
   margin-bottom: 70px;
-  border: 1px solid #444;
+  border: 2px solid #444;
 `;
 
 const SchedulerTitle = styled.h2`
@@ -71,7 +71,7 @@ const ChartContainer = styled.div`
   border-radius: 12px;
   padding: 24px;
   margin-top: 30px;
-  width: 70%;
+  width: 90%;
   height: 300px;
 `;
 
@@ -148,6 +148,75 @@ const DataLine = styled.div`
   height: 2px;
   background-color: #3498db;
   transform: translateY(-50%);
+`;
+
+// ======= Layout Styled Components =======
+const DashboardLayout = styled.div`
+  display: flex;
+  position: relative;
+  width: 100%;
+`;
+
+const MainContent = styled.div`
+  flex: 1;
+  padding-right: 40px;
+  margin-right: 80px;
+`;
+
+// Side navbar style components
+const SideNavbar = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  background-color: #121212;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-left: 1px solid #333;
+  padding: 0 10px;
+  z-index: 100;
+`;
+
+// ======= Status Panel Styled Components =======
+const StatusContainer = styled.div`
+  background-color: #1E1E1E;
+  border-radius: 12px;
+  padding: 10px;
+  margin-top: 150px;
+  border: 2px solid #444;
+  width: 100%;
+`;
+
+const StatusTitle = styled.h3`
+  font-size: 1rem;
+  color: white;
+  margin-bottom: 15px;
+`;
+
+const StatusList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+`;
+
+const StatusItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+`;
+
+const StatusNumber = styled.span`
+  font-weight: 600;
+  font-size: 0.8rem;
+`;
+
+const StatusLabel = styled.span`
+  color: #fff;
 `;
 
 // Mock data for the chart
@@ -280,10 +349,35 @@ interface introHomeProps {
 
 const introHome: React.FC<introHomeProps> = ({ onViewSchedule }) => {
   return (
-    <div>
-      <InspectionScheduler onViewSchedule={onViewSchedule} />
-      <InspectionChart />
-    </div>
+    <DashboardLayout>
+      <MainContent>
+        <InspectionScheduler onViewSchedule={onViewSchedule} />
+        <InspectionChart />
+      </MainContent>
+      <SideNavbar>
+        <StatusContainer>
+          <StatusTitle>Inspections Status [today]</StatusTitle>
+          <StatusList>
+            <StatusItem>
+              <StatusNumber>74</StatusNumber>
+              <StatusLabel>Inspections - Scheduled</StatusLabel>
+            </StatusItem>
+            <StatusItem>
+              <StatusNumber>23</StatusNumber>
+              <StatusLabel>Inspections - In-progress</StatusLabel>
+            </StatusItem>
+            <StatusItem>
+              <StatusNumber>22</StatusNumber>
+              <StatusLabel>Inspections - Ready-to-Review</StatusLabel>
+            </StatusItem>
+            <StatusItem>
+              <StatusNumber>05</StatusNumber>
+              <StatusLabel>Inspections - Complete</StatusLabel>
+            </StatusItem>
+          </StatusList>
+        </StatusContainer>
+      </SideNavbar>
+    </DashboardLayout>
   );
 };
 
