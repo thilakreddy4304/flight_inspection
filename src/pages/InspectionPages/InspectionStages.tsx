@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import SideNavbar from '../../components/SideNavbar/sideNavbar';
 import InspectionStage1 from './InspectionStage1';
@@ -286,6 +286,7 @@ interface InspectionPagesProps {}
 const InspectionPages: React.FC<InspectionPagesProps> = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { flightId: urlFlightId } = useParams<{ flightId: string }>();
   const { selectedTeam, teams, selectTeam } = useAuth();
   const [showStage1, setShowStage1] = useState(false);
   const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
@@ -298,7 +299,8 @@ const InspectionPages: React.FC<InspectionPagesProps> = () => {
     flightData: any
   } || {};
 
-  const flightId = locationState.flightId;
+  // Prioritize URL param for flightId
+  const flightId = urlFlightId || locationState.flightId;
   const inspectionType = locationState.inspectionType;
   const inspectionName = locationState.inspectionName;
   
@@ -321,7 +323,11 @@ const InspectionPages: React.FC<InspectionPagesProps> = () => {
   }, []);
   
   const handleBack = () => {
-    navigate('/inspections');
+    if (flightId) {
+      navigate(`/inspections/${flightId}`);
+    } else {
+      navigate('/inspections');
+    }
   };
   
   const processingSteps = [

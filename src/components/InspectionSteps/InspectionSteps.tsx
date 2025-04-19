@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import SimulationProcessing from '../SimulationProcessing/SimulationProcessing';
+// import InspectionStages from '../InspectionPages/InspectionStages';
+// import SimulationProcessing from '../SimulationProcessing/SimulationProcessing';
 
 const Container = styled.div`
   width: 100%;
@@ -260,35 +261,18 @@ interface InspectionStepsProps {
     model: string;
     [key: string]: any;
   };
-  hideSidePanel?: (hide: boolean) => void;
 }
 
 const InspectionSteps: React.FC<InspectionStepsProps> = ({ 
   inspectionName,
   inspectionType,
   onBack,
-  flight,
-  hideSidePanel
+  flight
 }) => {
   const { selectedTeam, teams, selectTeam } = useAuth();
   const navigate = useNavigate();
   const [isRunning, setIsRunning] = useState(false);
   const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
-  
-  // Effect to hide/show side panel
-  useEffect(() => {
-    // On mount, hide the side panel if the prop is provided
-    if (hideSidePanel) {
-      hideSidePanel(false); // Keep side panel visible for inspection report view
-    }
-    
-    // On unmount, ensure side panel visibility is reset
-    return () => {
-      if (hideSidePanel) {
-        hideSidePanel(false);
-      }
-    };
-  }, [hideSidePanel]);
   
   // Function to toggle team dropdown
   const toggleTeamDropdown = () => {
@@ -332,17 +316,16 @@ const InspectionSteps: React.FC<InspectionStepsProps> = ({
     });
   };
   
-  if (isRunning) {
-    return (
-      <SimulationProcessing 
-        flight={flight}
-        inspectionName={inspectionName}
-        inspectionType={inspectionType}
-        onBack={() => setIsRunning(false)}
-        hideSidePanel={hideSidePanel}
-      />
-    );
-  }
+  // if (isRunning) {
+  //   return (
+  //     <InspectionStages 
+  //       flight={flight}
+  //       inspectionName={inspectionName}
+  //       inspectionType={inspectionType}
+  //       onBack={() => setIsRunning(false)}
+  //     />
+  //   );
+  // }
   
   return (
     <Container>

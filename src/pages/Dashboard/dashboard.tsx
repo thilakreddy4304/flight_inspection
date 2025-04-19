@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { DashboardView } from '../../types';
 import SideNavbar from '../../components/SideNavbar/sideNavbar';
 import IntroHome from '../../components/IntroHome/IntroHome';
 import FlightInspection from '../../components/FlightInspection/FlightInspection';
-import StatusPanel from '../../components/StatusPanel/StatusPanel';
 import WorkOrderManagement from '../WorkOrderManagement/workOrderManagement';
 
 const DashboardContainer = styled.div<{ fullWidth: boolean }>`
@@ -30,12 +29,6 @@ const MainContent = styled.div<{ isWorkOrderView?: boolean }>`
   padding: 24px;
   max-width: ${props => props.isWorkOrderView ? 'none' : '900px'};
   width: ${props => props.isWorkOrderView ? '100%' : 'auto'};
-`;
-
-const SidePanel = styled.div`
-  background-color: #181818;
-  padding: 24px;
-  border-left: 1px solid #333;
 `;
 
 const TopSection = styled.div`
@@ -98,63 +91,52 @@ const WelcomeHeader = styled.h1`
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const params = useParams<{ flightId?: string, view?: string }>();
   const { user, selectedTeam, teams, selectTeam } = useAuth();
   
   // State to track the current view
   const [currentView, setCurrentView] = useState<DashboardView>('home');
-  // State to track whether side panel should be hidden
-  const [hideSidePanel, setHideSidePanel] = useState(false);
   // State to control team selector dropdown
   const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
   
-  // Effect to update URL when currentView changes to 'home'
+  // Effect to determine the current view based on URL when component mounts
   useEffect(() => {
-    if (currentView === 'home' && location.pathname !== '/introHome') {
-      navigate('/introHome', { replace: true });
-    }
-  }, [currentView, navigate, location.pathname]);
-  
-  // Effect to set the correct view based on URL when component mounts
-  useEffect(() => {
-    if (location.pathname === '/introHome') {
+    if (location.pathname === '/' || location.pathname === '/introHome') {
       setCurrentView('home');
+    } else if (location.pathname === '/inspections' || location.pathname.startsWith('/inspections/')) {
+      setCurrentView('inspections');
+    } else if (location.pathname === '/workOrderManagement') {
+      setCurrentView('workOrderManagement');
+    } else if (location.pathname === '/stats') {
+      setCurrentView('stats');
+    } else if (location.pathname === '/profile') {
+      setCurrentView('profile');
+    } else if (location.pathname === '/settings') {
+      setCurrentView('settings');
     } else if (location.pathname.startsWith('/')) {
-      const viewFromUrl = location.pathname.split('/').pop() as DashboardView;
-      if (viewFromUrl && viewFromUrl !== currentView) {
-        setCurrentView(viewFromUrl);
+      const viewFromUrl = location.pathname.substring(1) as DashboardView;
+      if (viewFromUrl && 
+          ['home', 'inspections', 'workOrderManagement', 'stats', 'collaborate', 'rocket', 'settings', 'call', 'profile'].includes(viewFromUrl)) {
+        setCurrentView(viewFromUrl as DashboardView);
       }
     }
   }, [location.pathname]);
   
-  // Also update the useEffect to reset hideSidePanel when view changes
-  useEffect(() => {
-    // Reset side panel visibility when changing views except for workOrderManagement
-    if (currentView !== 'workOrderManagement' && currentView !== 'inspections' && hideSidePanel) {
-      handleToggleSidePanel(false);
-    } else if (currentView === 'workOrderManagement' && !hideSidePanel) {
-      handleToggleSidePanel(true);
-    }
-  }, [currentView]);
-  
   // Handle navigation from sidebar
   const handleNavigation = (view: DashboardView) => {
+    // First update state
     setCurrentView(view);
     
-    // Update URL based on view
+    // Then navigate to the appropriate URL
     if (view === 'home') {
-      navigate('/introHome', { replace: true });
+      navigate('/introHome');
     } else {
-      navigate(`/${view}`, { replace: true });
+      navigate(`/${view}`);
     }
   };
   
   const handleViewSchedule = () => {
     navigate('/schedule');
-  };
-  
-  // Function to toggle side panel visibility
-  const handleToggleSidePanel = (hide: boolean) => {
-    setHideSidePanel(hide);
   };
   
   // Function to toggle team dropdown
@@ -167,14 +149,6 @@ const Dashboard: React.FC = () => {
     selectTeam(teamId);
     setIsTeamDropdownOpen(false);
   };
-  
-  // Mock data for the status panel
-  const statusItems = [
-    { number: 74, label: 'Inspections - Scheduled' },
-    { number: 23, label: 'Inspections - In-progress' },
-    { number: 22, label: 'Inspections - Ready-to-Review' },
-    { number: 5, label: 'Inspections - Complete' }
-  ];
   
   // Render different content based on the current view
   const renderMainContent = () => {
@@ -209,13 +183,13 @@ const Dashboard: React.FC = () => {
         );
         
       case 'inspections':
-        return <FlightInspection flightId="DL4890" hideSidePanel={handleToggleSidePanel} />;
+        // Extract flightId from URL if present
+        const flightId = location.pathname.includes('/inspections/') 
+          ? location.pathname.split('/inspections/')[1]
+          : undefined;
+        return <FlightInspection flightId={flightId} />;
         
       case 'workOrderManagement':
-        // Hide side panel when showing work order management
-        if (!hideSidePanel) {
-          handleToggleSidePanel(true);
-        }
         return <WorkOrderManagement />;
         
       case 'stats':
@@ -247,20 +221,6 @@ const Dashboard: React.FC = () => {
     }
   };
   
-  // Render different side panel content based on the current view
-  const renderSidePanel = () => {
-    switch (currentView) {
-      case 'home':
-        return <StatusPanel items={statusItems} />;
-        
-      case 'inspections':
-        return <StatusPanel items={statusItems} />;
-        
-      default:
-        return <StatusPanel items={statusItems} />;
-    }
-  };
-  
   return (
     <DashboardContainer fullWidth={currentView === 'workOrderManagement'}>
       <SideNav>
@@ -272,16 +232,9 @@ const Dashboard: React.FC = () => {
       
       <MainContent 
         isWorkOrderView={currentView === 'workOrderManagement'}
-        style={{ gridColumn: currentView === 'workOrderManagement' ? '2 / 3' : hideSidePanel ? '2 / 4' : '2 / 3' }}
       >
         {renderMainContent()}
       </MainContent>
-      
-      {currentView !== 'workOrderManagement' && !hideSidePanel && (
-        <SidePanel>
-          {renderSidePanel()}
-        </SidePanel>
-      )}
     </DashboardContainer>
   );
 };

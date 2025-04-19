@@ -98,7 +98,7 @@ const SideNavbar: React.FC<SideNavbarProps> = ({ activePage, onNavigate }) => {
       // Fall back to navigation if onNavigate is not provided
       const routes: Record<DashboardView, string> = {
         home: '/introHome',
-        inspections: '/flight/DL4890',
+        inspections: '/inspections',
         workOrderManagement: '/workOrderManagement',
         stats: '/stats',
         collaborate: '/collaborate',
