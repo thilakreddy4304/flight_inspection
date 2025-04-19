@@ -135,7 +135,7 @@ const RightSide = styled.div`
 const ImageContainer = styled.div`
   width: 90%;
   height: 100%;
-  padding: 20px;
+  padding: 10px;
   margin-top: 50px;
   margin-left: 50px;
   min-height: 600px;
@@ -269,6 +269,9 @@ const TableRow = styled.div`
   &.highlighted {
     background-color: rgba(75, 75, 75, 0.5);
   }
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 `;
 
 const TableCell = styled.div`
@@ -279,6 +282,9 @@ const TableCell = styled.div`
   
   &:last-child {
     border-right: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 `;
 
@@ -321,7 +327,195 @@ const TextBlock = styled.div`
   line-height: 1.5;
 `;
 
-// Sample data based on the image
+const ImageContainerLayout = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+`;
+
+const IssueDetailsContainer = styled.div`
+  width: 40%;
+  padding: 10px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+`;
+
+const DetailRow = styled.div`
+  margin-bottom: 5px;
+`;
+
+const DetailLabel = styled.div`
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 2px;
+`;
+
+const DetailValue = styled.div`
+  font-size: 0.8rem;
+  color: #ccc;
+  font-weight: 200;
+  margin-bottom: 10px;
+`;
+
+const IssueImagesContainer = styled.div`
+  width: 60%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const ImagesGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  height: 50%;
+`;
+
+const ImagePlaceholder = styled.div`
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  height: 50%;
+  color: #444;
+  font-size: 0.8rem;
+  
+  &:hover {
+    background-color: #252525;
+    cursor: pointer;
+  }
+`;
+
+const SecondImagePlaceholder = styled.div`
+  width: 100%;
+  height: 50%;
+  background-color: #1a1a1a;
+  margin-top: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #444;
+  font-size: 0.8rem;
+  
+  &:hover {
+    background-color: #252525;
+    cursor: pointer;
+  }
+`;
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: 60px;
+  margin-bottom: 0px;
+`;
+
+const ActionButton = styled.button<{ variant?: string }>`
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  
+  background-color: ${props => {
+    switch (props.variant) {
+      case 'primary': return '#ef5e12';
+      case 'success': return '#4caf50';
+      default: return '#333';
+    }
+  }};
+  
+  color: ${props => props.variant ? 'white' : '#ccc'};
+  
+  &:hover {
+    background-color: ${props => {
+      switch (props.variant) {
+        case 'primary': return '#f06d2a';
+        case 'success': return '#5dbd60';
+        default: return '#444';
+      }
+    }};
+  }
+`;
+
+const AddRepairsContainer = styled.div`
+  margin-top: 15px;
+`;
+
+const AddRepairsHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+`;
+
+const AddButton = styled.div`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #333;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  
+  &:hover {
+    background-color: #444;
+  }
+`;
+
+const RepairItemsList = styled.ul`
+  list-style-type: none;
+  padding-left: 20px;
+  font-size: 0.8rem;
+  color: #ccc;
+  font-weight: 200;
+  margin-bottom: 10px;
+`;
+
+const RepairItem = styled.li`
+  margin-bottom: 2px;
+  position: relative;
+  font-size: 0.8rem;
+  
+  &::before {
+    content: '>';
+    position: absolute;
+    left: -15px;
+    color: #ccc;
+  }
+`;
+
+const InvestigateIcon = styled.span`
+  color: #ef5e12;
+  margin-left: auto;
+  font-weight: bold;
+`;
+
+const ApproveIcon = styled.span`
+  color: #4caf50;
+  margin-left: 5px;
+  font-weight: bold;
+`;
+
+const StatusIcons = styled.div`
+  display: flex;
+  margin-left: auto;
+`;
+
+// Add back the issue data array that was removed in the previous edit
 const issueData = [
   { id: 1, severity: 'Medium', zone: 'Zone12', issue: 'Engine Blades' },
   { id: 2, severity: 'High', zone: 'Zone11', issue: 'Engine Thermal Analysis' },
@@ -346,6 +540,47 @@ const issueData = [
   { id: 21, severity: 'Medium', zone: 'Zone01', issue: 'Nose FOD' },
 ];
 
+interface IssueDetail {
+  id: number;
+  zone: string;
+  issue: string;
+  severity: string;
+  description: string;
+  impact: string;
+  possibleResolution: string;
+  action: string;
+  repairs: string[];
+  investigated?: boolean;
+  approved?: boolean;
+}
+
+// Extended issueData with detailed information
+const issueDetailsData: IssueDetail[] = [
+  { 
+    id: issueData[0].id, 
+    zone: issueData[0].zone, 
+    issue: issueData[0].issue, 
+    severity: issueData[0].severity,
+    description: 'Minor chips on the Engine blade are detected. Up to 5 chips with 0.25mm to 4mm width are recorded.',
+    impact: 'Minimal. This is considered to be wear-and-tear.',
+    possibleResolution: 'Follow this issue in next inspection for any further deterioration of blade chips.',
+    action: 'Thermal Analysis was recorded as normal. No fluid leaks on the Engine are recorded in this inspection. So, no further action is needed.',
+    repairs: ['Analyze for Chip Debris', 'Create Weekly Checkpoint']
+  },
+  { 
+    id: issueData[1].id, 
+    zone: issueData[1].zone, 
+    issue: issueData[1].issue, 
+    severity: issueData[1].severity,
+    description: 'Thermal signature shows hot spots in the turbine section. Temperature variance of 35°C above baseline.',
+    impact: 'Moderate. May indicate developing turbine inefficiency.',
+    possibleResolution: 'Schedule detailed thermal analysis on next ground check.',
+    action: 'Document findings and compare with next inspection data to track progression.',
+    repairs: ['Record Thermal Values', 'Flag for Engineer Review']
+  },
+  // ... add more detailed entries for other issues
+];
+
 interface WorkOrderDetailProps {}
 
 const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
@@ -360,6 +595,10 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
   const [showZoneDropdown, setShowZoneDropdown] = useState(false);
   const severityDropdownRef = useRef<HTMLDivElement>(null);
   const zoneDropdownRef = useRef<HTMLDivElement>(null);
+  const [selectedIssue, setSelectedIssue] = useState<IssueDetail | null>(null);
+  const [showAddRepairs, setShowAddRepairs] = useState(false);
+  const [investigatedIssues, setInvestigatedIssues] = useState<Record<number, boolean>>({});
+  const [approvedIssues, setApprovedIssues] = useState<Record<number, boolean>>({});
   
   // Extract parameters from query string
   const queryParams = new URLSearchParams(location.search);
@@ -371,13 +610,13 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
     ? aircraftName.replace(/-/g, ' ').toUpperCase()
     : 'AIRCRAFT';
   // Get unique zones
-  const uniqueZones = Array.from(new Set(issueData.map(item => item.zone))).sort();
+  const uniqueZones = Array.from(new Set(issueData.map((item: {zone: string}) => item.zone))).sort();
   
   // Severity levels
   const severityLevels = ['Medium', 'High', 'Critical'];
   
   // Filter issues based on selected zone and severity
-  const filteredIssues = issueData.filter(issue => {
+  const filteredIssues = issueData.filter((issue: {zone: string, severity: string}) => {
     const matchesZone = !selectedZone || issue.zone === selectedZone;
     const matchesSeverity = !selectedSeverity || issue.severity === selectedSeverity;
     return matchesZone && matchesSeverity;
@@ -438,6 +677,61 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [showSeverityDropdown, showZoneDropdown]);
+  
+  // Get impact text based on severity
+  const getImpactText = (severity: string) => {
+    switch (severity) {
+      case 'Critical': return 'High';
+      case 'High': return 'Moderate';
+      case 'Medium': return 'Minimal';
+      default: return 'Unknown';
+    }
+  };
+  
+  // Handle row click to show issue details
+  const handleRowClick = (issue: {id: number, zone: string, issue: string, severity: string}) => {
+    // Find the detailed issue data
+    const detailedIssue = issueDetailsData.find(detail => 
+      detail.zone === issue.zone && detail.issue === issue.issue
+    );
+    
+    // If found, set it as selected, otherwise create a basic detail object
+    if (detailedIssue) {
+      setSelectedIssue(detailedIssue);
+    } else {
+      setSelectedIssue({
+        id: issue.id,
+        zone: issue.zone.slice(-2),
+        issue: issue.issue,
+        severity: issue.severity,
+        description: 'No detailed description available for this issue.',
+        impact: `${getImpactText(issue.severity)}. Further inspection recommended.`,
+        possibleResolution: 'Schedule further inspection to assess this issue.',
+        action: 'Document findings and schedule follow-up inspection.',
+        repairs: []
+      });
+    }
+  };
+  
+  // Handle investigation button click
+  const handleInvestigate = () => {
+    if (selectedIssue) {
+      setInvestigatedIssues(prev => ({
+        ...prev,
+        [selectedIssue.id]: true
+      }));
+    }
+  };
+  
+  // Handle approve button click
+  const handleApprove = () => {
+    if (selectedIssue) {
+      setApprovedIssues(prev => ({
+        ...prev,
+        [selectedIssue.id]: true
+      }));
+    }
+  };
   
   return (
     <MainContent>
@@ -539,23 +833,122 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
             </TableHeader>
             <TableBody>
               {filteredIssues.map(issue => (
-                <TableRow key={issue.id}>
+                <TableRow 
+                  key={issue.id}
+                  onClick={() => handleRowClick(issue)}
+                  style={{ 
+                    cursor: 'pointer',
+                    backgroundColor: selectedIssue?.id === issue.id ? '#2a2a2a' : undefined
+                  }}
+                >
                   <TableCell>
                     <SeverityIndicator severity={issue.severity} title={issue.severity} />
                   </TableCell>
                   <TableCell>{issue.zone}</TableCell>
-                  <TableCell>{issue.issue}</TableCell>
+                  <TableCell>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                      <span>{issue.issue}</span>
+                      <StatusIcons>
+                        {investigatedIssues[issue.id] && <InvestigateIcon>!</InvestigateIcon>}
+                        {approvedIssues[issue.id] && <ApproveIcon><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="9" stroke="#4caf50" stroke-width="2"/>
+<path d="M8 12L11 15L16 9" stroke="#4caf50" stroke-width="2"/>
+</svg>
+</ApproveIcon>}
+                      </StatusIcons>
+                    </div>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
+          
+          {/* {selectedIssue && (
+            <ButtonsContainer>
+              <ActionButton variant="primary">Investigate</ActionButton>
+              <ActionButton variant="success">Approve</ActionButton>
+              <ActionButton>Export to PDF</ActionButton>
+            </ButtonsContainer>
+          )} */}
         </LeftSide>
         
         <RightSide>
           <ImageContainer>
-            <PlaceholderText>
-              Aircraft Inspection Image
-            </PlaceholderText>
+            {!selectedIssue ? (
+              <PlaceholderText>
+                Aircraft Inspection Image
+              </PlaceholderText>
+            ) : (
+              <ImageContainerLayout>
+                <IssueDetailsContainer>
+                  <DetailRow>
+                    <DetailLabel>Category Impact: {selectedIssue.severity}</DetailLabel>
+                  </DetailRow>
+                  <DetailRow>
+                    <DetailLabel>Zone: <span style={{ color: '#ccc', fontWeight: '200' }}>{selectedIssue.zone.slice(-2)}</span></DetailLabel>
+                  </DetailRow>
+                  <DetailRow>
+                    <DetailLabel>Inspection: <span style={{ color: '#ccc', fontWeight: '200' }}>{selectedIssue.issue} Inspection</span></DetailLabel>
+                  </DetailRow>
+                  <DetailRow>
+                    <DetailLabel>Issue: <span style={{ color: '#ccc', fontWeight: '200' }}>{selectedIssue.issue}</span></DetailLabel>
+                  </DetailRow>
+                  <DetailRow>
+                    <DetailLabel>Description:</DetailLabel>
+                    <DetailValue>{selectedIssue.description}</DetailValue>
+                  </DetailRow>
+                  <DetailRow>
+                    <DetailLabel>Impact: {getImpactText(selectedIssue.severity)}</DetailLabel>
+                    <DetailValue>
+                      {selectedIssue.impact.split('.')[1]?.trim() || 'Further assessment needed.'}
+                    </DetailValue>
+                  </DetailRow>
+                  <DetailRow>
+                    <DetailLabel>Possible Resolution:</DetailLabel>
+                    <DetailValue>{selectedIssue.possibleResolution}</DetailValue>
+                  </DetailRow>
+                  <DetailRow>
+                    <DetailLabel>Action:</DetailLabel>
+                    <DetailValue>{selectedIssue.action}</DetailValue>
+                  </DetailRow>
+                  
+                  <AddRepairsContainer>
+                    <AddRepairsHeader>
+                      <DetailLabel>Add Repairs/Analysis:</DetailLabel>
+                      <AddButton onClick={() => setShowAddRepairs(!showAddRepairs)}>+</AddButton>
+                    </AddRepairsHeader>
+                    
+                    
+                    {selectedIssue.repairs.length > 0 && (
+                      <RepairItemsList> 
+                        {selectedIssue.repairs.map((repair, index) => (
+                          <RepairItem key={index}>{repair}</RepairItem>
+                        ))}
+                      </RepairItemsList>
+                    )}
+                  </AddRepairsContainer>
+                {selectedIssue && (
+                <ButtonsContainer>
+                <ActionButton variant="primary" onClick={handleInvestigate}>Investigate</ActionButton>
+                <ActionButton variant="success" onClick={handleApprove}>Approve</ActionButton>
+                <ActionButton>Export to PDF</ActionButton>
+                </ButtonsContainer>
+            )}
+                </IssueDetailsContainer>
+                <IssueImagesContainer>
+                  {/* <ImagesGrid> */}
+                    <ImagePlaceholder>Add Image here</ImagePlaceholder>
+                    {/* <ImagePlaceholder>Click to add image</ImagePlaceholder>
+                    <ImagePlaceholder>Click to add image</ImagePlaceholder>
+                    <ImagePlaceholder>Click to add image</ImagePlaceholder> */}
+                  {/* </ImagesGrid> */}
+                  
+                  <SecondImagePlaceholder>
+                    Add Image here
+                  </SecondImagePlaceholder>
+                </IssueImagesContainer>
+              </ImageContainerLayout>
+            )}
           </ImageContainer>
         </RightSide>
       </ContentLayout>
