@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const MainContent = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const TopBar = styled.div`
@@ -59,6 +61,22 @@ const TeamOption = styled.div`
   }
 `;
 
+const BreadcrumbText = styled.span`
+  color: #ccc;
+  font-size: 1rem;
+  margin-left: 16px;
+  
+  a {
+    color: #ccc;
+    text-decoration: underline;
+    cursor: pointer;
+    
+    &:hover {
+      color: white;
+    }
+  }
+`;
+
 const BackButton = styled.button`
   background: none;
   border: none;
@@ -76,17 +94,208 @@ const BackButton = styled.button`
   }
 `;
 
-const PageHeader = styled.div`
+const PageHeaderContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 30px;
+  flex-direction: column;
+  margin-bottom: 20px;
 `;
 
 const PageTitle = styled.h1`
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
-  margin: 0;
+  margin: 0 0 5px 0;
   color: #fff;
+`;
+
+const SubtitleText = styled.div`
+  font-size: 1rem;
+  color: #999;
+  margin-bottom: 15px;
+`;
+
+const ContentLayout = styled.div`
+  display: flex;
+  gap: 10px;
+  width: 100%;
+`;
+
+const LeftSide = styled.div`
+  width: 40%;
+  flex: 0 0 25%;
+  max-width: 40%;
+`;
+
+const RightSide = styled.div`
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ImageContainer = styled.div`
+  width: 90%;
+  height: 100%;
+  padding: 20px;
+  margin-top: 50px;
+  margin-left: 50px;
+  min-height: 600px;
+  background-color: #121212;
+  border-radius: 32px;
+  border: 3px solid #333;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const PlaceholderText = styled.div`
+  color: #666;
+  font-size: 1.2rem;
+  text-align: center;
+`;
+
+const FilterContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+`;
+
+const FilterLabel = styled.span`
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+`;
+
+const DropdownSelect = styled.div`
+  background-color: #222;
+  padding: 6px 8px;
+  border-radius: 8px;
+  color: #444;
+  min-width: 150px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+`;
+
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #222;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  margin-top: 5px;
+  z-index: 10;
+  max-height: 250px;
+  overflow-y: auto;
+`;
+
+const DropdownMenuItem = styled.div`
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: #ccc;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+`;
+
+const ClearFiltersButton = styled.button`
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: #ccc;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  align-self: center;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+`;
+
+const Table = styled.div`
+  width: 100%;
+  border-radius: 8px;
+  overflow: auto;
+  border: 1px solid #333;
+  background-color: #121212;
+`;
+
+const TableHeader = styled.div`
+  display: grid;
+  grid-template-columns: 50px 90px 1fr;
+  background-color: #2b2a2a;
+  border-bottom: 1px solid #333;
+`;
+
+const HeaderCell = styled.div`
+  padding: 5px 8px;
+  font-weight: 500;
+  font-size:1.1rem;
+  color: #fff;
+  text-align: left;
+  border-right: 1px solid #333;
+  
+  &:last-child {
+    border-right: none;
+  }
+`;
+
+const TableBody = styled.div`
+  width: 100%;
+`;
+
+const TableRow = styled.div`
+  display: grid;
+  grid-template-columns: 50px 90px 1fr;
+  border-bottom: 1px solid #333;
+  background-color: #1e1e1e;
+  
+  &:nth-child(odd) {
+    background-color: #1a1a1a;
+  }
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  &.highlighted {
+    background-color: rgba(75, 75, 75, 0.5);
+  }
+`;
+
+const TableCell = styled.div`
+  padding: 5px 8px;
+  color: #ccc;
+  font-size: 0.9rem;
+  border-right: 1px solid #333;
+  
+  &:last-child {
+    border-right: none;
+  }
+`;
+
+const SeverityIndicator = styled.div<{ severity: string }>`
+  width: 0;
+  height: 0;
+  margin: 0 auto;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid ${({ severity }) => {
+    switch (severity) {
+      case 'Critical': return '#FF4444';
+      case 'High': return '#FF8800';
+      case 'Medium': return '#FFDD00';
+      default: return '#888888';
+    }
+  }};
 `;
 
 const DetailContainer = styled.div`
@@ -97,81 +306,10 @@ const DetailContainer = styled.div`
   border: 1px solid #333;
 `;
 
-const WorkOrderHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #333;
-`;
-
-const OrderInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
-
-const OrderId = styled.div`
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #fff;
-`;
-
-const OrderDescription = styled.div`
-  font-size: 1rem;
-  color: #ccc;
-`;
-
-const StatusBadge = styled.span`
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #ccc;
-`;
-
-const PriorityBadge = styled.span`
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #ccc;
-  margin-left: 10px;
-`;
-
-const DetailSection = styled.div`
-  margin-bottom: 20px;
-`;
-
 const SectionTitle = styled.h2`
   font-size: 1.1rem;
   margin-bottom: 15px;
   color: #fff;
-`;
-
-const DetailRow = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  margin-bottom: 20px;
-`;
-
-const DetailCard = styled.div`
-  background-color: #262626;
-  border-radius: 6px;
-  padding: 15px;
-`;
-
-const DetailLabel = styled.div`
-  font-size: 0.8rem;
-  color: #777;
-  margin-bottom: 5px;
-`;
-
-const DetailValue = styled.div`
-  font-size: 1rem;
-  color: #ccc;
 `;
 
 const TextBlock = styled.div`
@@ -183,84 +321,30 @@ const TextBlock = styled.div`
   line-height: 1.5;
 `;
 
-const ActionButton = styled.button`
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 16px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  margin-right: 10px;
-  
-  &:hover {
-    background-color: #444;
-  }
-`;
-
-const BreadcrumbText = styled.span`
-  color: #ccc;
-  font-size: 1rem;
-  margin-left: 16px;
-  
-  a {
-    color: #ccc;
-    text-decoration: underline;
-    cursor: pointer;
-    
-    &:hover {
-      color: white;
-    }
-  }
-`;
-
-// Sample work order data
-const workOrders = {
-  '1': {
-    id: '1',
-    title: 'FAA-Mandated A-Check',
-    description: 'Complete A-Check inspection for Boeing 737-10 MAX',
-    aircraft: 'Boeing 737-10 MAX',
-    tailNumber: 'N7201S',
-    status: 'In-Progress',
-    priority: 'High',
-    createdDate: '04/01/2025',
-    dueDate: '04/15/2025',
-    lastUpdated: '04/02/2025',
-    assignedTo: 'John Smith',
-    team: 'MRO Team 1',
-    location: 'Hangar 5B',
-    estimatedHours: '24',
-    details: 'Perform comprehensive A-Check maintenance inspection according to Boeing service manual and FAA requirements. Include all tasks listed in checklist A-737-100.',
-    notes: 'Previous inspection noted minor hydraulic leak in landing gear area. Pay special attention to hydraulic lines and connections.',
-    attachments: [
-      { name: 'A-Check Checklist.pdf', size: '2.3 MB' },
-      { name: 'Previous Inspection Report.pdf', size: '1.7 MB' }
-    ]
-  },
-  '2': {
-    id: '2',
-    title: 'Wing Inspection',
-    description: 'Inspect wing structural integrity and control surfaces',
-    aircraft: 'Boeing 737-900',
-    tailNumber: 'N37439',
-    status: 'Completed',
-    priority: 'Low',
-    createdDate: '04/01/2025',
-    dueDate: '04/15/2025',
-    lastUpdated: '04/14/2025',
-    assignedTo: 'Sarah Johnson',
-    team: 'Wing Inspection Team',
-    location: 'Hangar 3A',
-    estimatedHours: '16',
-    details: 'Conduct thorough wing inspection focusing on structural components, control surfaces, and attachment points. Check for any signs of corrosion, fatigue, or delamination.',
-    notes: 'Aircraft experienced moderate turbulence during last flight. Captain reported nothing unusual but requested preventative inspection.',
-    attachments: [
-      { name: 'Wing Inspection Procedure.pdf', size: '3.1 MB' },
-      { name: 'Completion Photos.zip', size: '12.5 MB' }
-    ]
-  }
-};
+// Sample data based on the image
+const issueData = [
+  { id: 1, severity: 'Medium', zone: 'Zone12', issue: 'Engine Blades' },
+  { id: 2, severity: 'High', zone: 'Zone11', issue: 'Engine Thermal Analysis' },
+  { id: 3, severity: 'High', zone: 'Zone01', issue: 'Engine Fluid Leaks' },
+  { id: 4, severity: 'Critical', zone: 'Zone12', issue: 'Wing Tips' },
+  { id: 5, severity: 'Critical', zone: 'Zone03', issue: 'Wing Rivets' },
+  { id: 6, severity: 'Medium', zone: 'Zone01', issue: 'Wing Rudders' },
+  { id: 7, severity: 'Medium', zone: 'Zone01', issue: 'Rivets' },
+  { id: 8, severity: 'High', zone: 'Zone21', issue: 'Rivets' },
+  { id: 9, severity: 'Critical', zone: 'Zone22', issue: 'Rivets' },
+  { id: 10, severity: 'Critical', zone: 'Zone24', issue: 'Rivets' },
+  { id: 11, severity: 'Medium', zone: 'Zone24', issue: 'Rivets' },
+  { id: 12, severity: 'Medium', zone: 'Zone02', issue: 'Rivets' },
+  { id: 13, severity: 'High', zone: 'Zone16', issue: 'Rivets' },
+  { id: 14, severity: 'Medium', zone: 'Zone01', issue: 'Rivets' },
+  { id: 15, severity: 'Medium', zone: 'Zone11', issue: 'Rivets' },
+  { id: 16, severity: 'High', zone: 'Zone21', issue: 'Paint Peel' },
+  { id: 17, severity: 'Medium', zone: 'Zone12', issue: 'Landing Gear' },
+  { id: 18, severity: 'Medium', zone: 'Zone17', issue: 'Fluid Leak' },
+  { id: 19, severity: 'High', zone: 'Zone15', issue: 'Fluid Leak' },
+  { id: 20, severity: 'Medium', zone: 'Zone16', issue: 'Door Opening' },
+  { id: 21, severity: 'Medium', zone: 'Zone01', issue: 'Nose FOD' },
+];
 
 interface WorkOrderDetailProps {}
 
@@ -269,31 +353,35 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { selectedTeam, teams, selectTeam } = useAuth();
-  const [isTeamDropdownOpen, setIsTeamDropdownOpen] = React.useState(false);
+  const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
+  const [selectedSeverity, setSelectedSeverity] = useState('');
+  const [selectedZone, setSelectedZone] = useState('');
+  const [showSeverityDropdown, setShowSeverityDropdown] = useState(false);
+  const [showZoneDropdown, setShowZoneDropdown] = useState(false);
+  const severityDropdownRef = useRef<HTMLDivElement>(null);
+  const zoneDropdownRef = useRef<HTMLDivElement>(null);
   
-  // Extract orderId from query parameters
+  // Extract parameters from query string
   const queryParams = new URLSearchParams(location.search);
   const orderId = queryParams.get('orderId');
+  const inspectionType = queryParams.get('inspection');
   
-  // Get work order data based on ID
-  const workOrder = orderId ? workOrders[orderId as keyof typeof workOrders] : null;
+  // Format aircraft name for display
+  const formattedAircraftName = aircraftName 
+    ? aircraftName.replace(/-/g, ' ').toUpperCase()
+    : 'AIRCRAFT';
+  // Get unique zones
+  const uniqueZones = Array.from(new Set(issueData.map(item => item.zone))).sort();
   
-  // Find orders matching the aircraft name if no specific order is found
-  const findOrdersByAircraft = () => {
-    if (!aircraftName) return null;
-    
-    const formattedAircraftName = aircraftName.replace(/-/g, ' ');
-    
-    // Find all orders with matching aircraft (case insensitive)
-    const matchingOrders = Object.values(workOrders).filter(order => 
-      order.aircraft.toLowerCase().includes(formattedAircraftName.toLowerCase())
-    );
-    
-    return matchingOrders.length > 0 ? matchingOrders[0] : null;
-  };
+  // Severity levels
+  const severityLevels = ['Medium', 'High', 'Critical'];
   
-  // Use orderId first, then fall back to matching by aircraft name
-  const displayOrder = workOrder || findOrdersByAircraft();
+  // Filter issues based on selected zone and severity
+  const filteredIssues = issueData.filter(issue => {
+    const matchesZone = !selectedZone || issue.zone === selectedZone;
+    const matchesSeverity = !selectedSeverity || issue.severity === selectedSeverity;
+    return matchesZone && matchesSeverity;
+  });
   
   // Function to toggle team dropdown
   const toggleTeamDropdown = () => {
@@ -311,17 +399,45 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
     navigate('/workOrderManagement');
   };
   
-  if (!displayOrder) {
-    return (
-      <MainContent>
-        <BackButton onClick={handleBack}>
-          &lt; Back to Work Orders
-        </BackButton>
-        <PageTitle>Work Order Not Found</PageTitle>
-        <p>No work order found for aircraft: {aircraftName}</p>
-      </MainContent>
-    );
-  }
+  // Function to handle severity selection
+  const handleSeveritySelect = (severity: string) => {
+    setSelectedSeverity(severity === selectedSeverity ? '' : severity);
+    setShowSeverityDropdown(false);
+  };
+  
+  // Function to handle zone selection
+  const handleZoneSelect = (zone: string) => {
+    setSelectedZone(zone === selectedZone ? '' : zone);
+    setShowZoneDropdown(false);
+  };
+  
+  // Function to clear all filters
+  const clearFilters = () => {
+    setSelectedSeverity('');
+    setSelectedZone('');
+  };
+  
+  // Handle clicks outside of dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (severityDropdownRef.current && 
+          !severityDropdownRef.current.contains(event.target as Node) && 
+          showSeverityDropdown) {
+        setShowSeverityDropdown(false);
+      }
+      
+      if (zoneDropdownRef.current && 
+          !zoneDropdownRef.current.contains(event.target as Node) && 
+          showZoneDropdown) {
+        setShowZoneDropdown(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showSeverityDropdown, showZoneDropdown]);
   
   return (
     <MainContent>
@@ -350,102 +466,99 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
         </div>
       </TopBar>
       
-      <BackButton onClick={handleBack}>
+      {/* <BackButton onClick={handleBack}>
         &lt; Back to Work Orders
-      </BackButton>
+      </BackButton> */}
       
-      <PageHeader>
-        <PageTitle>A-Check: {displayOrder.aircraft}</PageTitle>
-      </PageHeader>
+      <PageHeaderContainer>
+        <PageTitle>{inspectionType} : {formattedAircraftName}</PageTitle>
+      </PageHeaderContainer>
       
-      <DetailContainer>
-        <WorkOrderHeader>
-          <OrderInfo>
-            <OrderId>Work Order {displayOrder.id}</OrderId>
-            <OrderDescription>{displayOrder.description}</OrderDescription>
-          </OrderInfo>
-          <div>
-            <StatusBadge>{displayOrder.status}</StatusBadge>
-            <PriorityBadge>Priority: {displayOrder.priority}</PriorityBadge>
-          </div>
-        </WorkOrderHeader>
-        
-        <DetailRow>
-          <DetailCard>
-            <DetailLabel>Aircraft</DetailLabel>
-            <DetailValue>{displayOrder.aircraft}</DetailValue>
-          </DetailCard>
-          <DetailCard>
-            <DetailLabel>Tail Number</DetailLabel>
-            <DetailValue>{displayOrder.tailNumber}</DetailValue>
-          </DetailCard>
-        </DetailRow>
-        
-        <DetailRow>
-          <DetailCard>
-            <DetailLabel>Created Date</DetailLabel>
-            <DetailValue>{displayOrder.createdDate}</DetailValue>
-          </DetailCard>
-          <DetailCard>
-            <DetailLabel>Due Date</DetailLabel>
-            <DetailValue>{displayOrder.dueDate}</DetailValue>
-          </DetailCard>
-        </DetailRow>
-        
-        <DetailRow>
-          <DetailCard>
-            <DetailLabel>Assigned To</DetailLabel>
-            <DetailValue>{displayOrder.assignedTo}</DetailValue>
-          </DetailCard>
-          <DetailCard>
-            <DetailLabel>Team</DetailLabel>
-            <DetailValue>{displayOrder.team}</DetailValue>
-          </DetailCard>
-        </DetailRow>
-        
-        <DetailRow>
-          <DetailCard>
-            <DetailLabel>Location</DetailLabel>
-            <DetailValue>{displayOrder.location}</DetailValue>
-          </DetailCard>
-          <DetailCard>
-            <DetailLabel>Estimated Hours</DetailLabel>
-            <DetailValue>{displayOrder.estimatedHours}</DetailValue>
-          </DetailCard>
-        </DetailRow>
-      </DetailContainer>
-      
-      <DetailSection>
-        <SectionTitle>Details</SectionTitle>
-        <TextBlock>
-          {displayOrder.details}
-        </TextBlock>
-      </DetailSection>
-      
-      <DetailSection>
-        <SectionTitle>Notes</SectionTitle>
-        <TextBlock>
-          {displayOrder.notes}
-        </TextBlock>
-      </DetailSection>
-      
-      <DetailSection>
-        <SectionTitle>Attachments</SectionTitle>
-        {displayOrder.attachments.map((attachment, index) => (
-          <DetailCard key={index} style={{ marginBottom: '10px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <DetailValue>{attachment.name}</DetailValue>
-              <DetailLabel>{attachment.size}</DetailLabel>
+      <ContentLayout>
+        <LeftSide>
+          <FilterContainer>
+            <FilterLabel>Filter:</FilterLabel>
+            <div ref={severityDropdownRef} style={{ position: 'relative' }}>
+              <DropdownSelect onClick={() => setShowSeverityDropdown(!showSeverityDropdown)}>
+                {selectedSeverity || 'By Severity'} <span>▼</span>
+                {showSeverityDropdown && (
+                  <DropdownMenu>
+                    {selectedSeverity && (
+                      <DropdownMenuItem onClick={() => handleSeveritySelect('')}>
+                        Clear selection
+                      </DropdownMenuItem>
+                    )}
+                    {severityLevels.map(severity => (
+                      <DropdownMenuItem 
+                        key={severity}
+                        onClick={() => handleSeveritySelect(severity)}
+                      >
+                        {severity}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenu>
+                )}
+              </DropdownSelect>
             </div>
-          </DetailCard>
-        ))}
-      </DetailSection>
-      
-      <div style={{ display: 'flex', marginTop: '30px' }}>
-        <ActionButton>Update Status</ActionButton>
-        <ActionButton>Add Note</ActionButton>
-        <ActionButton>Upload Attachment</ActionButton>
-      </div>
+            
+            <div ref={zoneDropdownRef} style={{ position: 'relative' }}>
+              <DropdownSelect onClick={() => setShowZoneDropdown(!showZoneDropdown)}>
+                {selectedZone || 'By Zones'} <span>▼</span>
+                {showZoneDropdown && (
+                  <DropdownMenu>
+                    {selectedZone && (
+                      <DropdownMenuItem onClick={() => handleZoneSelect('')}>
+                        Clear selection
+                      </DropdownMenuItem>
+                    )}
+                    {uniqueZones.map(zone => (
+                      <DropdownMenuItem 
+                        key={zone}
+                        onClick={() => handleZoneSelect(zone)}
+                      >
+                        {zone}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenu>
+                )}
+              </DropdownSelect>
+            </div>
+            
+            {(selectedSeverity || selectedZone) && (
+              <ClearFiltersButton onClick={clearFilters}>
+                Clear
+              </ClearFiltersButton>
+            )}
+          </FilterContainer>
+          
+          <Table>
+            <TableHeader>
+              <HeaderCell></HeaderCell>
+              <HeaderCell>Zone</HeaderCell>
+              <HeaderCell>Issue List</HeaderCell>
+            </TableHeader>
+            <TableBody>
+              {filteredIssues.map(issue => (
+                <TableRow key={issue.id}>
+                  <TableCell>
+                    <SeverityIndicator severity={issue.severity} title={issue.severity} />
+                  </TableCell>
+                  <TableCell>{issue.zone}</TableCell>
+                  <TableCell>{issue.issue}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </LeftSide>
+        
+        <RightSide>
+          <ImageContainer>
+            <PlaceholderText>
+              Aircraft Inspection Image
+            </PlaceholderText>
+          </ImageContainer>
+        </RightSide>
+      </ContentLayout>
     </MainContent>
   );
 };

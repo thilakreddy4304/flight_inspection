@@ -579,7 +579,7 @@ const WorkOrderManagement: React.FC = () => {
   // Handle row click to navigate to detail page
   const handleRowClick = (order: any) => {
     const aircraftName = order.aircraft.replace(/\s+/g, '-').toLowerCase();
-    navigate(`/workOrderManagement/${aircraftName}?orderId=${order.id}`);
+    navigate(`/workOrderManagement/${aircraftName}?orderId=${order.id}&inspection=${encodeURIComponent(order.inspection)}`);
   };
 
   return (
@@ -603,9 +603,9 @@ const WorkOrderManagement: React.FC = () => {
               ))}
             </TeamDropdown>
           </TeamSelector>
-          <BreadcrumbText>
+          {/* <BreadcrumbText>
             &gt; <span>Work Order Management</span>
-          </BreadcrumbText>
+          </BreadcrumbText> */}
         </div>
       </TopBar>
       
