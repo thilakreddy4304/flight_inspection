@@ -184,6 +184,16 @@ const MetadataValue = styled.div`
   display: none;
 `;
 
+const DisclaimerContainer = styled.div`
+  margin-top: 100px;
+  margin-left: 20px;
+`;
+
+const DisclaimerText = styled.div`
+  font-size: 0.8rem;
+  font-style: italic;
+`;
+
 const RunButton = styled.button`
   background-color: #333;
   color: white;
@@ -191,12 +201,12 @@ const RunButton = styled.button`
   border-radius: 4px;
   padding: 12px 24px 12px 24px;
   font-weight: 600;
-  margin-top: 100px;
-  margin-right: -170px;
+  margin-top: 20px;
   cursor: pointer;
   justify-content: center;
-  float: right;
-  display: flex;
+  float: left;
+  display: grid;
+  margin-left: 20px;
   width: 120px;
   transition: background-color 0.2s;
   
@@ -395,6 +405,12 @@ const InspectionSteps: React.FC<InspectionStepsProps> = ({
           </InfoRow>
         </MetadataItem>
       </MetadataContainer>
+
+      <DisclaimerContainer>
+        <DisclaimerText>
+          *Recommended time based on allocated sensing assets.
+        </DisclaimerText>
+      </DisclaimerContainer>
       
       <RunButton onClick={handleRunClick}>Run</RunButton>
     </Container>

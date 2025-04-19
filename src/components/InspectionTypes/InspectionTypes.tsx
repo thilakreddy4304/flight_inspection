@@ -13,12 +13,12 @@ const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 `;
 
 const TeamSelector = styled.div`
   background-color: rgba(255, 255, 255, 0.05);
-  padding: 8px 16px;
+  padding: 4px 8px;
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -63,7 +63,7 @@ const TeamOption = styled.div`
 const PageTitle = styled.h1`
   font-size: 2rem;
   font-weight: 600;
-  margin: 0 0 8px 0;
+  margin: 0 0 4px 0;
 `;
 
 const FlightIdentifier = styled.span`
@@ -107,24 +107,29 @@ const SearchInput = styled.input`
 const InspectionGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 5px;
-  margin-top: 10px;
-  width: 120%;
-  padding: 4px;
+  gap: 20px;
+  margin-bottom: 15px;
+  margin-top: 20px;
+  width: 100%;
+  padding: 0;
+  justify-content: space-between;
+  margin-left: 20px;
+  margin-right: auto;
 `;
 
 const InspectionBox = styled.div`
-  background-color: #1E1E1E;
-  padding: 10px;
+  background-color: black;
+  padding: 15px;
+  padding-bottom: 55px; /* Extra space at bottom for buttons */
   display: flex;
   flex-direction: column;
-  min-height: 170px;
-  border: 1px solid #444;
+  min-height: 180px;
+  border: 2px solid #444;
   border-radius: 12px;
-  width: 100%;
+  width: 90%;
   box-sizing: border-box;
   transition: border-color 0.2s, transform 0.2s;
+  position: relative;
   
   &:hover {
     border-color: #666;
@@ -133,35 +138,41 @@ const InspectionBox = styled.div`
 `;
 
 const InspectionTitle = styled.h3`
-  font-size: 1.2rem;
-  margin: 0 0 16px 0;
+  font-size: 1rem;
+  margin: 0 0 12px 0;
   color: white;
+  font-weight: 600;
 `;
 
 const InspectionDescription = styled.p`
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #ccc;
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
+  flex-grow: 1;
 `;
 
 const InspectionMetadata = styled.div`
   font-size: 0.8rem;
   color: #888;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   gap: 12px;
-  margin-top: 0;
+  margin-top: auto;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
 `;
 
 const RunButton = styled.button`
-  background-color: transparent;
-  color: grey;
+  background-color: #444;
+  color: #fff;
   border: 1px solid #555;
   border-radius: 4px;
-  padding: 0 0;
+  padding: 8px 0;
   flex: 1;
   cursor: pointer;
   font-size: 0.9rem;
@@ -173,11 +184,11 @@ const RunButton = styled.button`
 `;
 
 const AddToFlowButton = styled.button`
-  background-color: transparent;
-  color: grey;
+  background-color: #444;
+  color: #fff;
   border: 1px solid #555;
   border-radius: 4px;
-  padding: 8px 16px;
+  padding: 8px 0;
   flex: 1;
   cursor: pointer;
   font-size: 0.9rem;
@@ -195,11 +206,12 @@ const CarouselPagination = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 30px;
-  padding: 10px 12px;
+  padding: 6px 12px;
   gap: 8px;
-  margin: 24px auto 0;
+  margin-top: 2px;
   width: fit-content;
-  margin-left: 400px;
+  margin-left: auto;  
+  margin-right: auto;
 `;
 
 const CarouselDot = styled.button<{ active: boolean }>`
@@ -223,7 +235,7 @@ const CarouselNav = styled.button<{ direction: 'prev' | 'next' }>`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1rem;
   transition: color 0.2s;
   
   &:hover {

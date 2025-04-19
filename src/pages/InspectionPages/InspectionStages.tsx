@@ -218,7 +218,7 @@ const AircraftImage = styled.div`
 const TimeEstimate = styled.div`
   font-style: italic;
   color: #999;
-  margin-top: 75px;
+  margin-top: 95px;
   margin-bottom: 24px;
   text-decoration: underline;
 `;

@@ -10,7 +10,7 @@ import WorkOrderManagement from '../WorkOrderManagement/workOrderManagement';
 
 const DashboardContainer = styled.div<{ fullWidth: boolean }>`
   display: grid;
-  grid-template-columns: ${props => props.fullWidth ? '80px 1fr' : '80px 1fr 350px'};
+  grid-template-columns: ${props => props.fullWidth ? '80px 1fr' : '80px 1fr'};
   min-height: 100vh;
   background-color: #121212;
   color: white;
@@ -25,10 +25,18 @@ const SideNav = styled.div`
   border-right: 1px solid #333;
 `;
 
-const MainContent = styled.div<{ isWorkOrderView?: boolean }>`
+const MainContent = styled.div<{ isWorkOrderView?: boolean; isInspectionView?: boolean }>`
   padding: 24px;
-  max-width: ${props => props.isWorkOrderView ? 'none' : '900px'};
-  width: ${props => props.isWorkOrderView ? '100%' : 'auto'};
+  max-width: ${props => {
+    if (props.isWorkOrderView) return 'none';
+    if (props.isInspectionView) return 'none';
+    return '900px';
+  }};
+  width: ${props => {
+    if (props.isWorkOrderView) return '100%';
+    if (props.isInspectionView) return '100%';
+    return 'auto';
+  }};
 `;
 
 const TopSection = styled.div`
@@ -222,7 +230,7 @@ const Dashboard: React.FC = () => {
   };
   
   return (
-    <DashboardContainer fullWidth={currentView === 'workOrderManagement'}>
+    <DashboardContainer fullWidth={currentView === 'workOrderManagement' || currentView === 'inspections'}>
       <SideNav>
         <SideNavbar 
           activePage={currentView} 
@@ -232,6 +240,7 @@ const Dashboard: React.FC = () => {
       
       <MainContent 
         isWorkOrderView={currentView === 'workOrderManagement'}
+        isInspectionView={currentView === 'inspections'}
       >
         {renderMainContent()}
       </MainContent>
