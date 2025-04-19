@@ -335,7 +335,7 @@ const ImageContainerLayout = styled.div`
 
 const IssueDetailsContainer = styled.div`
   width: 40%;
-  padding: 10px;
+  padding: 1px;
   color: white;
   display: flex;
   flex-direction: column;
@@ -515,6 +515,55 @@ const StatusIcons = styled.div`
   margin-left: auto;
 `;
 
+const RepairInput = styled.textarea`
+  width: 100%;
+  background-color: #262626;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #ccc;
+  font-size: 0.8rem;
+  padding: 8px;
+  margin-bottom: 10px;
+  resize: vertical;
+  min-height: 60px;
+  font-family: inherit;
+  
+  &:focus {
+    outline: none;
+    border-color: #555;
+  }
+`;
+
+const RepairActionButtons = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 10px;
+`;
+
+const RepairActionButton = styled.button`
+  background-color: #333;
+  border: none;
+  color: #ccc;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  
+  &:hover {
+    background-color: #444;
+  }
+  
+  &.primary {
+    background-color: #4caf50;
+    color: white;
+    
+    &:hover {
+      background-color: #4caf50;
+    }
+  }
+`;
+
 // Add back the issue data array that was removed in the previous edit
 const issueData = [
   { id: 1, severity: 'Medium', zone: 'Zone12', issue: 'Engine Blades' },
@@ -550,9 +599,10 @@ interface IssueDetail {
   possibleResolution: string;
   action: string;
   repairs: string[];
-  investigated?: boolean;
-  approved?: boolean;
 }
+
+// Add a new type to track issue status
+type IssueStatus = 'none' | 'investigated' | 'approved';
 
 // Extended issueData with detailed information
 const issueDetailsData: IssueDetail[] = [
@@ -578,6 +628,41 @@ const issueDetailsData: IssueDetail[] = [
     action: 'Document findings and compare with next inspection data to track progression.',
     repairs: ['Record Thermal Values', 'Flag for Engineer Review']
   },
+  {
+    id: issueData[9].id,
+    zone: issueData[9].zone,
+    issue: issueData[9].issue,
+    severity: issueData[9].severity,
+    description: 'Rivets in Zone 22 are rusted heavily, which may lead to lose composites and compromises structural integrity.',
+    impact: 'High. This is considered to impact structural integrity of composites.',
+    possibleResolution: 'Replace Rivets',
+    action: 'Remove the rusted rivets and examine composites and internal parts for leaks or damage. Repair using new rivets.',
+    repairs: ['Check for leaks/internal damages', 'Replace Rivets']
+  },
+  {
+    id: issueData[20].id,
+    zone: issueData[20].zone,
+    issue: issueData[20].issue,
+    severity: issueData[20].severity,
+    description: 'Lower-side of the back door is damaged from impact with ground vehicle.',
+    impact: 'Moderate. This is considered to impact door integrity beyond certain point. Measured damage is below 3mm depth and covers under 10mm area.',
+    possibleResolution: 'Repair the door',
+    action: 'Since the damage is smaller than the limit, repair will fix the issue.',
+    repairs: ['Repair the door damage surface']
+  },
+  {
+    id: issueData[16].id,
+    zone: issueData[16].zone,
+    issue: issueData[16].issue,
+    severity: issueData[16].severity,
+    description: 'Paint Peeling on Zone 21 is detected in 508 square inches of area. This may grow with time and exposure to severe weather conditions.',
+    impact: 'Moderate. This is considered to impact composite integrity in long-run..',
+    possibleResolution: 'Using tape in the area',
+    action: 'Clear the paint peels and clean the surface. Apply bonding agents and use tape to cover the exposed surface.',
+    repairs: ['Clean the paint peel surface', 'Apply tape with proper bonding agent']
+  },
+  
+  
   // ... add more detailed entries for other issues
 ];
 
@@ -597,8 +682,8 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
   const zoneDropdownRef = useRef<HTMLDivElement>(null);
   const [selectedIssue, setSelectedIssue] = useState<IssueDetail | null>(null);
   const [showAddRepairs, setShowAddRepairs] = useState(false);
-  const [investigatedIssues, setInvestigatedIssues] = useState<Record<number, boolean>>({});
-  const [approvedIssues, setApprovedIssues] = useState<Record<number, boolean>>({});
+  const [issueStatuses, setIssueStatuses] = useState<Record<number, IssueStatus>>({});
+  const [newRepair, setNewRepair] = useState("");
   
   // Extract parameters from query string
   const queryParams = new URLSearchParams(location.search);
@@ -716,9 +801,9 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
   // Handle investigation button click
   const handleInvestigate = () => {
     if (selectedIssue) {
-      setInvestigatedIssues(prev => ({
+      setIssueStatuses(prev => ({
         ...prev,
-        [selectedIssue.id]: true
+        [selectedIssue.id]: 'investigated'
       }));
     }
   };
@@ -726,11 +811,58 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
   // Handle approve button click
   const handleApprove = () => {
     if (selectedIssue) {
-      setApprovedIssues(prev => ({
+      setIssueStatuses(prev => ({
         ...prev,
-        [selectedIssue.id]: true
+        [selectedIssue.id]: 'approved'
       }));
     }
+  };
+  
+  // Function to render the appropriate status icon based on issue status
+  const renderStatusIcon = (issueId: number) => {
+    const status = issueStatuses[issueId];
+    
+    if (status === 'investigated') {
+      return <InvestigateIcon>!</InvestigateIcon>;
+    } else if (status === 'approved') {
+      return (
+        <ApproveIcon>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="9" stroke="#4caf50" strokeWidth="2"/>
+            <path d="M8 12L11 15L16 9" stroke="#4caf50" strokeWidth="2"/>
+          </svg>
+        </ApproveIcon>
+      );
+    }
+    
+    return null;
+  };
+  
+  // Handle adding a new repair
+  const handleAddRepair = () => {
+    if (selectedIssue && newRepair.trim()) {
+      // Create a new issue detail with the updated repairs
+      const updatedIssue = {
+        ...selectedIssue,
+        repairs: [...selectedIssue.repairs, newRepair.trim()]
+      };
+      
+      // Find and update the issue in the details data
+      const updatedDetailsData = issueDetailsData.map(issue => 
+        issue.id === selectedIssue.id ? updatedIssue : issue
+      );
+      
+      // Update selected issue and reset form
+      setSelectedIssue(updatedIssue);
+      setNewRepair("");
+      setShowAddRepairs(false);
+    }
+  };
+  
+  // Handle canceling the repair addition
+  const handleCancelAddRepair = () => {
+    setNewRepair("");
+    setShowAddRepairs(false);
   };
   
   return (
@@ -849,12 +981,7 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
                     <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                       <span>{issue.issue}</span>
                       <StatusIcons>
-                        {investigatedIssues[issue.id] && <InvestigateIcon>!</InvestigateIcon>}
-                        {approvedIssues[issue.id] && <ApproveIcon><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="12" cy="12" r="9" stroke="#4caf50" stroke-width="2"/>
-<path d="M8 12L11 15L16 9" stroke="#4caf50" stroke-width="2"/>
-</svg>
-</ApproveIcon>}
+                        {renderStatusIcon(issue.id)}
                       </StatusIcons>
                     </div>
                   </TableCell>
@@ -918,6 +1045,27 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
                       <AddButton onClick={() => setShowAddRepairs(!showAddRepairs)}>+</AddButton>
                     </AddRepairsHeader>
                     
+                    {showAddRepairs && (
+                      <>
+                        <RepairInput
+                          value={newRepair}
+                          onChange={(e) => setNewRepair(e.target.value)}
+                          placeholder="Enter repair or analysis details..."
+                        />
+                        <RepairActionButtons>
+                          <RepairActionButton onClick={handleCancelAddRepair}>
+                            Cancel
+                          </RepairActionButton>
+                          <RepairActionButton 
+                            className="primary"
+                            onClick={handleAddRepair}
+                            disabled={!newRepair.trim()}
+                          >
+                            Add
+                          </RepairActionButton>
+                        </RepairActionButtons>
+                      </>
+                    )}
                     
                     {selectedIssue.repairs.length > 0 && (
                       <RepairItemsList> 
