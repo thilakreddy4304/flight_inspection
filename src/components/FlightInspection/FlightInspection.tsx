@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -7,6 +6,9 @@ import InspectionDetails from '../InspectionTypes/InspectionTypes';
 
 const MainContent = styled.div`
   width: 100%;
+  /* Uncomment for debugging layout
+  border: 2px solid red;
+  */
 `;
 
 const TopBar = styled.div`
@@ -73,6 +75,7 @@ const SearchContainer = styled.div`
   gap: 16px;
   margin-bottom: 30px;
   cursor: text;
+  width: 80%;
 `;
 
 const SearchInputContainer = styled.div`
@@ -130,23 +133,26 @@ const DropdownSelect = styled.div`
 const AircraftInfoContainer = styled.div`
   margin-bottom: 30px;
   font-size: 1rem;
+  // max-width: 1200px;
+  // margin-left: auto;
+  // margin-right: auto;
 `;
 
 const FlightInfo = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
+  display: ;
+  flex-direction: column;
   gap: 5px;
   margin-bottom: 30px;
 `;
 
 const InfoRow = styled.div`
   margin-bottom: 1px;
-  font-size: 1.5rem;
+  font-size: 1rem;
   white-space: nowrap;
 
   .label {
-    color: #777;
-    font-size: 1rem;
+    color: #fff;
+    font-size: 1.2rem;
   }
 
   .value {
@@ -159,25 +165,31 @@ const InfoRow = styled.div`
 const ModelViewContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-bottom: 40px;
-  justify-items: center;
+  gap: 50px;
+  margin-bottom: 100px;
+  justify-content: center;
   text-align: center;
+  // margin-top: 30px;
+  // width: 100%; 
+  // max-width: 1200px;
+  // margin-left: auto;
+  // margin-right: auto;
 `;
 
 const ModelCard = styled.div`
   background-color: #1E1E1E;
-  border-radius: 50px;
+  border-radius: 30px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  width: 90%;
-  margin-left: 60px;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 `;
 
 const ModelImage = styled.div`
   height: 200px;
-  width: 400px;
+  width: 100%;
   background-color: #222;
   display: flex;
   justify-content: center;
@@ -197,7 +209,7 @@ const ModelCaption = styled.div`
   font-size: 1rem;
   color: #ccc;
   margin-top: 8px;
-  margin-left: 70px;
+  margin-left: 0; /* Remove fixed margin */
   animation: slideFromRight 0.8s ease-out forwards;
   position: relative;
   
@@ -299,10 +311,13 @@ const ClearFiltersButton = styled.button`
 
 const ActionButtonContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-end; /* Center the button */
   width: 100%;
   margin-top: 20px;
-  margin-left: 180px;
+  margin-left: 0; /* Remove fixed margin */
+  /* Uncomment for debugging layout
+  border: 2px solid yellow;
+  */
 `;
 
 const ActionButton = styled.button`
