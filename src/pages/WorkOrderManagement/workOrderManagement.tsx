@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const MainContent = styled.div`
   width: 100%;
@@ -55,6 +56,17 @@ const TeamOption = styled.div`
   
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
+  }
+`;
+
+const BreadcrumbText = styled.span`
+  color: #ccc;
+  font-size: 1rem;
+  margin-left: 16px;
+  
+  span {
+    color: white;
+    text-decoration: underline;
   }
 `;
 
@@ -219,7 +231,7 @@ const Table = styled.div`
 
 const TableHeader = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   background-color:rgb(43, 42, 42);
   border-bottom: 1px solid #333;
   width: 100%;
@@ -248,7 +260,7 @@ const TableBody = styled.div`
 
 const TableRow = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   border-bottom: 1px solid #333;
   background-color: #1E1E1E;
   width: 100%;
@@ -295,18 +307,18 @@ const PriorityBadge = styled.span<{ priority: string }>`
 
 // Sample data for work orders based on image
 const workOrdersData = [
-  { id: '1', createdDate: '04/01/2025', aircraft: 'Boeing 737-10 MAX', inspection: 'FAA-Mandated A-Check', status: 'In-Progress', completionDate: '04/15/2025', priority: 'High' },
-  { id: '2', createdDate: '04/01/2025', aircraft: 'Boeing 737-900', inspection: 'Wing Inspection', status: 'Completed', completionDate: '04/15/2025', priority: 'Low' },
-  { id: '3', createdDate: '04/01/2025', aircraft: 'Boeing 737-10 MAX', inspection: 'FAA-Mandated A-Check', status: 'In-Progress', completionDate: '04/15/2025', priority: 'High' },
-  { id: '4', createdDate: '04/01/2025', aircraft: 'Boeing 737-10 MAX', inspection: 'FAA-Mandated A-Check', status: 'In-Progress', completionDate: '04/15/2025', priority: 'High' },
-  { id: '5', createdDate: '04/01/2025', aircraft: 'Boeing 737-10 MAX', inspection: 'FAA-Mandated A-Check', status: 'In-Progress', completionDate: '04/15/2025', priority: 'High' },
-  { id: '6', createdDate: '04/01/2025', aircraft: 'Boeing 737-10 MAX', inspection: 'FAA-Mandated A-Check', status: 'In-Progress', completionDate: '04/15/2025', priority: 'High' },
-  { id: '7', createdDate: '04/01/2025', aircraft: 'Boeing 737-10 MAX', inspection: 'FAA-Mandated A-Check', status: 'In-Progress', completionDate: '04/15/2025', priority: 'High' },
-  { id: '8', createdDate: '04/01/2025', aircraft: 'Boeing 737-10 MAX', inspection: 'FAA-Mandated A-Check', status: 'In-Progress', completionDate: '04/15/2025', priority: 'High' },
-  { id: '9', createdDate: '04/01/2025', aircraft: 'Boeing 737-10 MAX', inspection: 'FAA-Mandated A-Check', status: 'In-Progress', completionDate: '04/15/2025', priority: 'High' },
-  { id: '10', createdDate: '04/01/2025', aircraft: 'Boeing 737-10 MAX', inspection: 'FAA-Mandated A-Check', status: 'In-Progress', completionDate: '04/15/2025', priority: 'High' },
-  { id: '11', createdDate: '04/01/2025', aircraft: 'Boeing 737-10 MAX', inspection: 'FAA-Mandated A-Check', status: 'In-Progress', completionDate: '04/15/2025', priority: 'High' },
-  { id: '12', createdDate: '04/01/2025', aircraft: 'Boeing 737-10 MAX', inspection: 'FAA-Mandated A-Check', status: 'In-Progress', completionDate: '04/15/2025', priority: 'High' },
+  { id: '1', Date: '04/01/2025', aircraft: 'DL4890 (B737-10)', inspection: ' A-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
+  { id: '2', Date: '04/01/2025', aircraft: 'DL1234 (A319)', inspection: 'Wing Inspection', status: 'Complete', compliance: 'Complete', priority: 'Low', Approve: 'Approved' },
+  { id: '3', Date: '04/01/2025', aircraft: 'DL5678 (A350)', inspection: 'A-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
+  { id: '4', Date: '04/01/2025', aircraft: 'AA137 (A320)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
+  { id: '5', Date: '04/01/2025', aircraft: 'UA5432 (B777)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
+  { id: '6', Date: '04/01/2025', aircraft: 'BA2901 (A380)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
+  { id: '7', Date: '04/01/2025', aircraft: 'DL4890 (B737-10)', inspection: 'Pre-Check', status: 'Complete', compliance: 'Complete', priority: 'High', Approve: 'Approved' },
+  { id: '8', Date: '04/01/2025', aircraft: 'DL1234 (A319)', inspection: 'Pre-Check', status: 'Complete', compliance: 'Complete', priority: 'High', Approve: 'Approved' },
+  { id: '9', Date: '04/01/2025', aircraft: 'DL5678 (A350)', inspection: 'Engine Inspection', status: 'Complete', compliance: 'Complete', priority: 'High', Approve: 'Approved' },
+  { id: '10', Date: '04/01/2025', aircraft: 'AA137 (A320)', inspection: 'Fuselage Inspection', status: 'Complete', compliance: 'Complete', priority: 'High', Approve: 'Approved' },
+  { id: '11', Date: '04/01/2025', aircraft: 'UA5432 (B777)', inspection: 'Nose Inspection', status: 'Complete', compliance: 'Complete', priority: 'High', Approve: 'Approved' },
+  { id: '12', Date: '04/01/2025', aircraft: 'BA2901 (A380)', inspection: 'Wing Inspection', status: 'Complete', compliance: 'Complete', priority: 'High', Approve: 'Approved' },
 ];
 
 const FLIGHT_DATA: Record<string, any> = {
@@ -403,6 +415,7 @@ const getAllUniqueModels = () => {
 
 
 const WorkOrderManagement: React.FC = () => {
+  const navigate = useNavigate();
   const { selectedTeam, teams, selectTeam } = useAuth();
   const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
   const [currentFilter, setCurrentFilter] = useState({ status: 'All', aircraft: 'All' });
@@ -563,26 +576,37 @@ const WorkOrderManagement: React.FC = () => {
     return matchesSearch && matchesStatus && matchesAircraft;
   });
   
+  // Handle row click to navigate to detail page
+  const handleRowClick = (order: any) => {
+    const aircraftName = order.aircraft.replace(/\s+/g, '-').toLowerCase();
+    navigate(`/workOrderManagement/${aircraftName}?orderId=${order.id}`);
+  };
+
   return (
     <MainContent>
       <TopBar>
-        <TeamSelector onClick={toggleTeamDropdown}>
-          Team: {selectedTeam?.name || 'Boeing-Everett-MRO'} 
-          <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}>▼</TeamSelectorIcon>
-          <TeamDropdown isOpen={isTeamDropdownOpen}>
-            {teams.map(team => (
-              <TeamOption 
-                key={team.id} 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleTeamSelect(team.id);
-                }}
-              >
-                {team.name}
-              </TeamOption>
-            ))}
-          </TeamDropdown>
-        </TeamSelector>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <TeamSelector onClick={toggleTeamDropdown}>
+            Team: {selectedTeam?.name} 
+            <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}>▼</TeamSelectorIcon>
+            <TeamDropdown isOpen={isTeamDropdownOpen}>
+              {teams.map(team => (
+                <TeamOption 
+                  key={team.id} 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleTeamSelect(team.id);
+                  }}
+                >
+                  {team.name}
+                </TeamOption>
+              ))}
+            </TeamDropdown>
+          </TeamSelector>
+          <BreadcrumbText>
+            &gt; <span>Work Order Management</span>
+          </BreadcrumbText>
+        </div>
       </TopBar>
       
       <PageTitle>Work Order Management</PageTitle>
@@ -694,36 +718,43 @@ const WorkOrderManagement: React.FC = () => {
       
       <Table>
         <TableHeader>
-          <HeaderCell>Created Date</HeaderCell>
+          <HeaderCell>Date</HeaderCell>
           <HeaderCell>Aircraft</HeaderCell>
           <HeaderCell>Inspection</HeaderCell>
-          <HeaderCell>Status</HeaderCell>
-          <HeaderCell>Completion Date</HeaderCell>
           <HeaderCell>Priority</HeaderCell>
+          <HeaderCell>Status</HeaderCell>
+          <HeaderCell>Compliance</HeaderCell>
+          <HeaderCell>Approve</HeaderCell>
         </TableHeader>
         <TableBody>
           {filteredWorkOrders.map(order => (
-            <TableRow key={order.id}>
-              <TableCell>{order.createdDate}</TableCell>
+            <TableRow 
+              key={order.id}
+              onClick={() => handleRowClick(order)}
+              style={{ cursor: 'pointer' }}
+            >
+              <TableCell>{order.Date}</TableCell>
               <TableCell>{order.aircraft}</TableCell>
               <TableCell>{order.inspection}</TableCell>
-              <TableCell>
-                <StatusBadge status={order.status}>
-                  {order.status}
-                </StatusBadge>
-              </TableCell>
-              <TableCell>{order.completionDate}</TableCell>
               <TableCell>
                 <PriorityBadge priority={order.priority}>
                   {order.priority}
                 </PriorityBadge>
               </TableCell>
+              <TableCell>
+                <StatusBadge status={order.status}>
+                  {order.status}
+                </StatusBadge>
+              </TableCell>
+              <TableCell>{order.compliance}</TableCell>
+              <TableCell>{order.Approve}</TableCell>
             </TableRow>
           ))}
           
-          {/* Add 8 empty rows */}
+          {/* Empty rows should have the same number of cells */}
           {[...Array(2)].map((_, index) => (
-            <TableRow key={`empty-${index}`}>
+            <TableRow key={`empty-${index}`} style={{ cursor: 'default' }}>
+              <TableCell>&nbsp;</TableCell>
               <TableCell>&nbsp;</TableCell>
               <TableCell>&nbsp;</TableCell>
               <TableCell>&nbsp;</TableCell>
@@ -738,4 +769,4 @@ const WorkOrderManagement: React.FC = () => {
   );
 };
 
-export default WorkOrderManagement; 
+export default WorkOrderManagement

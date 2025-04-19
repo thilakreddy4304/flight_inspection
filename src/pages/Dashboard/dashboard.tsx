@@ -6,7 +6,9 @@ import { DashboardView } from '../../types';
 import SideNavbar from '../../components/SideNavbar/sideNavbar';
 import IntroHome from '../../components/IntroHome/IntroHome';
 import FlightInspection from '../../components/FlightInspection/FlightInspection';
+import WorkOrderManagement2 from '../WorkOrderManagement/workOrderManagement2';
 import WorkOrderManagement from '../WorkOrderManagement/workOrderManagement';
+import WorkOrderManagementPages from '../WorkOrderManagement/WorkOrderManagementPages';
 
 const DashboardContainer = styled.div<{ fullWidth: boolean }>`
   display: grid;
@@ -99,7 +101,7 @@ const WelcomeHeader = styled.h1`
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const params = useParams<{ flightId?: string, view?: string }>();
+  const params = useParams<{ flightId?: string, view?: string, AircraftName?: string }>();
   const { user, selectedTeam, teams, selectTeam } = useAuth();
   
   // State to track the current view
@@ -113,7 +115,7 @@ const Dashboard: React.FC = () => {
       setCurrentView('home');
     } else if (location.pathname === '/inspections' || location.pathname.startsWith('/inspections/')) {
       setCurrentView('inspections');
-    } else if (location.pathname === '/workOrderManagement') {
+    } else if (location.pathname === '/workOrderManagement' || location.pathname.startsWith('/workOrderManagement/')) {
       setCurrentView('workOrderManagement');
     } else if (location.pathname === '/stats') {
       setCurrentView('stats');
@@ -198,7 +200,7 @@ const Dashboard: React.FC = () => {
         return <FlightInspection flightId={flightId} />;
         
       case 'workOrderManagement':
-        return <WorkOrderManagement />;
+        return <WorkOrderManagementPages />;   
         
       case 'stats':
         return (
