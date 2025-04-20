@@ -13,7 +13,7 @@ const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 const TeamSelector = styled.div`
@@ -823,7 +823,11 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
     const status = issueStatuses[issueId];
     
     if (status === 'investigated') {
-      return <InvestigateIcon>!</InvestigateIcon>;
+      return <InvestigateIcon><svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9.14939 7.83131C8.57654 5.92179 10.0064 4 12 4C13.9936 4 15.4235 5.92179 14.8506 7.8313L13.2873 13.0422C13.2171 13.2762 13.182 13.3932 13.128 13.4895C12.989 13.7371 12.7513 13.9139 12.4743 13.9759C12.3664 14 12.2443 14 12 14C11.7557 14 11.6336 14 11.5257 13.9759C11.2487 13.9139 11.011 13.7371 10.872 13.4895C10.818 13.3932 10.7829 13.2762 10.7127 13.0422L9.14939 7.83131Z" fill="#ef5e12" stroke="#ef5e12" stroke-width="2"/>
+      <circle cx="12" cy="19" r="2" fill="#ef5e12" stroke="#ef5e12" stroke-width="2"/>
+      </svg>
+      </InvestigateIcon>;
     } else if (status === 'approved') {
       return (
         <ApproveIcon>

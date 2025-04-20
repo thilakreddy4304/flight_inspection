@@ -4,6 +4,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import InspectionDetails from '../InspectionTypes/InspectionTypes';
 
+// Import images
+import realisticModel from '../../assets/images/realistic-aircraft-model.png';
+import meshModel from '../../assets/images/mesh-model-aircraft.png';
+
 const MainContent = styled.div`
   width: 100%;
   /* Uncomment for debugging layout
@@ -15,16 +19,16 @@ const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 const TeamSelector = styled.div`
   background-color: rgba(255, 255, 255, 0.05);
-  padding: 8px 16px;
+  padding: 8px 8px;
   border-radius: 4px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   font-size: 0.9rem;
   cursor: pointer;
   width: fit-content;
@@ -66,7 +70,7 @@ const TeamOption = styled.div`
 const PageTitle = styled.h1`
   font-size: 2rem;
   font-weight: 600;
-  margin: 0 0 24px 0;
+  margin: 0 0 12px 0;
 `;
 
 const SearchContainer = styled.div`
@@ -139,7 +143,7 @@ const AircraftInfoContainer = styled.div`
 `;
 
 const FlightInfo = styled.div`
-  display: ;
+  display: flex;
   flex-direction: column;
   gap: 5px;
   margin-bottom: 30px;
@@ -166,50 +170,98 @@ const ModelViewContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 50px;
-  margin-bottom: 100px;
+  // margin-bottom: 50px;
   justify-content: center;
   text-align: center;
-  // margin-top: 30px;
-  // width: 100%; 
-  // max-width: 1200px;
-  // margin-left: auto;
-  // margin-right: auto;
+  width: 100%;
+  // max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+  }
 `;
 
-const ModelCard = styled.div`
-  background-color: #1E1E1E;
-  border-radius: 30px;
+const ModelCard1 = styled.div`
+  background-color: #fff;
+  border-radius: 20px;
+  border: 2px solid #444;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  display: block;
   width: 100%;
+  height: 350px;
+  // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 0;
+  margin: 0;
+  font-size: 0;
+`;
+
+const ModelCard2 = styled.div`
+  // background-color: #222;
+  border-radius: 10px;
+  border: 2px solid #444;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  height: 350px;
+  // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 0;
+  margin: 0;
+  font-size: 0;
+`;
+
+const ModelImage1 = styled.div`
   height: 100%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  background-color: #fff;
+  padding: 0; /* Default padding - will be overridden by inline style */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  
+  img {
+    width: 101%;
+    height: 100%;
+    display: block;
+    object-position: center;
+    // border-radius: 12px; /* Optional: Add slightly rounded corners to the image */
+  }
 `;
 
-const ModelImage = styled.div`
-  height: 200px;
+const ModelImage2 = styled.div`
+  height: 100%;
   width: 100%;
-  background-color: #222;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  // background-color: #fff;
+  padding: 0; /* Default padding - will be overridden by inline style */
+  // margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 0;
+  line-height: 0;
+  box-sizing: border-box;
   
   img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    display: block;
+    margin: 0;
+    padding: 0;
+    object-position: center;
+    // border-radius: 12px; /* Optional: Add slightly rounded corners to the image */
   }
 `;
 
 const ModelCaption = styled.div`
-  padding: 12px;
   text-align: center;
   font-size: 1rem;
   color: #ccc;
-  margin-top: 8px;
-  margin-left: 0; /* Remove fixed margin */
+  margin-top: 20px;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding: 0;
   animation: slideFromRight 0.8s ease-out forwards;
   position: relative;
   
@@ -311,13 +363,10 @@ const ClearFiltersButton = styled.button`
 
 const ActionButtonContainer = styled.div`
   display: flex;
-  justify-content: flex-end; /* Center the button */
+  justify-content: flex-end;
   width: 100%;
   margin-top: 20px;
-  margin-left: 0; /* Remove fixed margin */
-  /* Uncomment for debugging layout
-  border: 2px solid yellow;
-  */
+  margin-left: 0; 
 `;
 
 const ActionButton = styled.button`
@@ -625,6 +674,24 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
     }
   };
   
+  // Choose your preferred object-fit style:
+  // - 'cover' fills the entire box but may crop parts of the image
+  // - 'contain' shows the entire image but may show background visible
+  const imageObjectFit = 'cover'; // Change to 'contain' if you prefer to see the entire image
+  
+  // Choose which part of the image to focus on when using 'cover'
+  // Options: 'center', 'top', 'bottom', 'left', 'right', 'top left', 'top right', 'bottom left', 'bottom right'
+  const imagePosition = 'center';
+  
+  // Image padding in pixels - set equal values for uniform padding
+  const paddingTop = 1;
+  const paddingRight = 1;
+  const paddingBottom = 1;
+  const paddingLeft = 1;
+  
+  // Create padding string for inline style
+  const imagePadding = `${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px`;
+  
   if (view === 'details' && currentFlight) {
     return <InspectionDetails 
       flight={currentFlight} 
@@ -782,21 +849,29 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
           </AircraftInfoContainer>
           
           <ModelViewContainer>
-            <div>
-              <ModelCard>
-                <ModelImage>
-                  <img src="https://placehold.co/600x400/3498db/FFFFFF?text=3D+Realistic+Model" alt={`${currentFlight.make} ${currentFlight.model}`} />
-                </ModelImage>
-              </ModelCard>
+            <div style={{ padding: 0, margin: 0, lineHeight: 0 }}>
+              <ModelCard1>
+                <ModelImage1 style={{ padding: imagePadding }}>
+                  <img 
+                    src={realisticModel} 
+                    alt={`${currentFlight.make} ${currentFlight.model}`} 
+                    style={{ objectFit: imageObjectFit, objectPosition: imagePosition }}
+                  />
+                </ModelImage1>
+              </ModelCard1>
               <ModelCaption>3D Realistic Model</ModelCaption>
             </div>
             
-            <div>
-              <ModelCard>
-                <ModelImage>
-                  <img src="https://placehold.co/600x400/333333/999999?text=3D+Mesh+Model" alt={`${currentFlight.make} ${currentFlight.model} Wireframe`} />
-                </ModelImage>
-              </ModelCard>
+            <div style={{ padding: 0, margin: 0, lineHeight: 0 }}>
+              <ModelCard2>
+                <ModelImage2 style={{ padding: imagePadding }}>
+                  <img 
+                    src={meshModel} 
+                    alt={`${currentFlight.make} ${currentFlight.model}`} 
+                    style={{ objectFit: imageObjectFit, objectPosition: imagePosition }}
+                  />
+                </ModelImage2>
+              </ModelCard2>
               <ModelCaption>3D Mesh Model</ModelCaption>
             </div>
           </ModelViewContainer>

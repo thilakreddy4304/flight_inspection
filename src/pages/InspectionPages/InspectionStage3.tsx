@@ -5,6 +5,10 @@ import { useAuth } from '../../context/AuthContext';
 import SideNavbar from '../../components/SideNavbar/sideNavbar';
 import InspectionStage4 from './InspectionStage4';
 
+// Import images (add these paths to your actual image assets)
+import realisticModel from '../../assets/images/realistic-aircraft-model.png';
+import meshModel from '../../assets/images/mesh-model-aircraft.png';
+
 const PageContainer = styled.div`
   display: grid;
   grid-template-columns: 80px 1fr;
@@ -32,7 +36,7 @@ const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding-top: 1px;
 `;
 
@@ -177,25 +181,105 @@ const StepItem = styled.li<{ isActive?: boolean }>`
 
 const ImageContainer = styled.div`
   flex: 1;
-  max-height: 600px;
+  height: 650px;
+  max-width: 1100px;
   border-radius: 20px;
   overflow: hidden;
-  background-color: #1E1E1E;
+  background-color: rgb(40, 39, 39);
   position: absolute;
   display: flex;
   flex-direction: column;
   margin-top: 1px;
-  border-color: white;
-  border-width: 1px;
+  border-color: #999;
+  border-width: 2px;
   border-style: solid;
   right: 0;
   top: -60px;
   width: calc(100% - 380px);
 `;
 
+const CompositeImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  overflow: hidden;
+  // box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+`;
+
+const ImageLeft = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55%;
+  height: 100%;
+  background-color:rgb(40, 39, 39);
+  overflow: hidden;
+  
+  img {
+    height: 100%;
+    width: auto;
+    min-width: 200%;
+    object-fit: cover;
+    object-position: left center;
+  }
+`;
+
+const ImageRight = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  
+  img {
+    height: 100%;
+    width: auto;
+    min-width: 200%;
+    object-fit: cover;
+    object-position: right center;
+    transform: translateX(-50%);
+  }
+`;
+
+// const DividerLine = styled.div`
+//   position: absolute;
+//   top: 0;
+//   left: 50%;
+//   width: 2px;
+//   height: 100%;
+//   background-color: rgba(255, 255, 255, 0.75);
+//   z-index: 2;
+//   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+// `;
+
+const ImageLabel = styled.div`
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  z-index: 3;
+`;
+
+// const LeftLabel = styled(ImageLabel)`
+//   top: 20px;
+//   left: 20px;
+// `;
+
+// const RightLabel = styled(ImageLabel)`
+//   top: 20px;
+//   right: 20px;
+// `;
+
 const StageIndicator = styled.div`
   position: relative;
-  padding: 10px 10px;
+  padding: 5px 5px;
   background-color: transparent;
   font-size: 0.9rem;
   color: #eee;
@@ -209,14 +293,15 @@ const StageIndicator = styled.div`
 const StageTitle = styled.div`
   font-weight: bold;
   font-style: italic;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
 `;
 
 const StageText = styled.div`
   font-style: italic;
   margin-bottom: 5px;
+  font-size: 0.8rem;
 `;
 
 const AircraftImage = styled.div`
@@ -224,14 +309,43 @@ const AircraftImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  // padding: 10px;
+  min-height: 450px;
+  position: relative;
+`;
+
+const ImageHalf = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  // padding: 10px;
   
   img {
-    width: 95%;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
     height: auto;
     object-fit: contain;
   }
 `;
+
+// const ImageTitle = styled.div`
+//   font-size: 1rem;
+//   color: #ccc;
+//   margin-bottom: 10px;
+//   font-style: italic;
+// `;
+
+// const ImageDivider = styled.div`
+//   width: 1px;
+//   height: 80%;
+//   background-color: #444;
+//   margin: 0 5px;
+//   align-self: center;
+// `;
 
 const TimeEstimate = styled.div`
   font-style: italic;
@@ -463,7 +577,20 @@ const InspectionStage3: React.FC<InspectionStage3Props> = ({
               <StageText>Anomaly identification...in-progress.</StageText>
             </StageIndicator>
             <AircraftImage>
-              <img src="https://placehold.co/800x400/333333/FFFFFF?text=Boeing+737+MAX+Wireframe" alt="Boeing 737 MAX Wireframe" />
+              <CompositeImageContainer>
+                <ImageLeft>
+                  <img src={realisticModel} alt="3D Realistic Aircraft Model" />
+                </ImageLeft>
+                
+                <ImageRight>
+                  <img src={meshModel} alt="Aircraft Wireframe Model" />
+                </ImageRight>
+                
+                {/* <DividerLine />
+                
+                <LeftLabel>Realistic Model</LeftLabel>
+                <RightLabel>Wireframe Model</RightLabel> */}
+              </CompositeImageContainer>
             </AircraftImage>
           </ImageContainer>
         </ContentContainer>
