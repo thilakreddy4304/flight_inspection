@@ -242,7 +242,7 @@ const TimeEstimate = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   gap: 16px;
-  margin-top: 10px;
+  margin-top: 20px;
 `;
 
 const CompleteButton = styled.button`
