@@ -42,7 +42,7 @@ const MainContent = styled.div<{ isWorkOrderView?: boolean; isInspectionView?: b
 `;
 
 const TopSection = styled.div`
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 `;
 
 const TeamSelector = styled.div`

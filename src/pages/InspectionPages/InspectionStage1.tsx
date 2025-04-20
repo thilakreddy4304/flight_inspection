@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import SideNavbar from '../../components/SideNavbar/sideNavbar';
 import InspectionStage2 from './InspectionStage2';
+import meshModel from '../../assets/images/mesh-model-aircraft.png';
 
 const PageContainer = styled.div`
   display: grid;
@@ -32,7 +33,7 @@ const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding-top: 1px;
 `;
 
@@ -177,16 +178,17 @@ const StepItem = styled.li<{ isActive?: boolean }>`
 
 const ImageContainer = styled.div`
   flex: 1;
-  max-height: 600px;
+  max-height: 650px;
+  max-width: 1000px;
   border-radius: 20px;
   overflow: hidden;
-  background-color: #1E1E1E;
+  background-color:rgb(40, 39, 39);
   position: absolute;
   display: flex;
   flex-direction: column;
   margin-top: 1px;
-  border-color: white;
-  border-width: 1px;
+  border-color: #999;
+  border-width: 2px;
   border-style: solid;
   right: 0;
   top: -60px;
@@ -195,9 +197,10 @@ const ImageContainer = styled.div`
 
 const StageIndicator = styled.div`
   position: relative;
-  padding: 10px 10px;
-  background-color: transparent;
+  padding: 5px 5px;
+  background-color: rgb(40, 39, 39);
   font-size: 0.9rem;
+
   color: #eee;
   display: flex;
   flex-direction: column;
@@ -209,14 +212,15 @@ const StageIndicator = styled.div`
 const StageTitle = styled.div`
   font-weight: bold;
   font-style: italic;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
 `;
 
 const StageText = styled.div`
   font-style: italic;
   margin-bottom: 5px;
+  font-size: 0.8rem;
 `;
 
 const AircraftImage = styled.div`
@@ -224,12 +228,12 @@ const AircraftImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  
+  min-height: 450px;
+  // padding: 20px;
   img {
-    width: 95%;
-    height: auto;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 
@@ -464,7 +468,7 @@ const InspectionStage1: React.FC<InspectionStage1Props> = ({
               <StageText>Verify Aircraft placement on the hanger pad.</StageText>
             </StageIndicator>
             <AircraftImage>
-              <img src="https://placehold.co/800x400/333333/FFFFFF?text=Boeing+737+MAX+Wireframe" alt="Boeing 737 MAX Wireframe" />
+              <img src={meshModel} alt="Boeing 737 MAX Wireframe" />
             </AircraftImage>
           </ImageContainer>
         </ContentContainer>
