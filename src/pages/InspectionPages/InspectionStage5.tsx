@@ -223,7 +223,7 @@ const StageText = styled.div`
 const AircraftImage = styled.div`
   flex: 1;
   display: flex;
-  max-height: 550px;
+  max-height: 600px;
   justify-content: center;
   align-items: center;
   padding: 20px;
@@ -238,7 +238,7 @@ const AircraftImage = styled.div`
 const TimeEstimate = styled.div`
   font-style: italic;
   color: #999;
-  margin-top: 75px;
+  margin-top: 95px;
   margin-bottom: 24px;
   text-decoration: underline;
 `;
@@ -254,7 +254,7 @@ const CompleteButton = styled.button`
   color: white;
   border: none;
   border-radius: 4px;
-  padding: 12px 95px;
+  padding: 12px 96px;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
