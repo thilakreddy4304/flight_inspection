@@ -2,6 +2,18 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import realisticModel from '../../assets/images/realistic-aircraft-model.png';
+import door_fod from '../../assets/images/door_fod.png';
+import engine1 from '../../assets/images/engine1.png';
+import engine2 from '../../assets/images/engine2.png';
+import engine3 from '../../assets/images/engine3.png';
+import engine4 from '../../assets/images/engine4.png';
+import engine_thermal from '../../assets/images/engine_thermal.png';
+import leak from '../../assets/images/leak.png';
+import nose_fod from '../../assets/images/nose_fod.png';
+import paint_peel from '../../assets/images/paint_peel.png';
+import rivet from '../../assets/images/rivet.png';
+
 
 const MainContent = styled.div`
   width: 100%;
@@ -133,12 +145,13 @@ const RightSide = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  width: 90%;
+  width: 100%;
   height: 100%;
   padding: 10px;
   margin-top: 50px;
   margin-left: 50px;
-  min-height: 600px;
+  max-height: 600px;
+  max-width: 950px;
   background-color: #121212;
   border-radius: 32px;
   border: 3px solid #333;
@@ -146,6 +159,12 @@ const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  img {
+    width: 103%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const PlaceholderText = styled.div`
@@ -395,16 +414,23 @@ const ImagePlaceholder = styled.div`
 const SecondImagePlaceholder = styled.div`
   width: 100%;
   height: 50%;
-  background-color: #1a1a1a;
+  background-color: #121212;
   margin-top: 10px;
-  border-radius: 8px;
+  border-radius: 10px;
+  border: 3px solid #333;
   overflow: hidden;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #444;
+//   color: #444;
   font-size: 0.8rem;
+
+  img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
   
   &:hover {
     background-color: #252525;
@@ -720,7 +746,7 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
   
   // Function to handle back button click
   const handleBack = () => {
-    navigate('/workOrderManagement');
+    navigate('/workOrderManagement');   
   };
   
   // Function to handle severity selection
@@ -875,7 +901,9 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <TeamSelector onClick={toggleTeamDropdown}>
             Team: {selectedTeam?.name || 'Boeing-Everett-MRO'} 
-            <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}>▼</TeamSelectorIcon>
+            <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18 9L12 15L6 9" stroke="#777"/>
+</svg></TeamSelectorIcon>
             <TeamDropdown isOpen={isTeamDropdownOpen}>
               {teams.map(team => (
                 <TeamOption 
@@ -1006,9 +1034,7 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
         <RightSide>
           <ImageContainer>
             {!selectedIssue ? (
-              <PlaceholderText>
-                Aircraft Inspection Image
-              </PlaceholderText>
+              <img src={realisticModel} alt="Aircraft Inspection" />
             ) : (
               <ImageContainerLayout>
                 <IssueDetailsContainer>
@@ -1096,7 +1122,7 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
                   {/* </ImagesGrid> */}
                   
                   <SecondImagePlaceholder>
-                    Add Image here
+                    <img src={realisticModel} alt="Realistic Model" />
                   </SecondImagePlaceholder>
                 </IssueImagesContainer>
               </ImageContainerLayout>
