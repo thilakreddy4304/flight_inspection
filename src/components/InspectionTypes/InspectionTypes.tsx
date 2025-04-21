@@ -473,7 +473,7 @@ const InspectionTypes: React.FC<InspectionTypesProps> = ({ flight, onBack }) => 
       <SearchContainer>
         <SearchInput 
           type="text" 
-          placeholder="Search Inspection by Name" 
+          placeholder="Search Inspection by Name"   
           value={searchQuery}
           onChange={handleSearchChange}
         />
