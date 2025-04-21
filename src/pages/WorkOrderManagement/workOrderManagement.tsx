@@ -305,20 +305,32 @@ const PriorityBadge = styled.span<{ priority: string }>`
   color: #CCC;
 `;
 
+// Add a type definition for work order
+interface WorkOrder {
+  id: string;
+  Date: string;
+  aircraft: string;
+  inspection: string;
+  status: string;
+  compliance: string;
+  priority: string;
+  Approve: string;
+}
+
 // Sample data for work orders based on image
-const workOrdersData = [
+const workOrdersData: WorkOrder[] = [
   { id: '1', Date: '04/01/2025', aircraft: 'DL4890 (B737-10)', inspection: ' A-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
   { id: '2', Date: '04/01/2025', aircraft: 'DL1234 (A319)', inspection: 'Wing Inspection', status: 'Complete', compliance: 'Complete', priority: 'Low', Approve: 'Approved' },
   { id: '3', Date: '04/01/2025', aircraft: 'DL5678 (A350)', inspection: 'A-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
   { id: '4', Date: '04/01/2025', aircraft: 'AA137 (A320)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
   { id: '5', Date: '04/01/2025', aircraft: 'UA5432 (B777)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'Medium', Approve: 'Approved' },
-  { id: '6', Date: '04/01/2025', aircraft: 'BA2901 (A380)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'Medium', Approve: 'Approved' },
+  { id: '6', Date: '04/01/2025', aircraft: 'BA2901 (A380)', inspection: 'Lightning Strike', status: 'In AME Review', compliance: 'In-Progress', priority: 'Medium', Approve: 'Approved' },
   { id: '7', Date: '04/01/2025', aircraft: 'DL4890 (B737-10)', inspection: 'Pre-Check', status: 'Complete', compliance: 'Complete', priority: 'Low', Approve: 'Approved' },
   { id: '8', Date: '04/01/2025', aircraft: 'DL1234 (A319)', inspection: 'Pre-Check', status: 'Complete', compliance: 'Complete', priority: 'Low', Approve: 'Approved' },
-  { id: '9', Date: '04/01/2025', aircraft: 'DL5678 (A350)', inspection: 'Engine Inspection', status: 'Complete', compliance: 'Complete', priority: 'Medium', Approve: 'Approved' },
-  { id: '10', Date: '04/01/2025', aircraft: 'AA137 (A320)', inspection: 'Fuselage Inspection', status: 'Complete', compliance: 'Complete', priority: 'Low', Approve: 'Approved' },
-  { id: '11', Date: '04/01/2025', aircraft: 'UA5432 (B777)', inspection: 'Nose Inspection', status: 'Complete', compliance: 'Complete', priority: 'Medium', Approve: 'Approved' },
-  { id: '12', Date: '04/01/2025', aircraft: 'BA2901 (A380)', inspection: 'Wing Inspection', status: 'Complete', compliance: 'Complete', priority: 'High', Approve: 'Approved' },
+  { id: '9', Date: '04/01/2025', aircraft: 'DL5678 (A350)', inspection: 'Engine Inspection', status: 'In-Progress', compliance: 'Pending', priority: 'High', Approve: 'Approved' },
+  { id: '11', Date: '04/01/2025', aircraft: 'UA5432 (B777)', inspection: 'Nose Inspection', status: 'In-Progress', compliance: 'Pending', priority: 'High', Approve: 'Approved' },
+  { id: '10', Date: '06/01/2025', aircraft: 'AA137 (A320)', inspection: 'Scheduled', status: 'TBD', compliance: 'TBD', priority: 'Low', Approve: 'TBD' },
+  { id: '12', Date: '06/01/2025', aircraft: 'BA2901 (A380)', inspection: 'Scheduled', status: 'TBD', compliance: 'TBD', priority: 'High', Approve: 'TBD' },
 ];
 
 const FLIGHT_DATA: Record<string, any> = {
@@ -413,6 +425,23 @@ const getAllUniqueModels = () => {
   return Object.keys(modelsMap).sort();
 };
 
+// Toast component
+const Toast = styled.div<{ visible: boolean }>`
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #333;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  opacity: ${props => props.visible ? 1 : 0};
+  transform: ${props => props.visible ? 'translateY(0)' : 'translateY(-20px)'};
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: ${props => props.visible ? 'auto' : 'none'};
+  max-width: 400px;
+`;
 
 const WorkOrderManagement: React.FC = () => {
   const navigate = useNavigate();
@@ -426,6 +455,8 @@ const WorkOrderManagement: React.FC = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMakeDropdown, setShowMakeDropdown] = useState(false);
   const [showModelDropdown, setShowModelDropdown] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
   const makeDropdownRef = useRef<HTMLDivElement>(null);
   const modelDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -577,13 +608,30 @@ const WorkOrderManagement: React.FC = () => {
   });
   
   // Handle row click to navigate to detail page
-  const handleRowClick = (order: any) => {
-    const aircraftName = order.aircraft.replace(/\s+/g, '-').toLowerCase();
-    navigate(`/workOrderManagement/${aircraftName}?orderId=${order.id}&inspection=${encodeURIComponent(order.inspection)}`);
+  const handleRowClick = (order: WorkOrder, index: number) => {
+    if (index === 0) {
+      // Only allow navigation for the first row
+      const aircraftName = order.aircraft.replace(/\s+/g, '-').toLowerCase();
+      navigate(`/workOrderManagement/${aircraftName}?orderId=${order.id}&inspection=${encodeURIComponent(order.inspection)}`);
+    } else {
+      // Show permission denied toast for other rows
+      setToastMessage('Permission denied. Only accessible by the Fleet Manager.');
+      setShowToast(true);
+      
+      // Hide toast after 3 seconds
+      setTimeout(() => {
+        setShowToast(false);
+      }, 3000);
+    }
   };
 
   return (
     <MainContent>
+      {/* Toast notification */}
+      <Toast visible={showToast}>
+        {toastMessage}
+      </Toast>
+      
       <TopBar>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <TeamSelector onClick={toggleTeamDropdown}>
@@ -735,13 +783,13 @@ const WorkOrderManagement: React.FC = () => {
           <HeaderCell>Priority</HeaderCell>
           <HeaderCell>Status</HeaderCell>
           <HeaderCell>Compliance</HeaderCell>
-          <HeaderCell>Approve</HeaderCell>
+          <HeaderCell>Approval</HeaderCell>
         </TableHeader>
         <TableBody>
-          {filteredWorkOrders.map(order => (
-            <TableRow 
+          {filteredWorkOrders.map((order, index) => (
+            <TableRow   
               key={order.id}
-              onClick={() => handleRowClick(order)}
+              onClick={() => handleRowClick(order, index)}
               style={{ cursor: 'pointer' }}
             >
               <TableCell>{order.Date}</TableCell>
@@ -763,7 +811,7 @@ const WorkOrderManagement: React.FC = () => {
           ))}
           
           {/* Empty rows should have the same number of cells */}
-          {[...Array(2)].map((_, index) => (
+          {Array.from({ length: 2 }).map((_, index) => (
             <TableRow key={`empty-${index}`} style={{ cursor: 'default' }}>
               <TableCell>&nbsp;</TableCell>
               <TableCell>&nbsp;</TableCell>
