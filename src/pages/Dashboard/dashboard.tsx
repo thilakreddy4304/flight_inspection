@@ -117,8 +117,14 @@ const Dashboard: React.FC = () => {
       setCurrentView('inspections');
     } else if (location.pathname === '/workOrderManagement' || location.pathname.startsWith('/workOrderManagement/')) {
       setCurrentView('workOrderManagement');
-    } else if (location.pathname === '/stats') {
-      setCurrentView('stats');
+    } else if (location.pathname === '/HardwareSenseAssets' || location.pathname.startsWith('/HardwareSenseAssets/')) {
+      setCurrentView('HardwareSenseAssets');
+    } else if (location.pathname === '/AircraftAssets' || location.pathname.startsWith('/AircraftAssets/')) {
+      setCurrentView('AircraftAssets');
+    } else if (location.pathname === '/collaborate' || location.pathname.startsWith('/collaborate/')) {
+      setCurrentView('collaborate');
+    } else if (location.pathname === '/ContactSupport' || location.pathname.startsWith('/ContactSupport/')) {
+      setCurrentView('ContactSupport');
     } else if (location.pathname === '/profile') {
       setCurrentView('profile');
     } else if (location.pathname === '/settings') {
@@ -126,7 +132,7 @@ const Dashboard: React.FC = () => {
     } else if (location.pathname.startsWith('/')) {
       const viewFromUrl = location.pathname.substring(1) as DashboardView;
       if (viewFromUrl && 
-          ['home', 'inspections', 'workOrderManagement', 'stats', 'collaborate', 'rocket', 'settings', 'call', 'profile'].includes(viewFromUrl)) {
+          ['home', 'inspections', 'workOrderManagement', 'HardwareSenseAssets', 'collaborate', 'AircraftAssets', 'settings', 'ContactSupport', 'profile'].includes(viewFromUrl)) {
         setCurrentView(viewFromUrl as DashboardView);
       }
     }
@@ -203,20 +209,35 @@ const Dashboard: React.FC = () => {
         
       case 'workOrderManagement':
         return <WorkOrderManagementPages />;   
-        
-      case 'stats':
+
+      case 'collaborate':
         return (
           <>
-            <WelcomeHeader>Statistics</WelcomeHeader>
-            <p>Statistics dashboard coming soon...</p>
+            <WelcomeHeader>Collaborate</WelcomeHeader>
+            <p>In Development..</p>
           </>
         );
         
+      case 'HardwareSenseAssets':
+        return (
+          <>
+            <WelcomeHeader>Hardware Sense Assets</WelcomeHeader>
+            <p>In Development..</p>
+          </>
+        );
+
+      case 'AircraftAssets':
+        return (
+          <>
+            <WelcomeHeader>Aircraft Assets</WelcomeHeader>
+            <p>In Development..</p>
+          </>
+        );
       case 'profile':
         return (
           <>
             <WelcomeHeader>User Profile</WelcomeHeader>
-            <p>Profile management coming soon...</p>
+            <p>In Development...</p>
           </>
         );
         
@@ -224,10 +245,17 @@ const Dashboard: React.FC = () => {
         return (
           <>
             <WelcomeHeader>Settings</WelcomeHeader>
-            <p>Application settings coming soon...</p>
+            <p>In Development...</p>
           </>
         );
-        
+
+      case 'ContactSupport':
+        return (
+          <>
+            <WelcomeHeader>Contact Support</WelcomeHeader>
+            <p>In Development...</p>
+          </>
+        );
       default:
         return null;
     }

@@ -445,7 +445,7 @@ const InspectionTypes: React.FC<InspectionTypesProps> = ({ flight, onBack }) => 
     <Container>
       <TopBar>
         <TeamSelector onClick={toggleTeamDropdown}>
-          Team: {selectedTeam?.name || 'Boeing-Everett-MRO'} 
+          Team: {selectedTeam?.name} 
           <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M18 9L12 15L6 9" stroke="#777"/>
 </svg></TeamSelectorIcon>
@@ -466,7 +466,7 @@ const InspectionTypes: React.FC<InspectionTypesProps> = ({ flight, onBack }) => 
       </TopBar>
       
       <PageTitle>
-        Inspections &gt;<FlightIdentifier>{flight.identifier} ({flight.make.slice(0, 6)} {flight.model})</FlightIdentifier>
+        Inspections &gt;<FlightIdentifier>{flight.identifier} ({flight.make} {flight.model})</FlightIdentifier>
       </PageTitle>
       <InstructionText>Select your choice of Inspection from below</InstructionText>
       

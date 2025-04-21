@@ -82,4 +82,4 @@ export interface ApiResponse<T> {
 // }
 
 // // Dashboard view types
-export type DashboardView = 'home' | 'inspections' | 'workOrderManagement' | 'stats' | 'collaborate' | 'rocket' | 'settings' | 'call' | 'profile'; 
+export type DashboardView = 'home' | 'inspections' | 'workOrderManagement' | 'HardwareSenseAssets' | 'AircraftAssets' | 'collaborate' | 'settings' | 'ContactSupport' | 'profile'; 
