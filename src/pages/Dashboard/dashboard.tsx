@@ -47,13 +47,12 @@ const TopSection = styled.div`
 
 const TeamSelector = styled.div`
   background-color: rgba(255, 255, 255, 0.05);
-  padding: 8px 16px;
+  padding: 8px 8px;
   border-radius: 4px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   font-size: 0.9rem;
-  margin-bottom: 24px;
   cursor: pointer;
   width: fit-content;
   position: relative;
@@ -94,7 +93,7 @@ const TeamOption = styled.div`
 const WelcomeHeader = styled.h1`
   font-size: 2rem;
   font-weight: normal;
-  margin: 0;
+  margin-top: 30px;
   text-align: left;
 `;
 
