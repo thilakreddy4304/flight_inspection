@@ -184,22 +184,24 @@ const StatusContainer = styled.div`
   background-color: #1E1E1E;
   border-radius: 12px;
   padding: 10px;
-  margin-top: 150px;
+  margin-top: 75px;
   border: 2px solid #444;
-  width: 100%;
+  width: 500px;
+  height: 250px;
 `;
 
 const StatusTitle = styled.h3`
-  font-size: 1rem;
+  font-size: 2rem;
   color: white;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
+  // gap: 15px;
 `;
 
 const StatusList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  font-size: 0.8rem;
+  gap: 10px;
+  font-size: 1rem;
   margin-bottom: 15px;
 `;
 
@@ -207,12 +209,12 @@ const StatusItem = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.8rem;
+  font-size: 1rem;
 `;
 
 const StatusNumber = styled.span`
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 1rem;
 `;
 
 const StatusLabel = styled.span`
@@ -351,10 +353,7 @@ const introHome: React.FC<introHomeProps> = ({ onViewSchedule }) => {
   return (
     <DashboardLayout>
       <MainContent>
-        <InspectionScheduler onViewSchedule={onViewSchedule} />
-        <InspectionChart />
-      </MainContent>
-      <SideNavbar>
+        {/* <InspectionScheduler onViewSchedule={onViewSchedule} /> */}
         <StatusContainer>
           <StatusTitle>Today in Inspections</StatusTitle>
           <StatusList>
@@ -376,7 +375,31 @@ const introHome: React.FC<introHomeProps> = ({ onViewSchedule }) => {
             </StatusItem>
           </StatusList>
         </StatusContainer>
-      </SideNavbar>
+        {/* <InspectionChart /> */}
+      </MainContent>
+      {/* <SideNavbar>
+        <StatusContainer>
+          <StatusTitle>Today in Inspections</StatusTitle>
+          <StatusList>
+            <StatusItem>
+              <StatusNumber>74</StatusNumber>
+              <StatusLabel>Inspections - Scheduled</StatusLabel>
+            </StatusItem>
+            <StatusItem>
+              <StatusNumber>23</StatusNumber>
+              <StatusLabel>Inspections - In-progress</StatusLabel>
+            </StatusItem>
+            <StatusItem>
+              <StatusNumber>22</StatusNumber>
+              <StatusLabel>Inspections - Ready-to-Review</StatusLabel>
+            </StatusItem>
+            <StatusItem>
+              <StatusNumber>05</StatusNumber>
+              <StatusLabel>Inspections - Complete</StatusLabel>
+            </StatusItem>
+          </StatusList>
+        </StatusContainer>
+      </SideNavbar> */}
     </DashboardLayout>
   );
 };

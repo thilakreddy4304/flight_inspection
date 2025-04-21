@@ -30,11 +30,11 @@ const TopBar = styled.div`
 
 const TeamSelector = styled.div`
   background-color: rgba(255, 255, 255, 0.05);
-  padding: 8px 16px;
+  padding: 8px 8px;
   border-radius: 4px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   font-size: 0.9rem;
   cursor: pointer;
   width: fit-content;
@@ -900,7 +900,7 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
       <TopBar>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <TeamSelector onClick={toggleTeamDropdown}>
-            Team: {selectedTeam?.name || 'Boeing-Everett-MRO'} 
+            Team: {selectedTeam?.name} 
             <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M18 9L12 15L6 9" stroke="#777"/>
 </svg></TeamSelectorIcon>

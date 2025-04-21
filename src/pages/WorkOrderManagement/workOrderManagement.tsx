@@ -16,11 +16,11 @@ const TopBar = styled.div`
 
 const TeamSelector = styled.div`
   background-color: rgba(255, 255, 255, 0.05);
-  padding: 8px 16px;
+  padding: 8px 8px;
   border-radius: 4px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   font-size: 0.9rem;
   cursor: pointer;
   width: fit-content;
@@ -73,7 +73,7 @@ const BreadcrumbText = styled.span`
 const PageTitle = styled.h1`
   font-size: 2rem;
   font-weight: 600;
-  margin: 0 0 24px 0;
+  margin: 0 0 12px 0;
 `;
 
 const SearchContainer = styled.div`

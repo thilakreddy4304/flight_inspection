@@ -321,11 +321,11 @@ const InspectionStage5: React.FC<InspectionStage5Props> = ({
   };
 
   const handleBack = () => {
-    navigate('/inspections');
+    navigate('/inspectionSteps');
   };
   
   const handleFinish = () => {
-    navigate('/inspections');
+    navigate('/workOrderManagement');
   };
   
   const processingSteps = [
