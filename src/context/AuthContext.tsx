@@ -32,10 +32,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   // Mock team data - would come from API in a real app
   const teams: Team[] = [
-    { id: '1', name: 'Boeing Everett MRO' },
-    { id: '2', name: 'Boeing Hanger, SFO' },
-    { id: '3', name: 'Boeing Hanger, OAK' },
-    { id: '4', name: 'Boeing Hanger, ORD' },
+    { id: '1', name: 'Everett MRO Hanger' },
+    { id: '2', name: 'SFO Hanger' },
+    { id: '3', name: 'ORD Hanger' },
+    { id: '4', name: 'MSP Hanger' },
   ];
 
   useEffect(() => {

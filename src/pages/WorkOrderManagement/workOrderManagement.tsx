@@ -311,13 +311,13 @@ const workOrdersData = [
   { id: '2', Date: '04/01/2025', aircraft: 'DL1234 (A319)', inspection: 'Wing Inspection', status: 'Complete', compliance: 'Complete', priority: 'Low', Approve: 'Approved' },
   { id: '3', Date: '04/01/2025', aircraft: 'DL5678 (A350)', inspection: 'A-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
   { id: '4', Date: '04/01/2025', aircraft: 'AA137 (A320)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
-  { id: '5', Date: '04/01/2025', aircraft: 'UA5432 (B777)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
-  { id: '6', Date: '04/01/2025', aircraft: 'BA2901 (A380)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
-  { id: '7', Date: '04/01/2025', aircraft: 'DL4890 (B737-10)', inspection: 'Pre-Check', status: 'Complete', compliance: 'Complete', priority: 'High', Approve: 'Approved' },
-  { id: '8', Date: '04/01/2025', aircraft: 'DL1234 (A319)', inspection: 'Pre-Check', status: 'Complete', compliance: 'Complete', priority: 'High', Approve: 'Approved' },
-  { id: '9', Date: '04/01/2025', aircraft: 'DL5678 (A350)', inspection: 'Engine Inspection', status: 'Complete', compliance: 'Complete', priority: 'High', Approve: 'Approved' },
-  { id: '10', Date: '04/01/2025', aircraft: 'AA137 (A320)', inspection: 'Fuselage Inspection', status: 'Complete', compliance: 'Complete', priority: 'High', Approve: 'Approved' },
-  { id: '11', Date: '04/01/2025', aircraft: 'UA5432 (B777)', inspection: 'Nose Inspection', status: 'Complete', compliance: 'Complete', priority: 'High', Approve: 'Approved' },
+  { id: '5', Date: '04/01/2025', aircraft: 'UA5432 (B777)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'Medium', Approve: 'Approved' },
+  { id: '6', Date: '04/01/2025', aircraft: 'BA2901 (A380)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'Medium', Approve: 'Approved' },
+  { id: '7', Date: '04/01/2025', aircraft: 'DL4890 (B737-10)', inspection: 'Pre-Check', status: 'Complete', compliance: 'Complete', priority: 'Low', Approve: 'Approved' },
+  { id: '8', Date: '04/01/2025', aircraft: 'DL1234 (A319)', inspection: 'Pre-Check', status: 'Complete', compliance: 'Complete', priority: 'Low', Approve: 'Approved' },
+  { id: '9', Date: '04/01/2025', aircraft: 'DL5678 (A350)', inspection: 'Engine Inspection', status: 'Complete', compliance: 'Complete', priority: 'Medium', Approve: 'Approved' },
+  { id: '10', Date: '04/01/2025', aircraft: 'AA137 (A320)', inspection: 'Fuselage Inspection', status: 'Complete', compliance: 'Complete', priority: 'Low', Approve: 'Approved' },
+  { id: '11', Date: '04/01/2025', aircraft: 'UA5432 (B777)', inspection: 'Nose Inspection', status: 'Complete', compliance: 'Complete', priority: 'Medium', Approve: 'Approved' },
   { id: '12', Date: '04/01/2025', aircraft: 'BA2901 (A380)', inspection: 'Wing Inspection', status: 'Complete', compliance: 'Complete', priority: 'High', Approve: 'Approved' },
 ];
 
@@ -588,7 +588,9 @@ const WorkOrderManagement: React.FC = () => {
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <TeamSelector onClick={toggleTeamDropdown}>
             Team: {selectedTeam?.name} 
-            <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}>▼</TeamSelectorIcon>
+            <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18 9L12 15L6 9" stroke="#777"/>
+</svg></TeamSelectorIcon>
             <TeamDropdown isOpen={isTeamDropdownOpen}>
               {teams.map(team => (
                 <TeamOption 
@@ -616,7 +618,9 @@ const WorkOrderManagement: React.FC = () => {
           <DropdownSelect 
             onClick={() => {/* Toggle dropdown */}}
           >
-            All <span>▼</span>
+            All <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18 9L12 15L6 9" stroke="#777"/>
+</svg></span>
           </DropdownSelect>
         </div>
         <OrText>Or</OrText>
@@ -629,7 +633,10 @@ const WorkOrderManagement: React.FC = () => {
             onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
           />
           <SearchIconButton>
-            <span role="img" aria-label="search">🔍</span>
+            <span role="img" aria-label="search"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="11" cy="11" r="6" stroke="#777"/>
+<path d="M20 20L17 17" stroke="#777" stroke-linecap="round"/>
+</svg></span>
           </SearchIconButton>
           {showDropdown && (
             <SearchDropdown>
@@ -653,7 +660,9 @@ const WorkOrderManagement: React.FC = () => {
           <DropdownSelect 
             onClick={() => setShowMakeDropdown(!showMakeDropdown)}
           >
-            {selectedMake || 'Aircraft Make'} <span>▼</span>
+            {selectedMake || 'Aircraft Make'} <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18 9L12 15L6 9" stroke="#777"/>
+</svg></span>
             {showMakeDropdown && (
               <DropdownMenu>
                 {selectedMake && (
@@ -683,7 +692,9 @@ const WorkOrderManagement: React.FC = () => {
           <DropdownSelect 
             onClick={() => setShowModelDropdown(!showModelDropdown)}
           >
-            {selectedModel || 'Aircraft Model'} <span>▼</span>
+            {selectedModel || 'Aircraft Model'} <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18 9L12 15L6 9" stroke="#777"/>
+</svg></span>
             {showModelDropdown && (
               <DropdownMenu>
                 {selectedModel && (

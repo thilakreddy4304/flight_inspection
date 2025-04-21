@@ -169,7 +169,9 @@ const Dashboard: React.FC = () => {
             <TopSection>
               <TeamSelector onClick={toggleTeamDropdown}>
                 Team: {selectedTeam?.name} 
-                <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}>▼</TeamSelectorIcon>
+                <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18 9L12 15L6 9" stroke="#777"/>
+</svg></TeamSelectorIcon>
                 <TeamDropdown isOpen={isTeamDropdownOpen}>
                   {teams.map(team => (
                     <TeamOption 
@@ -185,7 +187,7 @@ const Dashboard: React.FC = () => {
                 </TeamDropdown>
               </TeamSelector>
               
-              <WelcomeHeader>Hi Andrew,</WelcomeHeader>
+              <WelcomeHeader>Hi Andrew, (Role: AME)</WelcomeHeader>
             </TopSection>
             
             <IntroHome onViewSchedule={handleViewSchedule} />

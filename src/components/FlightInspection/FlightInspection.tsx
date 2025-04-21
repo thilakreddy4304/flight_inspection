@@ -388,51 +388,195 @@ const ActionButton = styled.button`
 const FLIGHT_DATA: Record<string, any> = {
   'DL4890': {
     identifier: 'DL4890',
-    make: 'Boeing 737 MAX',
-    model: '737-10',
+    make: 'Boeing',
+    model: 'Boeing 737-10',
     engines: '2x Turbofans',
     wingspan: '35.9m (117ft 10in)',
     length: '43.8m (143ft 8in)'
   },
   'DL1234': {
     identifier: 'DL1234',
-    make: 'Boeing 787',
-    model: '787-9',
+    make: 'Airbus',
+    model: 'Airbus A320',
     engines: '2x GEnx-1B',
     wingspan: '60.1m (197ft)',
     length: '63m (206ft 8in)'
   },
   'DL5678': {
     identifier: 'DL5678',
-    make: 'Airbus A350',
-    model: 'A350-900',
+    make: 'Gulfstream',
+    model: 'Boeing 737-10',
     engines: '2x Rolls-Royce Trent XWB',
     wingspan: '64.8m (212ft 5in)',
     length: '66.8m (219ft 2in)'
   },
   'AA137': {
     identifier: 'AA137',
-    make: 'Airbus A320',
-    model: 'A320-251N',
+    make: 'Dassault',
+    model: 'Airbus A320',
     engines: '2x LEAP-1A',
     wingspan: '35.8m (117ft 5in)',
     length: '37.6m (123ft 3in)'
   },
   'UA5432': {
     identifier: 'UA5432',
-    make: 'Boeing 777',
-    model: '777-300ER',
+    make: 'Embraer',
+    model: 'Boeing 737-10',
     engines: '2x GE90-115B',
     wingspan: '64.8m (212ft 7in)',
     length: '73.9m (242ft 4in)'
   },
   'BA2901': {
     identifier: 'BA2901',
-    make: 'Airbus A380',
-    model: 'A380-800',
+    make: 'Bombardier',
+    model: 'Airbus A320',
     engines: '4x Engine Alliance GP7200',
     wingspan: '79.8m (261ft 10in)',
     length: '72.7m (238ft 7in)'
+  },
+  'LH7890': {
+    identifier: 'LH7890',
+    make: 'Lockheed Martin',
+    model: 'Boeing 737-10',
+    engines: '4x Rolls-Royce AE2100D3',
+    wingspan: '40.4m (132ft 7in)',
+    length: '29.8m (97ft 9in)'
+  },
+  'FR1234': {
+    identifier: 'FR1234',
+    make: 'Cirrus',
+    model: 'Airbus A320',
+    engines: '1x Williams FJ33-5A',
+    wingspan: '11.8m (38ft 7in)',
+    length: '9.4m (30ft 11in)'
+  },
+  'EK5678': {
+    identifier: 'EK5678',
+    make: 'Textron',
+    model: 'Boeing 737-10',
+    engines: '2x Honeywell HTF7700L',
+    wingspan: '20.5m (67ft 2in)',
+    length: '22.3m (73ft 2in)'
+  },
+  'SQ2345': {
+    identifier: 'SQ2345',
+    make: 'Raytheon',
+    model: 'Airbus A320',
+    engines: '2x Pratt & Whitney Canada PW308A',
+    wingspan: '18.8m (61ft 9in)',
+    length: '21.1m (69ft 2in)'
+  },
+  'JL8765': {
+    identifier: 'JL8765',
+    make: 'Cessna',
+    model: 'Boeing 737-10',
+    engines: '1x Lycoming IO-360-L2A',
+    wingspan: '11m (36ft 1in)',
+    length: '8.3m (27ft 2in)'
+  },
+  'QF3456': {
+    identifier: 'QF3456',
+    make: 'Pilatus',
+    model: 'Airbus A320',
+    engines: '1x Pratt & Whitney PT6A-67P',
+    wingspan: '16.3m (53ft 4in)',
+    length: '14.4m (47ft 3in)'
+  },
+  'AF7654': {
+    identifier: 'AF7654',
+    make: 'Beechcraft',
+    model: 'Boeing 737-10',
+    engines: '2x Pratt & Whitney PT6A-60A',
+    wingspan: '17.7m (57ft 11in)',
+    length: '14.2m (46ft 8in)'
+  },
+  'KL2109': {
+    identifier: 'KL2109',
+    make: 'Diamond',
+    model: 'Airbus A320',
+    engines: '2x Austro Engine AE330',
+    wingspan: '14.5m (47ft 7in)',
+    length: '9.2m (30ft 2in)'
+  },
+  'NH8901': {
+    identifier: 'NH8901',
+    make: 'Honda',
+    model: 'Boeing 737-10',
+    engines: '2x GE Honda HF120',
+    wingspan: '12.1m (39ft 9in)',
+    length: '13m (42ft 7in)'
+  },
+  'CX6543': {
+    identifier: 'CX6543',
+    make: 'Piper',
+    model: 'Airbus A320',
+    engines: '1x Pratt & Whitney PT6A-42A',
+    wingspan: '13.4m (43ft 10in)',
+    length: '9.9m (32ft 7in)'
+  },
+  'EY9876': {
+    identifier: 'EY9876',
+    make: 'Air Tractor',
+    model: 'Boeing 737-10',
+    engines: '1x Pratt & Whitney PT6A-67F',
+    wingspan: '18m (59ft 2in)',
+    length: '10.9m (35ft 9in)'
+  },
+  'TK5432': {
+    identifier: 'TK5432',
+    make: 'Bye',
+    model: 'Airbus A320',
+    engines: 'Electric',
+    wingspan: '16.8m (55ft 1in)',
+    length: '12.2m (40ft 0in)'
+  },
+  'AC3210': {
+    identifier: 'AC3210',
+    make: 'Carlson',
+    model: 'Boeing 737-10',
+    engines: '1x Rotax 912 ULS',
+    wingspan: '10.4m (34ft 1in)',
+    length: '7.3m (24ft 0in)'
+  },
+  'SU7654': {
+    identifier: 'SU7654',
+    make: 'Comac',
+    model: 'Airbus A320',
+    engines: '2x CFM LEAP-1C',
+    wingspan: '35.8m (117ft 5in)',
+    length: '38.9m (127ft 7in)'
+  },
+  'OS8765': {
+    identifier: 'OS8765',
+    make: 'Daher',
+    model: 'Boeing 737-10',
+    engines: '1x Pratt & Whitney PT6A-66D',
+    wingspan: '12.3m (40ft 4in)',
+    length: '10.7m (35ft 1in)'
+  },
+  'AZ2345': {
+    identifier: 'AZ2345',
+    make: 'Wisk',
+    model: 'Airbus A320',
+    engines: 'Electric + 12 Lift Rotors',
+    wingspan: '11m (36ft 1in)',
+    length: '6.4m (21ft 0in)'
+  },
+  'IB6789': {
+    identifier: 'IB6789',
+    make: 'Joby',
+    model: 'Boeing 737-10',
+    engines: 'Electric VTOL',
+    wingspan: '11.6m (38ft 1in)',
+    length: '8.5m (27ft 11in)'
+  },
+  'BR1357': {
+    identifier: 'BR1357',
+    make: 'Archer',
+    model: 'Airbus A320',
+    engines: 'Electric VTOL',
+    wingspan: '12.2m (40ft 0in)',
+    length: '7.9m (25ft 11in)'
   }
 };
 
@@ -476,6 +620,19 @@ const getAllUniqueModels = () => {
   return Object.keys(modelsMap).sort();
 };
 
+// Add this function to extract unique makes for a selected model
+const getMakesForModel = (model: string) => {
+  const makesMap: Record<string, boolean> = {};
+  
+  Object.values(FLIGHT_DATA)
+    .filter(flight => flight.model === model)
+    .forEach(flight => {
+      makesMap[flight.make] = true;
+    });
+  
+  return Object.keys(makesMap).sort();
+};
+
 const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
   const params = useParams<{ flightId: string }>();
   const navigate = useNavigate();
@@ -497,7 +654,9 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
   const [selectedModel, setSelectedModel] = useState('');
   
   // Get unique aircraft makes and models
-  const uniqueMakes = getUniqueAircraftMakes();
+  const uniqueMakes = selectedModel 
+    ? getMakesForModel(selectedModel) 
+    : getUniqueAircraftMakes();
   const allModels = getAllUniqueModels();
   const modelsForSelectedMake = selectedMake 
     ? getModelsForMake(selectedMake) 
@@ -627,6 +786,30 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
     setSelectedModel(model);
     setShowModelDropdown(false);
     
+    if (model === '') {
+      // If model selection is cleared, don't filter makes
+      if (selectedMake) {
+        // Keep current make if it exists
+        return;
+      }
+      setSelectedFlightId('');
+      setSearchQuery('');
+      return;
+    }
+    
+    // Find makes available for this model
+    const availableMakes = getMakesForModel(model);
+    
+    // If current make is not valid for this model, reset it
+    if (selectedMake && !availableMakes.includes(selectedMake)) {
+      setSelectedMake('');
+    }
+    
+    // If only one make is available for this model, select it
+    if (availableMakes.length === 1) {
+      setSelectedMake(availableMakes[0]);
+    }
+    
     // Find flights with this model
     const matchingFlights = Object.entries(FLIGHT_DATA)
       .filter(([_, flight]) => {
@@ -646,17 +829,6 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
       // Clear selected flight if it doesn't match the new model
       setSelectedFlightId('');
       setSearchQuery('');
-      
-      // If there's exactly one matching make for this model, select it
-      const makesMap: Record<string, boolean> = {};
-      matchingFlights.forEach(([_, flight]) => {
-        makesMap[flight.make] = true;
-      });
-      
-      const uniqueMakesForModel = Object.keys(makesMap);
-      if (uniqueMakesForModel.length === 1) {
-        setSelectedMake(uniqueMakesForModel[0]);
-      }
     }
   };
   
@@ -705,7 +877,10 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
       <TopBar>
         <TeamSelector onClick={toggleTeamDropdown}>
           Team: {selectedTeam?.name} 
-          <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}>▼</TeamSelectorIcon>
+          <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18 9L12 15L6 9" stroke="#777"/>
+</svg>
+</TeamSelectorIcon>
           <TeamDropdown isOpen={isTeamDropdownOpen}>
             {teams.map(team => (
               <TeamOption 
@@ -734,7 +909,11 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
             onBlur={() => setTimeout(() => setShowDropdown(false), 200)}
           />
           <SearchIconButton>
-            <span role="img" aria-label="search">🔍</span>
+            <span role="img" aria-label="search"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="11" cy="11" r="6" stroke="#777"/>
+<path d="M20 20L17 17" stroke="#777" stroke-linecap="round"/>
+</svg>
+</span>
           </SearchIconButton>
           {showDropdown && (
             <SearchDropdown>
@@ -759,7 +938,10 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
           <DropdownSelect 
             onClick={() => setShowMakeDropdown(!showMakeDropdown)}
           >
-            {selectedMake || 'Aircraft Make'} <span>▼</span>
+            {selectedMake || 'Aircraft Make'} <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18 9L12 15L6 9" stroke="#777"/>
+</svg>
+</span>
             {showMakeDropdown && (
               <DropdownMenu>
                 {selectedMake && (
@@ -789,7 +971,10 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
           <DropdownSelect 
             onClick={() => setShowModelDropdown(!showModelDropdown)}
           >
-            {selectedModel || 'Aircraft Model'} <span>▼</span>
+            {selectedModel || 'Aircraft Model'} <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18 9L12 15L6 9" stroke="#777"/>
+</svg>
+</span>
             {showModelDropdown && (
               <DropdownMenu>
                 {selectedModel && (
