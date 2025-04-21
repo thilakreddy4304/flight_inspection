@@ -427,7 +427,7 @@ const InspectionPages: React.FC<InspectionPagesProps> = () => {
         </TopBar>
         
         <PageTitle>
-          Inspections &gt;<FlightIdentifier>{flight.identifier} <FlightModel>({flight.make} {flight.model.slice(-2)})</FlightModel></FlightIdentifier>
+          Inspections &gt;<FlightIdentifier>{flight.identifier} <FlightModel>({flight.make} {flight.model})</FlightModel></FlightIdentifier>
         </PageTitle>
         
         <BackButton onClick={handleBack}>

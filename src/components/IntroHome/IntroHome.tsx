@@ -356,7 +356,7 @@ const introHome: React.FC<introHomeProps> = ({ onViewSchedule }) => {
       </MainContent>
       <SideNavbar>
         <StatusContainer>
-          <StatusTitle>Inspections Status [today]</StatusTitle>
+          <StatusTitle>Today in Inspections</StatusTitle>
           <StatusList>
             <StatusItem>
               <StatusNumber>74</StatusNumber>

@@ -219,45 +219,147 @@ const RunButton = styled.button`
 const INSPECTION_REPORT_DATA: Record<string, any> = {
   'DL4890': {
     estimated_run_time: '1 hour 30 minutes',
-    estimated_price: '$2,500',
+    // estimated_price: '$2,500',
     sensing_assets: '2 units needed',
-    compliance_type: 'FAA-mandated',
-  },
-  'DL5678': {
-    estimated_run_time: '1 hour 30 minutes',
-    estimated_price: '$2,500',
-    sensing_assets: '2 units needed',
-    compliance_type: 'FAA-mandated',
-  },
-  'AA137': {
-    estimated_run_time: '2 hours 15 minutes',
-    estimated_price: '$3,200',
-    sensing_assets: '3 units needed',
-    compliance_type: 'FAA-mandated',
-  },
-  'BA2901': {
-    estimated_run_time: '3 hours 45 minutes',
-    estimated_price: '$4,500',
-    sensing_assets: '4 units needed',
-    compliance_type: 'FAA-mandated',
-  },
-  'UA5432': {
-    estimated_run_time: '4 hours 30 minutes',
-    estimated_price: '$5,200',
-    sensing_assets: '5 units needed',
     compliance_type: 'FAA-mandated',
   },
   'DL1234': {
     estimated_run_time: '1 hour 45 minutes',
-    estimated_price: '$2,800',
+    // estimated_price: '$2,800',
     sensing_assets: '2 units needed',
     compliance_type: 'FAA-mandated',
   },
-  'AA1234': {
-    estimated_run_time: '2 hours 30 minutes',
-    estimated_price: '$3,500',
+  'DL5678': {
+    estimated_run_time: '2 hours 15 minutes',
+    // estimated_price: '$3,200',
     sensing_assets: '3 units needed',
     compliance_type: 'FAA-mandated',
+  },
+  'AA137': {
+    estimated_run_time: '2 hours 30 minutes',
+    // estimated_price: '$3,500',
+    sensing_assets: '3 units needed',
+    compliance_type: 'EASA-regulated',
+  },
+  'UA5432': {
+    estimated_run_time: '1 hour 15 minutes',
+    // estimated_price: '$2,200',
+    sensing_assets: '2 units needed',
+    compliance_type: 'FAA-mandated',
+  },
+  'BA2901': {
+    estimated_run_time: '3 hours 45 minutes',
+    // estimated_price: '$4,500',
+    sensing_assets: '4 units needed',
+    compliance_type: 'EASA-regulated',
+  },
+  'LH7890': {
+    estimated_run_time: '2 hours 45 minutes',
+    // estimated_price: '$3,800',
+    sensing_assets: '3 units needed',
+    compliance_type: 'EASA-regulated',
+  },
+  'FR1234': {
+    estimated_run_time: '1 hour 50 minutes',
+    // estimated_price: '$2,700',
+    sensing_assets: '2 units needed',
+    compliance_type: 'EASA-regulated',
+  },
+  'EK5678': {
+    estimated_run_time: '2 hours 20 minutes',
+    // estimated_price: '$3,300',
+    sensing_assets: '3 units needed',
+    compliance_type: 'UAE-GCAA',
+  },
+  'SQ2345': {
+    estimated_run_time: '3 hours 10 minutes',
+    // estimated_price: '$4,100',
+    sensing_assets: '4 units needed',
+    compliance_type: 'CAAS-regulated',
+  },
+  'JL8765': {
+    estimated_run_time: '1 hour 40 minutes',
+    // estimated_price: '$2,600',
+    sensing_assets: '2 units needed',
+    compliance_type: 'JCAB-mandated',
+  },
+  'QF3456': {
+    estimated_run_time: '2 hours 50 minutes',
+    // estimated_price: '$3,900',
+    sensing_assets: '3 units needed',
+    compliance_type: 'CASA-regulated',
+  },
+  'AF7654': {
+    estimated_run_time: '2 hours 10 minutes',
+    // estimated_price: '$3,100',
+    sensing_assets: '3 units needed',
+    compliance_type: 'EASA-regulated',
+  },
+  'KL2109': {
+    estimated_run_time: '1 hour 55 minutes',
+    // estimated_price: '$2,900',
+    sensing_assets: '2 units needed',
+    compliance_type: 'EASA-regulated',
+  },
+  'NH8901': {
+    estimated_run_time: '2 hours 25 minutes',
+    // estimated_price: '$3,400',
+    sensing_assets: '3 units needed',
+    compliance_type: 'JCAB-mandated',
+  },
+  'CX6543': {
+    estimated_run_time: '3 hours 05 minutes',
+    // estimated_price: '$4,000',
+    sensing_assets: '4 units needed',
+    compliance_type: 'HKCAD-regulated',
+  },
+  'EY9876': {
+    estimated_run_time: '2 hours 40 minutes',
+    // estimated_price: '$3,700',
+    sensing_assets: '3 units needed',
+    compliance_type: 'UAE-GCAA',
+  },
+  'TK5432': {
+    estimated_run_time: '1 hour 35 minutes',
+    // estimated_price: '$2,550',
+    sensing_assets: '2 units needed',
+    compliance_type: 'DGCA-mandated',
+  },
+  'AC3210': {
+    estimated_run_time: '2 hours 05 minutes',
+    // estimated_price: '$3,050',
+    sensing_assets: '3 units needed',
+    compliance_type: 'Transport Canada',
+  },
+  'SU7654': {
+    estimated_run_time: '3 hours 20 minutes',
+    // estimated_price: '$4,200',
+    sensing_assets: '4 units needed',
+    compliance_type: 'Rosaviatsia',
+  },
+  'OS8765': {
+    estimated_run_time: '1 hour 25 minutes',
+    // estimated_price: '$2,450',
+    sensing_assets: '2 units needed',
+    compliance_type: 'EASA-regulated',
+  },
+  'AZ2345': {
+    estimated_run_time: '2 hours 35 minutes',
+    // estimated_price: '$3,600',
+    sensing_assets: '3 units needed',
+    compliance_type: 'EASA-regulated',
+  },
+  'IB6789': {
+    estimated_run_time: '3 hours 15 minutes',
+    // estimated_price: '$4,150',
+    sensing_assets: '4 units needed',
+    compliance_type: 'EASA-regulated',
+  },
+  'BR1357': {
+    estimated_run_time: '2 hours 00 minutes',
+    // estimated_price: '$3,000',
+    sensing_assets: '3 units needed',
+    compliance_type: 'CAA-mandated',
   }
 };
 
@@ -362,7 +464,7 @@ const InspectionSteps: React.FC<InspectionStepsProps> = ({
       </TopBar>
       
       <PageTitle>
-        Inspections &gt;<FlightIdentifier>{flight.identifier} ({flight.make.slice(0, 6)} {flight.model})</FlightIdentifier>
+        Inspections &gt;<FlightIdentifier>{flight.identifier} ({flight.make} {flight.model})</FlightIdentifier>
       </PageTitle>
       
       <BackButton onClick={onBack}>
@@ -386,12 +488,12 @@ const InspectionSteps: React.FC<InspectionStepsProps> = ({
           </InfoRow>
         </MetadataItem>
         
-        <MetadataItem>
+        {/* <MetadataItem>
           <InfoRow>
             <span className="label">Estimated Price:</span>
             <span className="value">{reportData.estimated_price}</span>
           </InfoRow>
-        </MetadataItem>
+        </MetadataItem> */}
         
         <MetadataItem>
           <InfoRow>
