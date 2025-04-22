@@ -523,6 +523,32 @@ const FourthImagePlaceholder = styled.div`
   }
 `;
 
+const NoseImagePlaceholder = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #121212;
+//   margin-top: 10px;
+  border-radius: 10px;
+  border: 3px solid #777;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+
+  img {
+    width: 100%;
+    height: 84%;
+    object-fit: cover;
+  }
+  
+  &:hover {
+    background-color: #252525;
+    cursor: pointer;
+  }
+`;
+
 const ButtonsContainer = styled.div`
   display: flex;
   gap: 10px;
@@ -1293,9 +1319,9 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
                             <ThirdImagePlaceholder>
                               <img src={nose_fod} alt="Nose FOD" />
                             </ThirdImagePlaceholder>
-                            <FourthImagePlaceholder>
+                            <NoseImagePlaceholder>
                               <img src={noseFodIndicator} alt="Realistic Model" />
-                            </FourthImagePlaceholder>
+                            </NoseImagePlaceholder>
                           </>
                         );
                       case "Fluid Leak":
