@@ -268,7 +268,7 @@ const ModelCaption = styled.div`
   @keyframes slideFromRight {
     0% {
       opacity: 0;
-      transform: translateX(400px);
+      transform: translateX(200px);
     }
     100% {
       opacity: 1;
@@ -319,6 +319,7 @@ const EmptyStateIcon = styled.div`
 const EmptyStateText = styled.p`
   font-size: 1.2rem;
   text-align: center;
+  margin-top: 100px;
 `;
 
 // Add these dropdown styled components
@@ -949,7 +950,7 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
                     e.stopPropagation();
                     handleMakeSelect('');
                   }}>
-                    Clear selection
+                    Clear
                   </DropdownMenuItem>
                 )}
                 {uniqueMakes.map(make => (
@@ -982,7 +983,7 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
                     e.stopPropagation();
                     handleModelSelect('');
                   }}>
-                    Clear selection
+                    Clear
                   </DropdownMenuItem>
                 )}
                 {modelsForSelectedMake.map(model => (
@@ -1067,7 +1068,7 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
         </>
       ) : (
         <EmptyStateContainer>
-          <EmptyStateIcon>✈️</EmptyStateIcon>
+          {/* <EmptyStateIcon>✈️</EmptyStateIcon> */}
           <EmptyStateText>Search for a flight identifier to view aircraft details</EmptyStateText>
         </EmptyStateContainer>
       )}

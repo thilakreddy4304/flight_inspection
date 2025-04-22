@@ -325,6 +325,10 @@ const InspectionStage4: React.FC<InspectionStage4Props> = ({
     navigate('/inspections');
   };
   
+  const handleFinish = () => {
+    navigate('/workOrderManagement');
+  };
+
   const processingSteps = [
     {
       title: 'Preparation:',
@@ -441,7 +445,7 @@ const InspectionStage4: React.FC<InspectionStage4Props> = ({
             <TimeEstimate>Run in Background</TimeEstimate>
             
             <ButtonContainer>
-              <CompleteButton>Complete</CompleteButton>
+              <CompleteButton onClick={handleFinish}>Complete</CompleteButton>
             </ButtonContainer>
           </StepsContainer>
           

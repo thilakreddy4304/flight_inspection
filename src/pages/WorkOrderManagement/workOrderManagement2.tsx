@@ -4,14 +4,14 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import realisticModel from '../../assets/images/realistic-aircraft-model.png';
 import door_fod from '../../assets/images/door_fod.png';
-import engine1 from '../../assets/images/engine1.png';
-import engine2 from '../../assets/images/engine2.png';
-import engine3 from '../../assets/images/engine3.png';
-import engine4 from '../../assets/images/engine4.png';
-import engine_thermal from '../../assets/images/engine_thermal.png';
+import engine1 from '../../assets/images/engine_1.png';
+import engine2 from '../../assets/images/engine_2.png';
+import engine3 from '../../assets/images/engine_3.png';
+import engine4 from '../../assets/images/engine_4.png';
+import engine_thermal from '../../assets/images/engine-thermal.png';
 import leak from '../../assets/images/leak.png';
-import nose_fod from '../../assets/images/nose_fod.png';
-import paint_peel from '../../assets/images/paint_peel.png';
+import nose_fod from '../../assets/images/nose-fod.png';
+import paint_peel from '../../assets/images/paint-peel.png';
 import rivet from '../../assets/images/rivet.png';
 
 
@@ -144,13 +144,36 @@ const RightSide = styled.div`
   flex-direction: column;
 `;
 
+const NoIssueImageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  margin-top: 0px;
+  margin-left: 50px;
+  height: 700px;
+  max-width: 950px;
+  background-color: #121212;
+  border-radius: 32px;
+  border: 3px solid #333;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 100%;
+    height: 106%;
+    object-fit: cover;
+  }
+`;
+
 const ImageContainer = styled.div`
   width: 100%;
   height: 100%;
   padding: 10px;
-  margin-top: 50px;
+  margin-top: 0px;
   margin-left: 50px;
-  max-height: 600px;
+  height: 700px;
   max-width: 950px;
   background-color: #121212;
   border-radius: 32px;
@@ -356,8 +379,11 @@ const IssueDetailsContainer = styled.div`
   width: 40%;
   padding: 1px;
   color: white;
+  height: 650px;
   display: flex;
+  margin-top: 20px;
   flex-direction: column;
+  position: relative;
 `;
 
 const DetailRow = styled.div`
@@ -381,6 +407,7 @@ const IssueImagesContainer = styled.div`
   width: 60%;
   padding: 10px;
   display: flex;
+//   height: 500px;
   flex-direction: column;
   gap: 10px;
 `;
@@ -389,7 +416,8 @@ const ImagesGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 10px;
+  gap: 1px;
+  border: 3px solid #fff;
   height: 50%;
 `;
 
@@ -401,7 +429,7 @@ const ImagePlaceholder = styled.div`
   align-items: center;
   overflow: hidden;
   position: relative;
-  height: 50%;
+  height: 100%;
   color: #444;
   font-size: 0.8rem;
   
@@ -413,22 +441,73 @@ const ImagePlaceholder = styled.div`
 
 const SecondImagePlaceholder = styled.div`
   width: 100%;
-  height: 50%;
+//   height: 100%;
   background-color: #121212;
-  margin-top: 10px;
+//   margin-top: 10px;
   border-radius: 10px;
-  border: 3px solid #333;
+  border: 3px solid #fff;
   overflow: hidden;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-//   color: #444;
   font-size: 0.8rem;
 
   img {
     width: 100%;
-    height: 250px;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  &:hover {
+    background-color: #252525;
+    cursor: pointer;
+  }
+`;
+
+const ThirdImagePlaceholder = styled.div`
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  height: 50%;
+  width: 60%;
+  color: #444;
+  font-size: 0.8rem;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &:hover {
+    background-color: #252525;
+    cursor: pointer;
+  }
+`;
+
+
+const FourthImagePlaceholder = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #121212;
+//   margin-top: 10px;
+  border-radius: 10px;
+  border: 3px solid #777;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+
+  img {
+    width: 100%;
+    height: 90%;
     object-fit: cover;
   }
   
@@ -441,8 +520,11 @@ const SecondImagePlaceholder = styled.div`
 const ButtonsContainer = styled.div`
   display: flex;
   gap: 10px;
-  margin-top: 60px;
-  margin-bottom: 0px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+//   margin-bottom: 10px;
 `;
 
 const ActionButton = styled.button<{ variant?: string }>`
@@ -450,6 +532,7 @@ const ActionButton = styled.button<{ variant?: string }>`
   border: none;
   border-radius: 4px;
   font-weight: 600;
+  margin-bottom: 0px;
   cursor: pointer;
   font-size: 0.9rem;
   
@@ -655,10 +738,10 @@ const issueDetailsData: IssueDetail[] = [
     repairs: ['Record Thermal Values', 'Flag for Engineer Review']
   },
   {
-    id: issueData[9].id,
-    zone: issueData[9].zone,
-    issue: issueData[9].issue,
-    severity: issueData[9].severity,
+    id: issueData[8].id,
+    zone: issueData[8].zone,
+    issue: issueData[8].issue,
+    severity: issueData[8].severity,
     description: 'Rivets in Zone 22 are rusted heavily, which may lead to lose composites and compromises structural integrity.',
     impact: 'High. This is considered to impact structural integrity of composites.',
     possibleResolution: 'Replace Rivets',
@@ -666,10 +749,21 @@ const issueDetailsData: IssueDetail[] = [
     repairs: ['Check for leaks/internal damages', 'Replace Rivets']
   },
   {
-    id: issueData[20].id,
-    zone: issueData[20].zone,
-    issue: issueData[20].issue,
-    severity: issueData[20].severity,
+    id: issueData[18].id,
+    zone: issueData[18].zone,
+    issue: issueData[18].issue,
+    severity: issueData[18].severity,
+    description: 'Fluid leaks in Zone 15 are common due to improper closure of de-icing lubricant tank.',
+    impact: 'Moderate. This is considered to impact composite integrity in long-run.',
+    possibleResolution: 'Seal or tighten the tank door.',
+    action: 'Clear the leak and clean the surface. Check for seal breaks or improperly tank cap closure.',
+    repairs: ['Clean the pain peel surface', 'Evaluate seal integrity', 'Evaluate cap closure after refilling fluid']
+  },
+  {
+    id: issueData[19].id,
+    zone: issueData[19].zone,
+    issue: issueData[19].issue,
+    severity: issueData[19].severity,
     description: 'Lower-side of the back door is damaged from impact with ground vehicle.',
     impact: 'Moderate. This is considered to impact door integrity beyond certain point. Measured damage is below 3mm depth and covers under 10mm area.',
     possibleResolution: 'Repair the door',
@@ -677,10 +771,21 @@ const issueDetailsData: IssueDetail[] = [
     repairs: ['Repair the door damage surface']
   },
   {
-    id: issueData[16].id,
-    zone: issueData[16].zone,
-    issue: issueData[16].issue,
-    severity: issueData[16].severity,
+    id: issueData[20].id,
+    zone: issueData[20].zone,
+    issue: issueData[20].issue,
+    severity: issueData[20].severity,
+    description: 'Nose area detected damages due to Foreign body collisions like birds, either in air or ground.',
+    impact: 'Minimal. This is considered to impact communication and sensing electronics in nose section.',
+    possibleResolution: 'Since the damages are minimal and on the exterior, the damage is minimal',
+    action: 'Replace nose exterior shell',
+    repairs: ['Evaluate impact on nose electronics', 'Replace just the nose shell']
+  },
+  {
+    id: issueData[15].id,
+    zone: issueData[15].zone,
+    issue: issueData[15].issue,
+    severity: issueData[15].severity,
     description: 'Paint Peeling on Zone 21 is detected in 508 square inches of area. This may grow with time and exposure to severe weather conditions.',
     impact: 'Moderate. This is considered to impact composite integrity in long-run..',
     possibleResolution: 'Using tape in the area',
@@ -1032,10 +1137,12 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
         </LeftSide>
         
         <RightSide>
-          <ImageContainer>
-            {!selectedIssue ? (
+          {!selectedIssue ? (
+            <NoIssueImageContainer>
               <img src={realisticModel} alt="Aircraft Inspection" />
-            ) : (
+            </NoIssueImageContainer>
+          ) : (
+            <ImageContainer>
               <ImageContainerLayout>
                 <IssueDetailsContainer>
                   <DetailRow>
@@ -1105,29 +1212,112 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
                       </RepairItemsList>
                     )}
                   </AddRepairsContainer>
-                {selectedIssue && (
-                <ButtonsContainer>
-                <ActionButton variant="primary" onClick={handleInvestigate}>Investigate</ActionButton>
-                <ActionButton variant="success" onClick={handleApprove}>Approve</ActionButton>
-                <ActionButton>Export to PDF</ActionButton>
-                </ButtonsContainer>
-            )}
+                  {selectedIssue && (
+                    <ButtonsContainer>
+                      <ActionButton variant="primary" onClick={handleInvestigate}>Investigate</ActionButton>
+                      <ActionButton variant="success" onClick={handleApprove}>Approve</ActionButton>
+                      <ActionButton>Export to PDF</ActionButton>
+                    </ButtonsContainer>
+                  )}
                 </IssueDetailsContainer>
                 <IssueImagesContainer>
-                  {/* <ImagesGrid> */}
-                    <ImagePlaceholder>Add Image here</ImagePlaceholder>
-                    {/* <ImagePlaceholder>Click to add image</ImagePlaceholder>
-                    <ImagePlaceholder>Click to add image</ImagePlaceholder>
-                    <ImagePlaceholder>Click to add image</ImagePlaceholder> */}
-                  {/* </ImagesGrid> */}
-                  
-                  <SecondImagePlaceholder>
-                    <img src={realisticModel} alt="Realistic Model" />
-                  </SecondImagePlaceholder>
+                  {(() => {
+                    switch (selectedIssue?.issue) {
+                      case "Engine Blades":
+                      case "Engine Thermal Analysis":
+                        return (
+                          <>
+                            <ImagesGrid>
+                              <ImagePlaceholder>
+                                <img src={engine1} alt="Engine Blade 1" />
+                              </ImagePlaceholder>
+                              <ImagePlaceholder>
+                                <img src={engine2} alt="Engine Blade 2" />
+                              </ImagePlaceholder>
+                              <ImagePlaceholder>
+                                <img src={engine3} alt="Engine Blade 3" />
+                              </ImagePlaceholder>
+                              <ImagePlaceholder>
+                                <img src={engine4} alt="Engine Blade 4" />
+                              </ImagePlaceholder>
+                            </ImagesGrid>
+                            <SecondImagePlaceholder>
+                              <img src={engine_thermal} alt="Thermal Analysis" />
+                            </SecondImagePlaceholder>
+                          </>
+                        );
+                      case "Rivets":
+                        return (
+                          <>
+                            <ThirdImagePlaceholder>
+                              <img src={rivet} alt="Rivets" />
+                            </ThirdImagePlaceholder>
+                            <FourthImagePlaceholder>
+                              <img src={realisticModel} alt="Realistic Model" />
+                            </FourthImagePlaceholder>
+                          </>
+                        );
+                      case "Paint Peel":
+                        return (
+                          <>
+                            <ThirdImagePlaceholder>
+                              <img src={paint_peel} alt="Paint Peel" />
+                            </ThirdImagePlaceholder>
+                            <FourthImagePlaceholder>
+                              <img src={realisticModel} alt="Realistic Model" />
+                            </FourthImagePlaceholder>
+                          </>
+                        );
+
+                      case "Door Opening":
+                        return (
+                          <>
+                            <ThirdImagePlaceholder>
+                              <img src={door_fod} alt="Door Opening" />
+                            </ThirdImagePlaceholder>
+                            <FourthImagePlaceholder>
+                              <img src={realisticModel} alt="Realistic Model" />
+                            </FourthImagePlaceholder>
+                          </>
+                        );
+
+                      case "Nose FOD":
+                        return (
+                          <>
+                            <ThirdImagePlaceholder>
+                              <img src={nose_fod} alt="Nose FOD" />
+                            </ThirdImagePlaceholder>
+                            <FourthImagePlaceholder>
+                              <img src={realisticModel} alt="Realistic Model" />
+                            </FourthImagePlaceholder>
+                          </>
+                        );
+                      case "Fluid Leak":
+                        return (
+                          <>
+                            <ThirdImagePlaceholder>
+                              <img src={leak} alt="Fluid Leak" />
+                            </ThirdImagePlaceholder>
+                            <FourthImagePlaceholder>
+                              <img src={realisticModel} alt="Realistic Model" />
+                            </FourthImagePlaceholder>
+                          </>
+                        );
+                      default:
+                        return (
+                          <>
+                            <ThirdImagePlaceholder>Add Image here</ThirdImagePlaceholder>
+                            <FourthImagePlaceholder>
+                              <img src={realisticModel} alt="Realistic Model" />
+                            </FourthImagePlaceholder>
+                          </>
+                        );
+                    }
+                  })()}
                 </IssueImagesContainer>
               </ImageContainerLayout>
-            )}
-          </ImageContainer>
+            </ImageContainer>
+          )}
         </RightSide>
       </ContentLayout>
     </MainContent>
