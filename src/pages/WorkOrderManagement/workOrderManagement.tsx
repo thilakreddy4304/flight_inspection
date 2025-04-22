@@ -305,6 +305,23 @@ const PriorityBadge = styled.span<{ priority: string }>`
   color: #CCC;
 `;
 
+const ApprovalIcons = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+`;
+
+const ApprovalIcon = styled.div`
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+`;
+
 // Add a type definition for work order
 interface WorkOrder {
   id: string;
@@ -319,18 +336,18 @@ interface WorkOrder {
 
 // Sample data for work orders based on image
 const workOrdersData: WorkOrder[] = [
-  { id: '1', Date: '04/01/2025', aircraft: 'DL4890 (B737-10)', inspection: ' A-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
-  { id: '2', Date: '04/01/2025', aircraft: 'DL1234 (A319)', inspection: 'Wing Inspection', status: 'Complete', compliance: 'Complete', priority: 'Low', Approve: 'Approved' },
-  { id: '3', Date: '04/01/2025', aircraft: 'DL5678 (A350)', inspection: 'A-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
-  { id: '4', Date: '04/01/2025', aircraft: 'AA137 (A320)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'Approved' },
-  { id: '5', Date: '04/01/2025', aircraft: 'UA5432 (B777)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'Medium', Approve: 'Approved' },
-  { id: '6', Date: '04/01/2025', aircraft: 'BA2901 (A380)', inspection: 'Lightning Strike', status: 'In AME Review', compliance: 'In-Progress', priority: 'Medium', Approve: 'Approved' },
-  { id: '7', Date: '04/01/2025', aircraft: 'DL4890 (B737-10)', inspection: 'Pre-Check', status: 'Complete', compliance: 'Complete', priority: 'Low', Approve: 'Approved' },
-  { id: '8', Date: '04/01/2025', aircraft: 'DL1234 (A319)', inspection: 'Pre-Check', status: 'Complete', compliance: 'Complete', priority: 'Low', Approve: 'Approved' },
-  { id: '9', Date: '04/01/2025', aircraft: 'DL5678 (A350)', inspection: 'Engine Inspection', status: 'In-Progress', compliance: 'Pending', priority: 'High', Approve: 'Approved' },
-  { id: '11', Date: '04/01/2025', aircraft: 'UA5432 (B777)', inspection: 'Nose Inspection', status: 'In-Progress', compliance: 'Pending', priority: 'High', Approve: 'Approved' },
-  { id: '10', Date: '06/01/2025', aircraft: 'AA137 (A320)', inspection: 'Scheduled', status: 'TBD', compliance: 'TBD', priority: 'Low', Approve: 'TBD' },
-  { id: '12', Date: '06/01/2025', aircraft: 'BA2901 (A380)', inspection: 'Scheduled', status: 'TBD', compliance: 'TBD', priority: 'High', Approve: 'TBD' },
+  { id: '1', Date: '04/01/2025', aircraft: 'DL4890 (B737-10)', inspection: 'A-Check', status: 'In AME Review', compliance: 'Completed', priority: 'High', Approve: 'Approved' },
+  { id: '2', Date: '04/01/2025', aircraft: 'DL1234 (A319)', inspection: 'A-Check', status: 'In AME Review', compliance: 'Completed', priority: 'High', Approve: 'Approved' },
+  { id: '3', Date: '04/01/2025', aircraft: 'DL5678 (A350)', inspection: 'A-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'Medium', Approve: 'In-Progress' },
+  { id: '4', Date: '04/01/2025', aircraft: 'AA137 (A320)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'Low', Approve: 'In-Progress' },
+  { id: '5', Date: '04/01/2025', aircraft: 'UA5432 (B777)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'Low', Approve: 'In-Progress' },
+  { id: '6', Date: '04/01/2025', aircraft: 'BA2901 (A380)', inspection: 'Pre-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'Low', Approve: 'In-Progress' },
+  { id: '7', Date: '04/01/2025', aircraft: 'DL4890 (B737-10)', inspection: 'Lightning Strike', status: 'In AME Review', compliance: 'In-Progress', priority: 'Medium', Approve: 'In-Progress' },
+  { id: '8', Date: '04/01/2025', aircraft: 'DL1234 (A319)', inspection: 'B-Check', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'In-Progress' },
+  { id: '9', Date: '04/01/2025', aircraft: 'DL5678 (A350)', inspection: 'Engine Inspection', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'In-Progress' },
+  { id: '11', Date: '04/01/2025', aircraft: 'UA5432 (B777)', inspection: 'Nose Inspection', status: 'In AME Review', compliance: 'In-Progress', priority: 'High', Approve: 'In-Progress' },
+  { id: '10', Date: '06/01/2025', aircraft: 'AA137 (A320)', inspection: 'Wing Inspection', status: 'Scheduled', compliance: 'Scheduled', priority: 'High', Approve: 'Scheduled' },
+  { id: '12', Date: '06/01/2025', aircraft: 'BA2901 (A380)', inspection: 'Fuselage Inspection', status: 'Scheduled', compliance: 'Scheduled', priority: 'High', Approve: 'Scheduled' },
 ];
 
 const FLIGHT_DATA: Record<string, any> = {
@@ -459,6 +476,7 @@ const WorkOrderManagement: React.FC = () => {
   const [toastMessage, setToastMessage] = useState('');
   const makeDropdownRef = useRef<HTMLDivElement>(null);
   const modelDropdownRef = useRef<HTMLDivElement>(null);
+  const [approvalStatus, setApprovalStatus] = useState<null | 'Approved' | 'Rejected'>(null);
 
   const uniqueMakes = getUniqueAircraftMakes();
   const allModels = getAllUniqueModels();
@@ -623,6 +641,16 @@ const WorkOrderManagement: React.FC = () => {
         setShowToast(false);
       }, 3000);
     }
+  };
+
+  const handleApprove = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setApprovalStatus('Approved');
+  };
+  
+  const handleReject = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setApprovalStatus('Rejected');
   };
 
   return (
@@ -806,7 +834,33 @@ const WorkOrderManagement: React.FC = () => {
                 </StatusBadge>
               </TableCell>
               <TableCell>{order.compliance}</TableCell>
-              <TableCell>{order.Approve}</TableCell>
+              <TableCell>
+                {index === 0 ? (
+                  <ApprovalIcons>
+                    {approvalStatus === null ? (
+                      <>
+                        <ApprovalIcon onClick={handleApprove}>
+                         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="12" cy="12" r="9" stroke="#fff"/>
+                          <path d="M8 12L11 15L16 9" stroke="#fff"/>
+                          </svg>
+                        </ApprovalIcon>
+                        <ApprovalIcon onClick={handleReject}>
+                          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 10.8181 3.23279 9.64778 3.68508 8.55585C4.13738 7.46392 4.80031 6.47177 5.63604 5.63604C6.47177 4.80031 7.46392 4.13738 8.55585 3.68508C9.64778 3.23279 10.8181 3 12 3C13.1819 3 14.3522 3.23279 15.4442 3.68508C16.5361 4.13738 17.5282 4.80031 18.364 5.63604C19.1997 6.47177 19.8626 7.46392 20.3149 8.55585C20.7672 9.64778 21 10.8181 21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4441 20.3149C14.3522 20.7672 13.1819 21 12 21L12 21Z" stroke="#fff" stroke-linecap="round"/>
+                          <path d="M9 9L15 15" stroke="#fff" stroke-linecap="round"/>
+                          <path d="M15 9L9 15" stroke="#fff" stroke-linecap="round"/>
+                          </svg>
+                        </ApprovalIcon>
+                      </>
+                    ) : (
+                      <span>{approvalStatus}</span>
+                    )}
+                  </ApprovalIcons>
+                ) : (
+                  order.Approve
+                )}
+              </TableCell>
             </TableRow>
           ))}
           
