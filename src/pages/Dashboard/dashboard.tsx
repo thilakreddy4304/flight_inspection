@@ -120,10 +120,10 @@ const Dashboard: React.FC = () => {
       setCurrentView('HardwareSenseAssets');
     } else if (location.pathname === '/AircraftAssets' || location.pathname.startsWith('/AircraftAssets/')) {
       setCurrentView('AircraftAssets');
-    } else if (location.pathname === '/collaborate' || location.pathname.startsWith('/collaborate/')) {
-      setCurrentView('collaborate');
-    } else if (location.pathname === '/ContactSupport' || location.pathname.startsWith('/ContactSupport/')) {
-      setCurrentView('ContactSupport');
+    } else if (location.pathname === '/RoleManagement' || location.pathname.startsWith('/RoleManagement/')) {
+      setCurrentView('RoleManagement');
+    } else if (location.pathname === '/Support' || location.pathname.startsWith('/Support/')) {
+      setCurrentView('Support');
     } else if (location.pathname === '/profile') {
       setCurrentView('profile');
     } else if (location.pathname === '/settings') {
@@ -131,7 +131,7 @@ const Dashboard: React.FC = () => {
     } else if (location.pathname.startsWith('/')) {
       const viewFromUrl = location.pathname.substring(1) as DashboardView;
       if (viewFromUrl && 
-          ['home', 'inspections', 'workOrderManagement', 'HardwareSenseAssets', 'collaborate', 'AircraftAssets', 'settings', 'ContactSupport', 'profile'].includes(viewFromUrl)) {
+          ['home', 'inspections', 'workOrderManagement', 'HardwareSenseAssets', 'RoleManagement', 'AircraftAssets', 'settings', 'Support', 'profile'].includes(viewFromUrl)) {
         setCurrentView(viewFromUrl as DashboardView);
       }
     }
@@ -209,10 +209,10 @@ const Dashboard: React.FC = () => {
       case 'workOrderManagement':
         return <WorkOrderManagementPages />;   
 
-      case 'collaborate':
+      case 'RoleManagement':
         return (
           <>
-            <WelcomeHeader>Collaborate</WelcomeHeader>
+            <WelcomeHeader>Role Management</WelcomeHeader>
             <p>In Development..</p>
           </>
         );
@@ -248,10 +248,10 @@ const Dashboard: React.FC = () => {
           </>
         );
 
-      case 'ContactSupport':
+      case 'Support':
         return (
           <>
-            <WelcomeHeader>Contact Support</WelcomeHeader>
+            <WelcomeHeader>Support</WelcomeHeader>
             <p>In Development...</p>
           </>
         );

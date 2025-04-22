@@ -141,10 +141,10 @@ const SideNavbar: React.FC<SideNavbarProps> = ({ activePage, onNavigate }) => {
         inspections: '/inspections',
         workOrderManagement: '/workOrderManagement',
         HardwareSenseAssets: '/HardwareSenseAssets',
-        collaborate: '/collaborate',
+        RoleManagement: '/RoleManagement',
         AircraftAssets: '/AircraftAssets',
         settings: '/settings',
-        ContactSupport: '/ContactSupport',
+        Support: '/Support',
         profile: '/profile'
       };
       navigate(routes[view]);
@@ -169,7 +169,7 @@ const SideNavbar: React.FC<SideNavbarProps> = ({ activePage, onNavigate }) => {
           <TasksIcon />
         </NavIcon>
         
-        <NavIcon active={activePage === 'collaborate'} onClick={() => handleIconClick('collaborate')}>
+        <NavIcon active={activePage === 'RoleManagement'} onClick={() => handleIconClick('RoleManagement')}>
           <CollaborateIcon />
         </NavIcon>
         
@@ -187,7 +187,7 @@ const SideNavbar: React.FC<SideNavbarProps> = ({ activePage, onNavigate }) => {
       </IconGroup>
       
       <BottomIconGroup>
-        <NavIcon active={activePage === 'ContactSupport'} onClick={() => handleIconClick('ContactSupport')}>
+        <NavIcon active={activePage === 'Support'} onClick={() => handleIconClick('Support')}>
           <CallIcon />
         </NavIcon>
 
