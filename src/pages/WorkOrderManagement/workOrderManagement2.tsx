@@ -13,6 +13,12 @@ import leak from '../../assets/images/leak.png';
 import nose_fod from '../../assets/images/nose-fod.png';
 import paint_peel from '../../assets/images/paint-peel.png';
 import rivet from '../../assets/images/rivet.png';
+import aircraftindicator from '../../assets/images/aircraftindicators.png';
+import rivetIndicator from '../../assets/images/rivetIndicator.png';
+import doorOpeningIndicator from '../../assets/images/DoorOpeningIndicator.png';
+import paintPeelIndicator from '../../assets/images/paintPeelIndicator.png';
+import fluidLeakIndicator from '../../assets/images/fluidLeakIndicator.png';
+import noseFodIndicator from '../../assets/images/noseFODIndicator.png';
 
 
 const MainContent = styled.div`
@@ -150,20 +156,20 @@ const NoIssueImageContainer = styled.div`
   padding: 10px;
   margin-top: 0px;
   margin-left: 50px;
-  height: 700px;
+  height: 647px;
   max-width: 950px;
-  background-color: #121212;
+//   background-color: #121212;
   border-radius: 32px;
-  border: 3px solid #333;
+  border: 3px solid #fff;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
 
   img {
-    width: 100%;
-    height: 106%;
-    object-fit: cover;
+    width: 102%;
+    height: 105%;
+    object-fit: contain;
   }
 `;
 
@@ -184,7 +190,7 @@ const ImageContainer = styled.div`
   align-items: center;
 
   img {
-    width: 103%;
+    width: 100%;
     height: 100%;
     object-fit: cover;
   }
@@ -1139,7 +1145,7 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
         <RightSide>
           {!selectedIssue ? (
             <NoIssueImageContainer>
-              <img src={realisticModel} alt="Aircraft Inspection" />
+              <img src={aircraftindicator} alt="Aircraft Inspection indicators" />
             </NoIssueImageContainer>
           ) : (
             <ImageContainer>
@@ -1253,7 +1259,7 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
                               <img src={rivet} alt="Rivets" />
                             </ThirdImagePlaceholder>
                             <FourthImagePlaceholder>
-                              <img src={realisticModel} alt="Realistic Model" />
+                              <img src={rivetIndicator} alt="Realistic Model" />
                             </FourthImagePlaceholder>
                           </>
                         );
@@ -1264,7 +1270,7 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
                               <img src={paint_peel} alt="Paint Peel" />
                             </ThirdImagePlaceholder>
                             <FourthImagePlaceholder>
-                              <img src={realisticModel} alt="Realistic Model" />
+                              <img src={paintPeelIndicator} alt="Realistic Model" />
                             </FourthImagePlaceholder>
                           </>
                         );
@@ -1276,7 +1282,7 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
                               <img src={door_fod} alt="Door Opening" />
                             </ThirdImagePlaceholder>
                             <FourthImagePlaceholder>
-                              <img src={realisticModel} alt="Realistic Model" />
+                              <img src={doorOpeningIndicator} alt="Realistic Model" />
                             </FourthImagePlaceholder>
                           </>
                         );
@@ -1288,7 +1294,7 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
                               <img src={nose_fod} alt="Nose FOD" />
                             </ThirdImagePlaceholder>
                             <FourthImagePlaceholder>
-                              <img src={realisticModel} alt="Realistic Model" />
+                              <img src={noseFodIndicator} alt="Realistic Model" />
                             </FourthImagePlaceholder>
                           </>
                         );
@@ -1299,7 +1305,7 @@ const WorkOrderDetail: React.FC<WorkOrderDetailProps> = () => {
                               <img src={leak} alt="Fluid Leak" />
                             </ThirdImagePlaceholder>
                             <FourthImagePlaceholder>
-                              <img src={realisticModel} alt="Realistic Model" />
+                              <img src={fluidLeakIndicator} alt="Realistic Model" />
                             </FourthImagePlaceholder>
                           </>
                         );
