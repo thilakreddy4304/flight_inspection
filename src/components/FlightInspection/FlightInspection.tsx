@@ -445,7 +445,7 @@ const AircraftInfoContainer = styled.div`
   
   @media (min-width: 1366px) {
     margin-bottom: 30px;
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   
   @media (min-width: 1920px) {
@@ -493,7 +493,6 @@ const FlightInfo = styled.div`
 
 const InfoRow = styled.div`
   margin-bottom: 1px;
-  // font-size: 1rem;
   white-space: nowrap;
 
   .label {
@@ -503,68 +502,76 @@ const InfoRow = styled.div`
 
   .value {
     margin-left: 10px;
-    font-weight: 600;
+    font-weight: 200;
     font-size: 0.8rem;
   }
   
   @media (min-width: 1366px) {
     margin-bottom: 2px;
-    // font-size: 1.1rem;
-    
-    .label {
-      font-size: 1.1rem;
-    }
-    
-    .value {
-      margin-left: 12px;
-      font-size: 0.9rem;
-    }
-  }
-
-  @media (min-width: 1366px) and (max-height: 768px) {
-    margin-bottom: 2px;
-    font-size: 1.1rem;
-  }
-  
-  @media (min-width: 1920px) {
-    margin-bottom: 3px;
-    font-size: 1rem;
     
     .label {
       font-size: 1rem;
     }
     
     .value {
-      margin-left: 14px;
+      margin-left: 12px;
+      font-weight: 200;
       font-size: 0.8rem;
+    }
+  }
+
+  @media (min-width: 1366px) and (max-height: 768px) {
+    margin-bottom: 1px;
+
+    .label {
+      font-size: 0.8rem;
+    }
+    .value {
+      font-size: 0.6rem;
+      font-weight: 200;
+    }
+  }
+  
+  @media (min-width: 1920px) {
+    margin-bottom: 3px;
+    // font-size: 1rem;
+    
+    .label {
+      font-size: 1.1rem;
+    }
+    
+    .value {
+      margin-left: 14px;
+      font-size: 0.9rem;
+      font-weight: 200;
     }
   }
   
   @media (min-width: 2560px) {
     margin-bottom: 4px;
-    font-size: 1.6rem;
     
     .label {
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
     
     .value {
       margin-left: 18px;
-      font-size: 1.8rem;
+      font-size: 1.3rem;
+      font-weight: 200;
     }
   }
   
   @media (min-width: 3840px) {
     margin-bottom: 6px;
-    font-size: 1.8rem;
     
     .label {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
     }
     
     .value {
       margin-left: 24px;
-      font-size: 2.3rem;
+      font-size: 2rem;
+      font-weight: 200;
     }
   }
 `;
@@ -613,10 +620,6 @@ const ModelCard1 = styled.div`
   display: block;
   width: 100%;
   height: 280px;
-  // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  padding: 0;
-  margin: 0;
-  font-size: 0;
   
 
   @media (min-width: 1366px) and (max-width: 1700px) {
@@ -655,17 +658,12 @@ const ModelCard1 = styled.div`
 `;
 
 const ModelCard2 = styled.div`
-  // background-color: #222;
   border-radius: 10px;
   border: 2px solid #444;
   overflow: hidden;
   display: block;
   width: 100%;
   height: 280px;
-  // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  padding: 0;
-  margin: 0;
-  font-size: 0;
   
   @media (min-width: 1366px) {
     height: 330px;
@@ -712,7 +710,6 @@ const ModelImage1 = styled.div`
   height: 100%;
   width: 100%;
   background-color: #fff;
-  padding: 0; /* Default padding - will be overridden by inline style */
   margin-top: 10px;
   margin-bottom: 10px;
   box-sizing: border-box;
@@ -721,9 +718,8 @@ const ModelImage1 = styled.div`
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
-    // border-radius: 12px; /* Optional: Add slightly rounded corners to the image */
   }
   
   @media (min-width: 1366px) {
@@ -735,7 +731,7 @@ const ModelImage1 = styled.div`
     img {
       width: 100%;
       height: 95%;
-      object-fit: cover;
+      object-fit: contain;
       object-position: center;
     }
   }
@@ -743,11 +739,37 @@ const ModelImage1 = styled.div`
   @media (min-width: 1920px) {
     margin-top: 14px;
     margin-bottom: 14px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+
+  @media (min-width: 1921px) and (max-width: 2559px) {
+    margin-top: 16px;
+    margin-bottom: 16px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
   }
   
   @media (min-width: 2560px) {
     margin-top: 18px;
     margin-bottom: 18px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
   }
   
   @media (min-width: 3840px) {
