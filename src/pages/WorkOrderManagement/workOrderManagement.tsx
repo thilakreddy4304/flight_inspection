@@ -226,7 +226,7 @@ const Table = styled.div`
   margin-bottom: 10px;
   border: 1px solid #333;
   background-color: #121212;
-  min-width: 1200px;
+  // width: 100vw;
 `;
 
 const TableHeader = styled.div`
@@ -275,7 +275,7 @@ const TableRow = styled.div`
 `;
 
 const TableCell = styled.div`
-  padding: 12px 16px;
+  padding: 8px 12px;
   color: #CCC;
   font-size: 0.8rem;
   border-right: 1px solid #333;
@@ -865,7 +865,7 @@ const WorkOrderManagement: React.FC = () => {
           ))}
           
           {/* Empty rows should have the same number of cells */}
-          {Array.from({ length: 2 }).map((_, index) => (
+          {Array.from({ length: 6 }).map((_, index) => (
             <TableRow key={`empty-${index}`} style={{ cursor: 'default' }}>
               <TableCell>&nbsp;</TableCell>
               <TableCell>&nbsp;</TableCell>
