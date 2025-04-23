@@ -30,6 +30,22 @@ const IconContainer = styled.div`
   
   @media (min-width: 1366px) {
     width: var(--sidebar-width-large, 90px);
+    padding: 1.5rem 0;
+  }
+
+  @media (min-width: 1920px) {
+    width: var(--sidebar-width-large, 100px);
+    padding: 2rem 0;
+  }
+
+  @media (min-width: 2560px) {
+    width: var(--sidebar-width-large, 110px);
+    padding: 2.5rem 0;
+  }
+  
+  @media (min-width: 3840px) {
+    width: var(--sidebar-width-large, 120px);
+    padding: 3rem 0;
   }
 `;
 
@@ -48,6 +64,26 @@ const Logo = styled.div`
   @media (max-width: 768px) {
     font-size: 1.4rem;
     margin-bottom: 1rem;
+  }
+
+  @media (min-width: 1366px) {
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  @media (min-width: 1920px) {
+    font-size: 2.6rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (min-width: 2560px) {
+    font-size: 3rem;
+    margin-bottom: 3.5rem;
+  }
+
+  @media (min-width: 3840px) {
+    font-size: 3.5rem; 
+    margin-bottom: 4rem;
   }
 `;
 
@@ -91,6 +127,22 @@ const BottomIconGroup = styled.div`
   @media (max-width: 768px) {
     margin-top: 0.5rem;
   }
+
+  @media (min-width: 1366px) {
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 1920px) {
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 2560px) {
+    margin-top: 2rem;
+  }
+
+  @media (min-width: 3840px) {
+    margin-top: 2.5rem;
+  }
 `;
 
 const NavIcon = styled.div<{ active?: boolean }>`
@@ -124,6 +176,31 @@ const NavIcon = styled.div<{ active?: boolean }>`
     margin-bottom: 8px;
     border-radius: 6px;
   }
+
+  @media (min-width: 1366px) {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 12px;
+  }
+  
+  @media (min-width: 1920px) {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 14px;
+  } 
+
+  @media (min-width: 2560px) {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 16px;
+  } 
+
+  @media (min-width: 3840px) {
+    width: 55px;
+    height: 55px;
+    margin-bottom: 18px;
+  }
+  
   
   /* Properly size SVG icons inside */
   svg {
@@ -139,6 +216,26 @@ const NavIcon = styled.div<{ active?: boolean }>`
       width: 18px;
       height: 18px;
     }
+
+    @media (min-width: 1366px) {
+      width: 24px;
+      height: 24px;
+    } 
+
+    @media (min-width: 1920px) {
+      width: 26px;
+      height: 26px;
+    } 
+
+    @media (min-width: 2560px) {
+      width: 28px;
+      height: 28px;
+    }  
+
+    @media (min-width: 3840px) {
+      width: 30px;
+      height: 30px;
+    } 
   }
 `;
 

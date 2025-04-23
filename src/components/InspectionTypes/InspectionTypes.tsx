@@ -6,6 +6,27 @@ import InspectionSteps from '../InspectionSteps/InspectionSteps';
 // Container for the entire page
 const Container = styled.div`
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent scrolling */
+  position: relative;
+
+  @media (min-width: 1366px) {
+    width: 100%;
+  }
+  
+  @media (min-width: 1920px) {
+    width: 100%;
+  }
+  
+  @media (min-width: 2560px) {
+    width: 100%;
+  }
+  
+  @media (min-width: 3840px) {
+    width: 100%;
+  }
 `;
 
 // Top navigation and header
@@ -14,6 +35,22 @@ const TopBar = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  
+  @media (min-width: 1366px) {
+    margin-bottom: 12px;
+  }
+  
+  @media (min-width: 1920px) {
+    margin-bottom: 16px;
+  }
+  
+  @media (min-width: 2560px) {
+    margin-bottom: 20px;
+  }
+  
+  @media (min-width: 3840px) {
+    margin-bottom: 30px;
+  }
 `;
 
 const TeamSelector = styled.div`
@@ -30,11 +67,75 @@ const TeamSelector = styled.div`
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
+  
+  @media (min-width: 1366px) {
+    padding: 6px 10px;
+    border-radius: 5px;
+    gap: 10px;
+    font-size: 1rem;
+  }
+  
+  @media (min-width: 1920px) {
+    padding: 8px 12px;
+    border-radius: 6px;
+    gap: 12px;
+    font-size: 1.1rem;
+  }
+  
+  @media (min-width: 2560px) {
+    padding: 10px 16px;
+    border-radius: 8px;
+    gap: 16px;
+    font-size: 1.3rem;
+  }
+  
+  @media (min-width: 3840px) {
+    padding: 14px 22px;
+    border-radius: 12px;
+    gap: 20px;
+    font-size: 1.8rem;
+  }
 `;
 
 const TeamSelectorIcon = styled.span`
   font-size: 0.7rem;
   transition: transform 0.3s ease;
+  
+  @media (min-width: 1366px) {
+    font-size: 0.8rem;
+    
+    svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+  
+  @media (min-width: 1920px) {
+    font-size: 0.9rem;
+    
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  
+  @media (min-width: 2560px) {
+    font-size: 1.1rem;
+    
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+  
+  @media (min-width: 3840px) {
+    font-size: 1.5rem;
+    
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
 `;
 
 const TeamDropdown = styled.div<{ isOpen: boolean }>`
@@ -48,6 +149,30 @@ const TeamDropdown = styled.div<{ isOpen: boolean }>`
   margin-top: 5px;
   z-index: 10;
   display: ${props => props.isOpen ? 'block' : 'none'};
+  
+  @media (min-width: 1366px) {
+    border-radius: 5px;
+    margin-top: 6px;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (min-width: 1920px) {
+    border-radius: 6px;
+    margin-top: 8px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (min-width: 2560px) {
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (min-width: 3840px) {
+    border-radius: 12px;
+    margin-top: 14px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const TeamOption = styled.div`
@@ -58,29 +183,121 @@ const TeamOption = styled.div`
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
+  
+  @media (min-width: 1366px) {
+    padding: 10px 18px;
+    font-size: 1rem;
+  }
+  
+  @media (min-width: 1920px) {
+    padding: 12px 20px;
+    font-size: 1.1rem;
+  }
+  
+  @media (min-width: 2560px) {
+    padding: 16px 24px;
+    font-size: 1.3rem;
+  }
+  
+  @media (min-width: 3840px) {
+    padding: 22px 32px;
+    font-size: 1.8rem;
+  }
 `;
 
 const PageTitle = styled.h1`
   font-size: 2rem;
   font-weight: 600;
   margin: 0 0 4px 0;
+  
+  @media (min-width: 1366px) {
+    font-size: 2.2rem;
+    margin: 0 0 6px 0;
+  }
+  
+  @media (min-width: 1920px) {
+    font-size: 2.5rem;
+    margin: 0 0 8px 0;
+  }
+  
+  @media (min-width: 2560px) {
+    font-size: 3rem;
+    margin: 0 0 10px 0;
+  }
+  
+  @media (min-width: 3840px) {
+    font-size: 4rem;
+    margin: 0 0 14px 0;
+  }
 `;
 
 const FlightIdentifier = styled.span`
   color: #999;
   margin-left: 12px;
+  
+  @media (min-width: 1366px) {
+    margin-left: 14px;
+  }
+  
+  @media (min-width: 1920px) {
+    margin-left: 16px;
+  }
+  
+  @media (min-width: 2560px) {
+    margin-left: 20px;
+  }
+  
+  @media (min-width: 3840px) {
+    margin-left: 28px;
+  }
 `;
 
 const InstructionText = styled.div`
   color: #999;
   font-size: 1rem;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
+  
+  @media (min-width: 1366px) {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+  
+  @media (min-width: 1920px) {
+    font-size: 1.2rem;
+    margin-bottom: 24px;
+  }
+  
+  @media (min-width: 2560px) {
+    font-size: 1.4rem;
+    margin-bottom: 28px;
+  }
+  
+  @media (min-width: 3840px) {
+    font-size: 1.8rem;
+    margin-bottom: 36px;
+  }
 `;
 
 // Search component
 const SearchContainer = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   width: 100%;
+  
+  @media (min-width: 1366px) {
+    margin-bottom: 20px;
+  }
+  
+  @media (min-width: 1920px) {
+    margin-bottom: 22px;
+  }
+  
+  @media (min-width: 2560px) {
+    margin-bottom: 26px;
+  }
+  
+  @media (min-width: 3840px) {
+    margin-bottom: 34px;
+  }
 `;
 
 const SearchInput = styled.input`
@@ -101,20 +318,76 @@ const SearchInput = styled.input`
   &::placeholder {
     color: #666;
   }
+  
+  @media (min-width: 1366px) {
+    border-radius: 28px;
+    font-size: 1.1rem;
+    padding: 14px 18px;
+    max-width: 700px;
+  }
+  
+  @media (min-width: 1920px) {
+    border-radius: 32px;
+    font-size: 1.2rem;
+    padding: 16px 22px;
+    max-width: 800px;
+  }
+  
+  @media (min-width: 2560px) {
+    border-radius: 40px;
+    font-size: 1.4rem;
+    padding: 20px 28px;
+    max-width: 1000px;
+  }
+  
+  @media (min-width: 3840px) {
+    border-radius: 52px;
+    font-size: 1.8rem;
+    padding: 28px 36px;
+    max-width: 1400px;
+  }
 `;
 
 // Grid layout for inspection boxes
 const InspectionGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 30px;
+  flex: 1;
   margin-bottom: 15px;
-  margin-top: 20px;
   width: 100%;
-  padding: 0;
   justify-content: space-between;
-  margin-left: 20px;
-  margin-right: auto;
+  margin-left: 25px;
+  // overflow-y: auto; /* Allow grid to scroll if needed */
+  // padding-right: 15px; /* Add padding for scrollbar */
+  
+  @media (min-width: 1366px) {
+    gap: 34px;
+    margin-bottom: 18px;
+    margin-left: 30px;
+    padding-right: 18px;
+  }
+  
+  @media (min-width: 1920px) {
+    gap: 30px;
+    margin-bottom: 22px;
+    margin-left: 34px;
+    padding-right: 20px;
+  }
+  
+  @media (min-width: 2560px) {
+    gap: 42px;
+    margin-bottom: 30px;
+    margin-left: 40px;
+    padding-right: 24px;
+  }
+  
+  @media (min-width: 3840px) {
+    gap: 48px;
+    margin-bottom: 40px;
+    margin-left: 52px;
+    padding-right: 30px;
+  }
 `;
 
 const InspectionBox = styled.div`
@@ -135,6 +408,37 @@ const InspectionBox = styled.div`
     border-color: #666;
     transform: translateY(-2px);
   }
+  
+  @media (min-width: 1366px) {
+    padding: 18px;
+    padding-bottom: 65px;
+    min-height: 200px;
+    border-radius: 14px;
+  }
+  
+  @media (min-width: 1920px) {
+    padding: 22px;
+    padding-bottom: 75px;
+    min-height: 220px;
+    border-radius: 16px;
+    border: 3px solid #444;
+  }
+  
+  @media (min-width: 2560px) {
+    padding: 28px;
+    padding-bottom: 90px;
+    min-height: 260px;
+    border-radius: 20px;
+    border: 3px solid #444;
+  }
+  
+  @media (min-width: 3840px) {
+    padding: 36px;
+    padding-bottom: 120px;
+    min-height: 340px;
+    border-radius: 28px;
+    border: 4px solid #444;
+  }
 `;
 
 const InspectionTitle = styled.h3`
@@ -142,6 +446,26 @@ const InspectionTitle = styled.h3`
   margin: 0 0 12px 0;
   color: white;
   font-weight: 600;
+  
+  @media (min-width: 1366px) {
+    font-size: 1.1rem;
+    margin: 0 0 14px 0;
+  }
+  
+  @media (min-width: 1920px) {
+    font-size: 1.2rem;
+    margin: 0 0 16px 0;
+  }
+  
+  @media (min-width: 2560px) {
+    font-size: 1.4rem;
+    margin: 0 0 20px 0;
+  }
+  
+  @media (min-width: 3840px) {
+    font-size: 1.8rem;
+    margin: 0 0 28px 0;
+  }
 `;
 
 const InspectionDescription = styled.p`
@@ -149,12 +473,52 @@ const InspectionDescription = styled.p`
   color: #ccc;
   margin: 0 0 10px 0;
   flex-grow: 1;
+  
+  @media (min-width: 1366px) {
+    font-size: 0.9rem;
+    margin: 0 0 12px 0;
+  }
+  
+  @media (min-width: 1920px) {
+    font-size: 1rem;
+    margin: 0 0 14px 0;
+  }
+  
+  @media (min-width: 2560px) {
+    font-size: 1.2rem;
+    margin: 0 0 18px 0;
+  }
+  
+  @media (min-width: 3840px) {
+    font-size: 1.6rem;
+    margin: 0 0 24px 0;
+  }
 `;
 
 const InspectionMetadata = styled.div`
   font-size: 0.8rem;
   color: #888;
   margin-bottom: 10px;
+  
+  @media (min-width: 1366px) {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+  }
+  
+  @media (min-width: 1920px) {
+    font-size: 1rem;
+    margin-bottom: 14px;
+  }
+  
+  @media (min-width: 2560px) {
+    font-size: 1.2rem;
+    margin-bottom: 18px;
+  }
+  
+  @media (min-width: 3840px) {
+    font-size: 1.6rem;
+    margin-bottom: 24px;
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -165,6 +529,34 @@ const ButtonContainer = styled.div`
   bottom: 10px;
   left: 10px;
   right: 10px;
+  
+  @media (min-width: 1366px) {
+    gap: 14px;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+  }
+  
+  @media (min-width: 1920px) {
+    gap: 16px;
+    bottom: 14px;
+    left: 14px;
+    right: 14px;
+  }
+  
+  @media (min-width: 2560px) {
+    gap: 20px;
+    bottom: 18px;
+    left: 18px;
+    right: 18px;
+  }
+  
+  @media (min-width: 3840px) {
+    gap: 28px;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+  }
 `;
 
 const RunButton = styled.button`
@@ -180,6 +572,33 @@ const RunButton = styled.button`
   
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  @media (min-width: 1366px) {
+    border-radius: 5px;
+    padding: 10px 0;
+    font-size: 1rem;
+  }
+  
+  @media (min-width: 1920px) {
+    border-radius: 6px;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    border: 2px solid #555;
+  }
+  
+  @media (min-width: 2560px) {
+    border-radius: 8px;
+    padding: 14px 0;
+    font-size: 1.3rem;
+    border: 2px solid #555;
+  }
+  
+  @media (min-width: 3840px) {
+    border-radius: 12px;
+    padding: 18px 0;
+    font-size: 1.7rem;
+    border: 3px solid #555;
   }
 `;
 
@@ -197,6 +616,33 @@ const AddToFlowButton = styled.button`
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
+  
+  @media (min-width: 1366px) {
+    border-radius: 5px;
+    padding: 10px 0;
+    font-size: 1rem;
+  }
+  
+  @media (min-width: 1920px) {
+    border-radius: 6px;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    border: 2px solid #555;
+  }
+  
+  @media (min-width: 2560px) {
+    border-radius: 8px;
+    padding: 14px 0;
+    font-size: 1.3rem;
+    border: 2px solid #555;
+  }
+  
+  @media (min-width: 3840px) {
+    border-radius: 12px;
+    padding: 18px 0;
+    font-size: 1.7rem;
+    border: 3px solid #555;
+  }
 `;
 
 // Carousel component
@@ -208,10 +654,41 @@ const CarouselPagination = styled.div`
   border-radius: 30px;
   padding: 6px 12px;
   gap: 8px;
-  margin-top: 2px;
   width: fit-content;
   margin-left: auto;  
   margin-right: auto;
+  margin-top: auto;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 5;
+  
+  @media (min-width: 1366px) {
+    border-radius: 34px;
+    padding: 7px 14px;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  
+  @media (min-width: 1920px) {
+    border-radius: 38px;
+    padding: 8px 16px;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  
+  @media (min-width: 2560px) {
+    border-radius: 46px;
+    padding: 10px 20px;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  @media (min-width: 3840px) {
+    border-radius: 60px;
+    padding: 14px 28px;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
 `;
 
 const CarouselDot = styled.button<{ active: boolean }>`
@@ -223,6 +700,26 @@ const CarouselDot = styled.button<{ active: boolean }>`
   padding: 0;
   cursor: pointer;
   transition: background-color 0.2s;
+  
+  @media (min-width: 1366px) {
+    width: 7px;
+    height: 7px;
+  }
+  
+  @media (min-width: 1920px) {
+    width: 8px;
+    height: 8px;
+  }
+  
+  @media (min-width: 2560px) {
+    width: 10px;
+    height: 10px;
+  }
+  
+  @media (min-width: 3840px) {
+    width: 14px;
+    height: 14px;
+  }
 `;
 
 const CarouselNav = styled.button<{ direction: 'prev' | 'next' }>`
@@ -240,6 +737,30 @@ const CarouselNav = styled.button<{ direction: 'prev' | 'next' }>`
   
   &:hover {
     color: white;
+  }
+  
+  @media (min-width: 1366px) {
+    width: 12px;
+    height: 12px;
+    font-size: 1.1rem;
+  }
+  
+  @media (min-width: 1920px) {
+    width: 14px;
+    height: 14px;
+    font-size: 1.2rem;
+  }
+  
+  @media (min-width: 2560px) {
+    width: 18px;
+    height: 18px;
+    font-size: 1.4rem;
+  }
+  
+  @media (min-width: 3840px) {
+    width: 24px;
+    height: 24px;
+    font-size: 1.8rem;
   }
 `;
 
