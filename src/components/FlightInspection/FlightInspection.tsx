@@ -10,16 +10,45 @@ import meshModel from '../../assets/images/mesh-model-aircraft.png';
 
 const MainContent = styled.div`
   width: 100%;
-  /* Uncomment for debugging layout
-  border: 2px solid red;
-  */
+  
+  @media (min-width: 1366px) {
+    width: 100%;
+  }
+  
+  @media (min-width: 1920px) {
+    width: 100%;
+  }
+  
+  @media (min-width: 2560px) {
+    width: 100%;
+  }
+  
+  @media (min-width: 3840px) {
+    width: 100%;
+  }
 `;
 
 const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  
+  @media (min-width: 1366px) {
+    margin-bottom: 10px;
+  }
+  
+  @media (min-width: 1920px) {
+    margin-bottom: 12px;
+  }
+  
+  @media (min-width: 2560px) {
+    margin-bottom: 15px;
+  }
+  
+  @media (min-width: 3840px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const TeamSelector = styled.div`
@@ -28,7 +57,7 @@ const TeamSelector = styled.div`
   border-radius: 4px;
   display: flex;
   align-items: center;
-  gap: 4px;
+  // gap: 4px;
   font-size: 0.9rem;
   cursor: pointer;
   width: fit-content;
@@ -37,11 +66,85 @@ const TeamSelector = styled.div`
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
+  
+  svg {
+    width: 16px;
+    height: 16px;
+    
+    @media (min-width: 1920px) {
+      width: 18px;
+      height: 18px;
+    }
+    
+    @media (min-width: 2560px) {
+      width: 20px;
+      height: 20px;
+    }
+    
+    @media (min-width: 3840px) {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  
+  @media (min-width: 1366px) {
+    padding: 9px 10px;
+    border-radius: 5px;
+    gap: 5px;
+    font-size: 1rem;
+  }
+    
+  @media (min-width: 1920px) {
+    padding: 10px 12px;
+    border-radius: 6px;
+    gap: 6px;
+    font-size: 1.1rem;
+  }
+    
+  @media (min-width: 2560px) {
+    padding: 12px 16px;
+    border-radius: 8px;
+    gap: 8px;
+    font-size: 1.3rem;
+  }
+    
+  @media (min-width: 3840px) {
+    padding: 16px 24px;
+    border-radius: 12px;
+    gap: 12px;
+    font-size: 1.7rem;
+  }
 `;
 
 const TeamSelectorIcon = styled.span`
   font-size: 0.7rem;
   transition: transform 0.3s ease;
+  
+  @media (min-width: 1366px) {
+    font-size: 0.8rem;
+  }
+  
+  @media (min-width: 1920px) {
+    font-size: 0.9rem;
+  }
+  
+  @media (min-width: 2560px) {
+    font-size: 1.1rem;
+    
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  
+  @media (min-width: 3840px) {
+    font-size: 1.4rem;
+    
+    svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
 `;
 
 const TeamDropdown = styled.div<{ isOpen: boolean }>`
@@ -55,6 +158,30 @@ const TeamDropdown = styled.div<{ isOpen: boolean }>`
   margin-top: 5px;
   z-index: 10;
   display: ${props => props.isOpen ? 'block' : 'none'};
+  
+  @media (min-width: 1366px) {
+    border-radius: 5px;
+    margin-top: 6px;
+    box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (min-width: 1920px) {
+    border-radius: 6px;
+    margin-top: 8px;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (min-width: 2560px) {
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (min-width: 3840px) {
+    border-radius: 12px;
+    margin-top: 12px;
+    box-shadow: 0 10px 14px rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const TeamOption = styled.div`
@@ -65,21 +192,77 @@ const TeamOption = styled.div`
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
+  
+  @media (min-width: 1366px) {
+    padding: 9px 18px;
+  }
+  
+  @media (min-width: 1920px) {
+    padding: 10px 20px;
+  }
+  
+  @media (min-width: 2560px) {
+    padding: 12px 24px;
+  }
+  
+  @media (min-width: 3840px) {
+    padding: 16px 30px;
+  }
 `;
 
 const PageTitle = styled.h1`
   font-size: 2rem;
   font-weight: 600;
   margin: 0 0 12px 0;
+  
+  @media (min-width: 1366px) {
+    font-size: 2.2rem;
+    margin: 0 0 15px 0;
+  }
+  
+  @media (min-width: 1920px) {
+    font-size: 2.5rem;
+    margin: 0 0 18px 0;
+  }
+  
+  @media (min-width: 2560px) {
+    font-size: 3rem;
+    margin: 0 0 24px 0;
+  }
+  
+  @media (min-width: 3840px) {
+    font-size: 4rem;
+    margin: 0 0 32px 0;
+  }
 `;
 
 const SearchContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   cursor: text;
   width: 80%;
+  
+  @media (min-width: 1366px) {
+    gap: 18px;
+    margin-bottom: 15px;
+  }
+  
+  @media (min-width: 1920px) {
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  @media (min-width: 2560px) {
+    gap: 26px;
+    margin-bottom: 30px;
+  }
+  
+  @media (min-width: 3840px) {
+    gap: 32px;
+    margin-bottom: 40px;
+  }
 `;
 
 const SearchInputContainer = styled.div`
@@ -100,6 +283,34 @@ const SearchInput = styled.input`
   &:focus {
     outline: 1px solid #444;
   }
+  
+  @media (min-width: 1366px) {
+    padding: 13px 18px;
+    padding-right: 45px;
+    border-radius: 28px;
+    font-size: 1.1rem;
+  }
+  
+  @media (min-width: 1920px) {
+    padding: 14px 20px;
+    padding-right: 50px;
+    border-radius: 32px;
+    font-size: 1.2rem;
+  }
+  
+  @media (min-width: 2560px) {
+    padding: 16px 24px;
+    padding-right: 60px;
+    border-radius: 40px;
+    font-size: 1.4rem;
+  }
+  
+  @media (min-width: 3840px) {
+    padding: 20px 30px;
+    padding-right: 80px;
+    border-radius: 50px;
+    font-size: 1.8rem;
+  }
 `;
 
 const SearchIconButton = styled.button`
@@ -115,10 +326,66 @@ const SearchIconButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  @media (min-width: 1366px) {
+    right: 14px;
+    font-size: 1.3rem;
+    
+    svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+  
+  @media (min-width: 1920px) {
+    right: 16px;
+    font-size: 1.4rem;
+    
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  
+  @media (min-width: 2560px) {
+    right: 20px;
+    font-size: 1.6rem;
+    
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+  
+  @media (min-width: 3840px) {
+    right: 26px;
+    font-size: 2rem;
+    
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
 `;
 
 const OrText = styled.span`
   color: #777;
+  
+  @media (min-width: 1366px) {
+    font-size: 1.1rem;
+  }
+  
+  @media (min-width: 1920px) {
+    font-size: 1.2rem;
+  }
+  
+  @media (min-width: 2560px) {
+    font-size: 1.4rem;
+  }
+  
+  @media (min-width: 3840px) {
+    font-size: 1.8rem;
+  }
 `;
 
 const DropdownSelect = styled.div`
@@ -132,37 +399,173 @@ const DropdownSelect = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
+  
+  @media (min-width: 1366px) {
+    padding: 13px 18px;
+    border-radius: 28px;
+    min-width: 170px;
+    font-size: 1.1rem;
+  }
+  
+  @media (min-width: 1920px) {
+    padding: 14px 20px;
+    border-radius: 32px;
+    min-width: 190px;
+    font-size: 1.2rem;
+  }
+  
+  @media (min-width: 2560px) {
+    padding: 16px 24px;
+    border-radius: 40px;
+    min-width: 220px;
+    font-size: 1.4rem;
+    
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  
+  @media (min-width: 3840px) {
+    padding: 20px 30px;
+    border-radius: 50px;
+    min-width: 280px;
+    font-size: 1.8rem;
+    
+    svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
 `;
 
 const AircraftInfoContainer = styled.div`
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-size: 1rem;
-  // max-width: 1200px;
-  // margin-left: auto;
-  // margin-right: auto;
+  
+  @media (min-width: 1366px) {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+  }
+  
+  @media (min-width: 1920px) {
+    margin-bottom: 40px;
+    font-size: 1.2rem;
+  }
+  
+  @media (min-width: 2560px) {
+    margin-bottom: 50px;
+    font-size: 1.4rem;
+  }
+  
+  @media (min-width: 3840px) {
+    margin-bottom: 70px;
+    font-size: 1.8rem;
+  }
 `;
 
 const FlightInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  
+  @media (min-width: 1366px) {
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  
+  @media (min-width: 1920px) {
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+  
+  @media (min-width: 2560px) {
+    gap: 10px;
+    margin-bottom: 50px;
+  }
+  
+  @media (min-width: 3840px) {
+    gap: 15px;
+    margin-bottom: 70px;
+  }
 `;
 
 const InfoRow = styled.div`
   margin-bottom: 1px;
-  font-size: 1rem;
+  // font-size: 1rem;
   white-space: nowrap;
 
   .label {
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .value {
     margin-left: 10px;
     font-weight: 600;
+    font-size: 0.8rem;
+  }
+  
+  @media (min-width: 1366px) {
+    margin-bottom: 2px;
+    // font-size: 1.1rem;
+    
+    .label {
+      font-size: 1.1rem;
+    }
+    
+    .value {
+      margin-left: 12px;
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (min-width: 1366px) and (max-height: 768px) {
+    margin-bottom: 2px;
+    font-size: 1.1rem;
+  }
+  
+  @media (min-width: 1920px) {
+    margin-bottom: 3px;
     font-size: 1rem;
+    
+    .label {
+      font-size: 1rem;
+    }
+    
+    .value {
+      margin-left: 14px;
+      font-size: 0.8rem;
+    }
+  }
+  
+  @media (min-width: 2560px) {
+    margin-bottom: 4px;
+    font-size: 1.6rem;
+    
+    .label {
+      font-size: 2rem;
+    }
+    
+    .value {
+      margin-left: 18px;
+      font-size: 1.8rem;
+    }
+  }
+  
+  @media (min-width: 3840px) {
+    margin-bottom: 6px;
+    font-size: 1.8rem;
+    
+    .label {
+      font-size: 2.5rem;
+    }
+    
+    .value {
+      margin-left: 24px;
+      font-size: 2.3rem;
+    }
   }
 `;
 
@@ -184,6 +587,22 @@ const ModelViewContainer = styled.div`
     margin: 0;
     padding: 0;
   }
+  
+  @media (min-width: 1366px) {
+    gap: 60px;
+  }
+  
+  @media (min-width: 1920px) {
+    gap: 70px;
+  }
+  
+  @media (min-width: 2560px) {
+    gap: 90px;
+  }
+  
+  @media (min-width: 3840px) {
+    gap: 120px;
+  }
 `;
 
 const ModelCard1 = styled.div`
@@ -193,11 +612,46 @@ const ModelCard1 = styled.div`
   overflow: hidden;
   display: block;
   width: 100%;
-  height: 350px;
+  height: 280px;
   // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   padding: 0;
   margin: 0;
   font-size: 0;
+  
+
+  @media (min-width: 1366px) and (max-width: 1700px) {
+    height: 330px;
+    border-radius: 22px;
+    border: 2px solid #444;
+  }
+  
+    @media (min-width: 1366px) and (max-height: 768px) {
+    height: 280px;
+  }
+
+  @media (min-width: 1720px) {
+    height: 400px;
+    border-radius: 25px;
+    border: 3px solid #444;
+  }
+  
+  @media (min-width: 1920px) {
+    height: 450px;
+    border-radius: 25px;
+    border: 3px solid #444;
+  }
+  
+  @media (min-width: 2560px) {
+    height: 600px;
+    border-radius: 30px;
+    border: 4px solid #444;
+  }
+  
+  @media (min-width: 3840px) {
+    height: 900px;
+    border-radius: 40px;
+    border: 5px solid #444;
+  }
 `;
 
 const ModelCard2 = styled.div`
@@ -207,11 +661,51 @@ const ModelCard2 = styled.div`
   overflow: hidden;
   display: block;
   width: 100%;
-  height: 350px;
+  height: 280px;
   // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   padding: 0;
   margin: 0;
   font-size: 0;
+  
+  @media (min-width: 1366px) {
+    height: 330px;
+    border-radius: 12px;
+    border: 2px solid #444;
+  }
+
+   @media (min-width: 1366px) and (max-width: 1700px) {
+    height: 330px;
+    border-radius: 22px;
+    border: 2px solid #444;
+  }
+
+  @media (min-width: 1366px) and (max-height: 768px) {
+    height: 280px;
+  }
+  
+  @media (min-width: 1720px) {
+    height: 400px;
+    border-radius: 25px;
+    border: 3px solid #444;
+  }
+  
+  @media (min-width: 1920px) {
+    height: 450px;
+    border-radius: 15px;
+    border: 3px solid #444;
+  }
+  
+  @media (min-width: 2560px) {
+    height: 600px;
+    border-radius: 18px;
+    border: 4px solid #444;
+  }
+  
+  @media (min-width: 3840px) {
+    height: 900px;
+    border-radius: 24px;
+    border: 5px solid #444;
+  }
 `;
 
 const ModelImage1 = styled.div`
@@ -224,11 +718,81 @@ const ModelImage1 = styled.div`
   box-sizing: border-box;
   
   img {
-    width: 101%;
+    width: 100%;
     height: 100%;
     display: block;
+    object-fit: cover;
     object-position: center;
     // border-radius: 12px; /* Optional: Add slightly rounded corners to the image */
+  }
+  
+  @media (min-width: 1366px) {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+
+  @media (min-width: 1366px) and (max-height: 768px) {
+    img {
+      width: 100%;
+      height: 95%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+  
+  @media (min-width: 1920px) {
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+  
+  @media (min-width: 2560px) {
+    margin-top: 18px;
+    margin-bottom: 18px;
+  }
+  
+  @media (min-width: 3840px) {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+`;
+
+const SketchfabEmbed = styled.div`
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  @media (min-width: 1366px) {
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  @media (min-width: 1920px) {
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  @media (min-width: 2560px) {
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  @media (min-width: 3840px) {
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
   }
 `;
 
@@ -248,9 +812,35 @@ const ModelImage2 = styled.div`
     height: 100%;
     display: block;
     margin: 0;
+    object-fit: contain;
     padding: 0;
     object-position: center;
     // border-radius: 12px; /* Optional: Add slightly rounded corners to the image */
+  }
+  
+  @media (min-width: 1366px) {
+    margin-bottom: 12px;
+  }
+  
+  @media (min-width: 1920px) {
+    margin-bottom: 14px;
+  }
+  
+  @media (min-width: 2560px) {
+    margin-bottom: 100px;
+  }
+  
+  @media (min-width: 3840px) {
+    margin-bottom: 100px;
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      margin: 0;
+      object-fit: contain;
+      padding: 0;
+      object-position: center;
+      }
   }
 `;
 
@@ -275,6 +865,26 @@ const ModelCaption = styled.div`
       transform: translateX(0);
     }
   }
+  
+  @media (min-width: 1366px) {
+    font-size: 1.1rem;
+    margin-top: 24px;
+  }
+  
+  @media (min-width: 1920px) {
+    font-size: 1.2rem;
+    margin-top: 28px;
+  }
+  
+  @media (min-width: 2560px) {
+    font-size: 1.4rem;
+    margin-top: 34px;
+  }
+  
+  @media (min-width: 3840px) {
+    font-size: 1.8rem;
+    margin-top: 44px;
+  }
 `;
 
 const SearchDropdown = styled.div`
@@ -289,6 +899,34 @@ const SearchDropdown = styled.div`
   z-index: 10;
   max-height: 200px;
   overflow-y: auto;
+  
+  @media (min-width: 1366px) {
+    border-radius: 5px;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+    margin-top: 6px;
+    max-height: 220px;
+  }
+  
+  @media (min-width: 1920px) {
+    border-radius: 6px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    margin-top: 8px;
+    max-height: 250px;
+  }
+  
+  @media (min-width: 2560px) {
+    border-radius: 8px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
+    max-height: 300px;
+  }
+  
+  @media (min-width: 3840px) {
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+    margin-top: 14px;
+    max-height: 400px;
+  }
 `;
 
 const SearchResultItem = styled.div`
@@ -300,6 +938,26 @@ const SearchResultItem = styled.div`
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
+  
+  @media (min-width: 1366px) {
+    padding: 12px 18px;
+    font-size: 1.1rem;
+  }
+  
+  @media (min-width: 1920px) {
+    padding: 14px 20px;
+    font-size: 1.2rem;
+  }
+  
+  @media (min-width: 2560px) {
+    padding: 16px 24px;
+    font-size: 1.4rem;
+  }
+  
+  @media (min-width: 3840px) {
+    padding: 20px 30px;
+    font-size: 1.8rem;
+  }
 `;
 
 const EmptyStateContainer = styled.div`
@@ -309,17 +967,73 @@ const EmptyStateContainer = styled.div`
   justify-content: center;
   margin-top: 100px;
   color: #777;
+  
+  @media (min-width: 1366px) {
+    margin-top: 120px;
+  }
+  
+  @media (min-width: 1920px) {
+    margin-top: 140px;
+  }
+  
+  @media (min-width: 2560px) {
+    margin-top: 180px;
+  }
+  
+  @media (min-width: 3840px) {
+    margin-top: 240px;
+  }
 `;
 
 const EmptyStateIcon = styled.div`
   font-size: 4rem;
   margin-bottom: 20px;
+  
+  @media (min-width: 1366px) {
+    font-size: 4.5rem;
+    margin-bottom: 24px;
+  }
+  
+  @media (min-width: 1920px) {
+    font-size: 5rem;
+    margin-bottom: 28px;
+  }
+  
+  @media (min-width: 2560px) {
+    font-size: 6rem;
+    margin-bottom: 36px;
+  }
+  
+  @media (min-width: 3840px) {
+    font-size: 8rem;
+    margin-bottom: 48px;
+  }
 `;
 
 const EmptyStateText = styled.p`
   font-size: 1.2rem;
   text-align: center;
   margin-top: 100px;
+  
+  @media (min-width: 1366px) {
+    font-size: 1.3rem;
+    margin-top: 120px;
+  }
+  
+  @media (min-width: 1920px) {
+    font-size: 1.5rem;
+    margin-top: 140px;
+  }
+  
+  @media (min-width: 2560px) {
+    font-size: 1.8rem;
+    margin-top: 180px;
+  }
+  
+  @media (min-width: 3840px) {
+    font-size: 2.4rem;
+    margin-top: 240px;
+  }
 `;
 
 // Add these dropdown styled components
@@ -335,6 +1049,34 @@ const DropdownMenu = styled.div`
   z-index: 10;
   max-height: 200px;
   overflow-y: auto;
+  
+  @media (min-width: 1366px) {
+    border-radius: 5px;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+    margin-top: 6px;
+    max-height: 220px;
+  }
+  
+  @media (min-width: 1920px) {
+    border-radius: 6px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    margin-top: 8px;
+    max-height: 250px;
+  }
+  
+  @media (min-width: 2560px) {
+    border-radius: 8px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
+    max-height: 300px;
+  }
+  
+  @media (min-width: 3840px) {
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+    margin-top: 14px;
+    max-height: 400px;
+  }
 `;
 
 const DropdownMenuItem = styled.div`
@@ -345,6 +1087,26 @@ const DropdownMenuItem = styled.div`
   
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  @media (min-width: 1366px) {
+    padding: 12px 18px;
+    font-size: 1.1rem;
+  }
+  
+  @media (min-width: 1920px) {
+    padding: 14px 20px;
+    font-size: 1.2rem;
+  }
+  
+  @media (min-width: 2560px) {
+    padding: 16px 24px;
+    font-size: 1.4rem;
+  }
+  
+  @media (min-width: 3840px) {
+    padding: 20px 30px;
+    font-size: 1.8rem;
   }
 `;
 
@@ -360,14 +1122,54 @@ const ClearFiltersButton = styled.button`
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
+  
+  @media (min-width: 1366px) {
+    padding: 9px 14px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+  }
+  
+  @media (min-width: 1920px) {
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  @media (min-width: 2560px) {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+  }
+  
+  @media (min-width: 3840px) {
+    padding: 16px 28px;
+    border-radius: 12px;
+    font-size: 1.5rem;
+  }
 `;
 
 const ActionButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  margin-top: 20px;
-  margin-left: 0; 
+  margin-top: 40px;
+  margin-left: 0;
+  
+  @media (min-width: 1366px) {
+    margin-top: 30px;
+  }
+  
+  @media (min-width: 1920px) {
+    margin-top: 28px;
+  }
+  
+  @media (min-width: 2560px) {
+    margin-top: 36px;
+  }
+  
+  @media (min-width: 3840px) {
+    margin-top: 48px;
+  }
 `;
 
 const ActionButton = styled.button`
@@ -382,6 +1184,36 @@ const ActionButton = styled.button`
   
   &:hover {
     background-color: #444;
+  }
+  
+  @media (min-width: 1366px) {
+    border-radius: 9px;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+  }
+
+  @media (min-width: 1366px) and (max-height: 768px) {
+    border-radius: 9px;
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  @media (min-width: 1920px) {
+    border-radius: 10px;
+    padding: 16px 32px;
+    font-size: 1.2rem;
+  }
+  
+  @media (min-width: 2560px) {
+    border-radius: 12px;
+    padding: 20px 40px;
+    font-size: 1.4rem;
+  }
+  
+  @media (min-width: 3840px) {
+    border-radius: 16px;
+    padding: 26px 52px;
+    font-size: 1.8rem;
   }
 `;
 
@@ -681,7 +1513,44 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
   const makeDropdownRef = useRef<HTMLDivElement>(null);
   const modelDropdownRef = useRef<HTMLDivElement>(null);
   
-    useEffect(() => {
+  // Add state for responsive padding
+  const [responsivePadding, setResponsivePadding] = useState({
+    top: 1,
+    right: 1,
+    bottom: 1,
+    left: 1
+  });
+  
+  // Add useEffect for responsive padding
+  useEffect(() => {
+    const updatePadding = () => {
+      const width = window.innerWidth;
+      if (width >= 3840) {
+        setResponsivePadding({ top: 5, right: 5, bottom: 5, left: 5 });
+      } else if (width >= 2560) {
+        setResponsivePadding({ top: 4, right: 4, bottom: 4, left: 4 });
+      } else if (width >= 1920) {
+        setResponsivePadding({ top: 3, right: 3, bottom: 3, left: 3 });
+      } else if (width >= 1366) {
+        setResponsivePadding({ top: 2, right: 2, bottom: 2, left: 2 });
+      } else {
+        setResponsivePadding({ top: 1, right: 1, bottom: 1, left: 1 });
+      }
+    };
+    
+    // Set initial value
+    updatePadding();
+    
+    // Add event listener
+    window.addEventListener('resize', updatePadding);
+    
+    // Clean up
+    return () => {
+      window.removeEventListener('resize', updatePadding);
+    };
+  }, []);
+  
+  useEffect(() => {
     if (currentFlightId && FLIGHT_DATA[currentFlightId]) {
       setSelectedFlightId(currentFlightId);
       setSearchQuery(currentFlightId);
@@ -856,14 +1725,8 @@ const FlightInspection: React.FC<FlightInspectionProps> = ({ flightId }) => {
   // Options: 'center', 'top', 'bottom', 'left', 'right', 'top left', 'top right', 'bottom left', 'bottom right'
   const imagePosition = 'center';
   
-  // Image padding in pixels - set equal values for uniform padding
-  const paddingTop = 1;
-  const paddingRight = 1;
-  const paddingBottom = 1;
-  const paddingLeft = 1;
-  
-  // Create padding string for inline style
-  const imagePadding = `${paddingTop}px ${paddingRight}px ${paddingBottom}px ${paddingLeft}px`;
+  // Create padding string for inline style from responsive padding state
+  const imagePadding = `${responsivePadding.top}px ${responsivePadding.right}px ${responsivePadding.bottom}px ${responsivePadding.left}px`;
   
   if (view === 'details' && currentFlight) {
     return <InspectionDetails 
