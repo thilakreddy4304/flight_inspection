@@ -454,8 +454,8 @@ const InspectionGrid = styled.div`
   flex: 1;
   margin-bottom: 5px;
   width: 100%;
-  justify-content: space-between;
-  margin-left: 25px;
+  justify-content: space-between; 
+  // margin-left: 1px;
   // overflow-y: auto; /* Allow grid to scroll if needed */
   // padding-right: 15px; /* Add padding for scrollbar */
   
