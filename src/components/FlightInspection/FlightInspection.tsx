@@ -629,7 +629,8 @@ const ModelCard1 = styled.div`
   }
   
     @media (min-width: 1366px) and (max-height: 768px) {
-    height: 280px;
+    margin-top: -10px;
+    height: 290px;
   }
 
   @media (min-width: 1720px) {
@@ -678,7 +679,8 @@ const ModelCard2 = styled.div`
   }
 
   @media (min-width: 1366px) and (max-height: 768px) {
-    height: 280px;
+    margin-top: -10px;
+    height: 290px;
   }
   
   @media (min-width: 1720px) {
@@ -889,8 +891,8 @@ const ModelCaption = styled.div`
   }
   
   @media (min-width: 1366px) {
-    font-size: 1.1rem;
-    margin-top: 24px;
+    font-size: 1rem;
+    margin-top: 15px;
   }
   
   @media (min-width: 1920px) {
@@ -1178,11 +1180,15 @@ const ActionButtonContainer = styled.div`
   margin-left: 0;
   
   @media (min-width: 1366px) {
-    margin-top: 30px;
+    margin-top: 25px;
+  }
+
+  @media (min-width: 1366px) and (max-height: 768px) {
+    margin-top: 10px;
   }
   
   @media (min-width: 1920px) {
-    margin-top: 28px;
+    margin-top: 22px;
   }
   
   @media (min-width: 2560px) {
@@ -1211,13 +1217,13 @@ const ActionButton = styled.button`
   @media (min-width: 1366px) {
     border-radius: 9px;
     padding: 14px 28px;
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   @media (min-width: 1366px) and (max-height: 768px) {
     border-radius: 9px;
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 8px 16px;
+    font-size: 0.8rem;
   }
 
   @media (min-width: 1920px) {
