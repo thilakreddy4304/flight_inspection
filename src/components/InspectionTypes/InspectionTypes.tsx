@@ -37,7 +37,7 @@ const TopBar = styled.div`
   margin-bottom: 10px;
   
   @media (min-width: 1366px) {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   
   @media (min-width: 1920px) {
@@ -209,9 +209,14 @@ const PageTitle = styled.h1`
   font-size: 2rem;
   font-weight: 600;
   margin: 0 0 4px 0;
+
+  @media (min-width: 768px) {
+    font-size: 1.5rem;
+    margin: 0 0 4px 0;
+  }
   
   @media (min-width: 1366px) {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     margin: 0 0 6px 0;
   }
   
@@ -234,6 +239,10 @@ const PageTitle = styled.h1`
 const FlightIdentifier = styled.span`
   color: #999;
   margin-left: 12px;
+
+  @media (min-width: 768px) {
+    margin-left: 12px;
+  }
   
   @media (min-width: 1366px) {
     margin-left: 14px;
@@ -256,10 +265,15 @@ const InstructionText = styled.div`
   color: #999;
   font-size: 1rem;
   margin-bottom: 16px;
+
+  @media (min-width: 768px) {
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+  }
   
   @media (min-width: 1366px) {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
   }
   
   @media (min-width: 1920px) {
@@ -282,21 +296,32 @@ const InstructionText = styled.div`
 const SearchContainer = styled.div`
   margin-bottom: 16px;
   width: 100%;
+  position: relative;
+  max-width: 600px;
+
+  @media (min-width: 768px) {
+    margin-bottom: 12px;
+    max-width: 600px;
+  }
   
   @media (min-width: 1366px) {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    max-width: 700px;
   }
   
   @media (min-width: 1920px) {
     margin-bottom: 22px;
+    max-width: 800px;
   }
   
   @media (min-width: 2560px) {
     margin-bottom: 26px;
+    max-width: 1000px;
   }
   
   @media (min-width: 3840px) {
     margin-bottom: 34px;
+    max-width: 1400px;
   }
 `;
 
@@ -319,10 +344,17 @@ const SearchInput = styled.input`
     color: #666;
   }
   
+  @media (min-width: 768px) {
+    border-radius: 16px;
+    font-size: 0.8rem;
+    padding: 6px 8px;
+    max-width: 600px;
+  }
+
   @media (min-width: 1366px) {
     border-radius: 28px;
-    font-size: 1.1rem;
-    padding: 14px 18px;
+    font-size: 0.9rem;
+    padding: 7px 9px;
     max-width: 700px;
   }
   
@@ -348,29 +380,108 @@ const SearchInput = styled.input`
   }
 `;
 
+const SearchIconButton = styled.button`
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #777;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+
+  @media (min-width: 768px) {
+    font-size: 1.1rem;
+    right: 12px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  
+  @media (min-width: 1366px) {
+    right: 14px;
+    font-size: 1.3rem;
+    
+    svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+  
+  @media (min-width: 1920px) {
+    right: 16px;
+    font-size: 1.4rem;
+    
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  
+  @media (min-width: 2560px) {
+    right: 20px;
+    font-size: 1.6rem;
+    
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+  
+  @media (min-width: 3840px) {
+    right: 26px;
+    font-size: 2rem;
+    
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+`;
+
 // Grid layout for inspection boxes
 const InspectionGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 10px;
   flex: 1;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   width: 100%;
   justify-content: space-between;
   margin-left: 25px;
   // overflow-y: auto; /* Allow grid to scroll if needed */
   // padding-right: 15px; /* Add padding for scrollbar */
   
+  @media (min-width: 768px) {
+    margin-left: 15px;
+    gap: 5px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+  }
+
   @media (min-width: 1366px) {
-    gap: 34px;
-    margin-bottom: 18px;
+    gap: 5px;
+    margin-bottom: 0px;
+    margin-left: 30px;
+    padding-right: 18px;
+  }
+
+  @media (min-width: 1728px) {
+    gap: 10px;
     margin-left: 30px;
     padding-right: 18px;
   }
   
   @media (min-width: 1920px) {
-    gap: 30px;
-    margin-bottom: 22px;
+    gap: 5px;
+    margin-bottom: 20px;
     margin-left: 34px;
     padding-right: 20px;
   }
@@ -408,18 +519,35 @@ const InspectionBox = styled.div`
     border-color: #666;
     transform: translateY(-2px);
   }
-  
-  @media (min-width: 1366px) {
-    padding: 18px;
+
+  @media (min-width: 768px) {
+    padding: 10px;
     padding-bottom: 65px;
-    min-height: 200px;
+    height: 100px;
     border-radius: 14px;
+    border: 2px solid #444;
   }
   
+  @media (min-width: 1366px) {
+    padding: 10px;
+    padding-bottom: 65px;
+    height: 100px;
+    border-radius: 14px;
+    border: 2px solid #444;
+  }
+
+  @media (min-width: 1728px) {
+    padding: 10px;
+    padding-bottom: 65px; 
+    height: 250px;
+    border-radius: 16px;
+    border: 3px solid #444;
+}
+
   @media (min-width: 1920px) {
     padding: 22px;
     padding-bottom: 75px;
-    min-height: 220px;
+    height: 220px;
     border-radius: 16px;
     border: 3px solid #444;
   }
@@ -427,7 +555,7 @@ const InspectionBox = styled.div`
   @media (min-width: 2560px) {
     padding: 28px;
     padding-bottom: 90px;
-    min-height: 260px;
+    height: 300px;
     border-radius: 20px;
     border: 3px solid #444;
   }
@@ -435,7 +563,7 @@ const InspectionBox = styled.div`
   @media (min-width: 3840px) {
     padding: 36px;
     padding-bottom: 120px;
-    min-height: 340px;
+    height: 480px;
     border-radius: 28px;
     border: 4px solid #444;
   }
@@ -448,6 +576,11 @@ const InspectionTitle = styled.h3`
   font-weight: 600;
   
   @media (min-width: 1366px) {
+    font-size: 0.9rem;
+    margin: 0 0 10px 0;
+  }
+
+  @media (min-width: 1728px) {
     font-size: 1.1rem;
     margin: 0 0 14px 0;
   }
@@ -475,8 +608,13 @@ const InspectionDescription = styled.p`
   flex-grow: 1;
   
   @media (min-width: 1366px) {
+    font-size: 0.8rem;
+    margin: 0 0 2px 0;
+  }
+
+  @media (min-width: 1728px) {
     font-size: 0.9rem;
-    margin: 0 0 12px 0;
+    margin: 0 0 10px 0;
   }
   
   @media (min-width: 1920px) {
@@ -501,8 +639,13 @@ const InspectionMetadata = styled.div`
   margin-bottom: 10px;
   
   @media (min-width: 1366px) {
+    font-size: 0.8rem;
+    margin-bottom: 0px;
+  }
+
+  @media (min-width: 1728px) {
     font-size: 0.9rem;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   
   @media (min-width: 1920px) {
@@ -524,7 +667,7 @@ const InspectionMetadata = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   gap: 12px;
-  margin-top: auto;
+  // margin-top: auto;
   position: absolute;
   bottom: 10px;
   left: 10px;
@@ -535,6 +678,13 @@ const ButtonContainer = styled.div`
     bottom: 12px;
     left: 12px;
     right: 12px;
+  }
+
+  @media (min-width: 1728px) {
+    gap: 15px;
+    bottom: 13px;
+    left: 13px;
+    right: 13px;
   }
   
   @media (min-width: 1920px) {
@@ -564,7 +714,7 @@ const RunButton = styled.button`
   color: #fff;
   border: 1px solid #555;
   border-radius: 4px;
-  padding: 8px 0;
+  // padding: 8px 0;
   flex: 1;
   cursor: pointer;
   font-size: 0.9rem;
@@ -576,8 +726,16 @@ const RunButton = styled.button`
   
   @media (min-width: 1366px) {
     border-radius: 5px;
+    padding: 5px 0;
+    font-size: 0.8rem;
+    border: 1px solid #555;
+  }
+
+  @media (min-width: 1728px) {
     padding: 10px 0;
-    font-size: 1rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #555;
   }
   
   @media (min-width: 1920px) {
@@ -619,8 +777,16 @@ const AddToFlowButton = styled.button`
   
   @media (min-width: 1366px) {
     border-radius: 5px;
+    padding: 5px 0;
+    font-size: 0.8rem;
+    border: 1px solid #555;
+  }
+
+  @media (min-width: 1728px) {
     padding: 10px 0;
-    font-size: 1rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    border: 1px solid #555;
   }
   
   @media (min-width: 1920px) {
@@ -663,10 +829,17 @@ const CarouselPagination = styled.div`
   z-index: 5;
   
   @media (min-width: 1366px) {
-    border-radius: 34px;
-    padding: 7px 14px;
+    border-radius: 12px;
+    padding: 5px 10px;
     gap: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 5px;
+  }
+
+  @media (min-width: 1728px) {
+    border-radius: 16px;
+    padding: 10px 20px;
+    gap: 15px;
+    margin-bottom: 10px;
   }
   
   @media (min-width: 1920px) {
@@ -702,8 +875,13 @@ const CarouselDot = styled.button<{ active: boolean }>`
   transition: background-color 0.2s;
   
   @media (min-width: 1366px) {
-    width: 7px;
-    height: 7px;
+    width: 4px;
+    height: 6px;
+  }
+
+  @media (min-width: 1728px) {
+    width: 6px;
+    height: 8px;
   }
   
   @media (min-width: 1920px) {
@@ -742,7 +920,13 @@ const CarouselNav = styled.button<{ direction: 'prev' | 'next' }>`
   @media (min-width: 1366px) {
     width: 12px;
     height: 12px;
-    font-size: 1.1rem;
+    font-size: 0.8rem;
+  }
+
+  @media (min-width: 1728px) {
+    width: 14px;
+    height: 14px;
+    font-size: 0.9rem;
   }
   
   @media (min-width: 1920px) {
@@ -989,7 +1173,7 @@ const InspectionTypes: React.FC<InspectionTypesProps> = ({ flight, onBack }) => 
       <PageTitle>
         Inspections &gt;<FlightIdentifier>{flight.identifier} ({flight.make} {flight.model})</FlightIdentifier>
       </PageTitle>
-      <InstructionText>Select your choice of Inspection from below</InstructionText>
+      <InstructionText>Select your choice of Inspection from below </InstructionText>
       
       <SearchContainer>
         <SearchInput 
@@ -998,8 +1182,15 @@ const InspectionTypes: React.FC<InspectionTypesProps> = ({ flight, onBack }) => 
           value={searchQuery}
           onChange={handleSearchChange}
         />
+        <SearchIconButton>
+          <span role="img" aria-label="search">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="11" cy="11" r="6" stroke="#777"/>
+              <path d="M20 20L17 17" stroke="#777" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </SearchIconButton>
       </SearchContainer>
-      
       <InspectionGrid>
         {currentInspections.map((inspection) => (
           <InspectionBox key={inspection.id}>
