@@ -494,7 +494,7 @@ const WorkOrderManagement: React.FC = () => {
   return matchesSearch && matchesMake && matchesModel;
 })
 .map(id => FLIGHT_DATA[id]);
-
+  
   // Toggle team dropdown
   const toggleTeamDropdown = () => {
     setIsTeamDropdownOpen(!isTeamDropdownOpen);
@@ -577,7 +577,7 @@ const WorkOrderManagement: React.FC = () => {
     setSelectedModel('');
     setSelectedFlightId('');
   };
-
+  
   // Handle team selection
   const handleTeamSelect = (teamId: string) => {
     selectTeam(teamId);
@@ -652,7 +652,7 @@ const WorkOrderManagement: React.FC = () => {
     e.stopPropagation();
     setApprovalStatus('Rejected');
   };
-
+  
   return (
     <MainContent>
       {/* Toast notification */}
@@ -662,25 +662,25 @@ const WorkOrderManagement: React.FC = () => {
       
       <TopBar>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <TeamSelector onClick={toggleTeamDropdown}>
+        <TeamSelector onClick={toggleTeamDropdown}>
             Team: {selectedTeam?.name} 
             <TeamSelectorIcon style={{ transform: isTeamDropdownOpen ? 'rotate(180deg)' : 'none' }}><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M18 9L12 15L6 9" stroke="#777"/>
 </svg></TeamSelectorIcon>
-            <TeamDropdown isOpen={isTeamDropdownOpen}>
-              {teams.map(team => (
-                <TeamOption 
-                  key={team.id} 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleTeamSelect(team.id);
-                  }}
-                >
-                  {team.name}
-                </TeamOption>
-              ))}
-            </TeamDropdown>
-          </TeamSelector>
+          <TeamDropdown isOpen={isTeamDropdownOpen}>
+            {teams.map(team => (
+              <TeamOption 
+                key={team.id} 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleTeamSelect(team.id);
+                }}
+              >
+                {team.name}
+              </TeamOption>
+            ))}
+          </TeamDropdown>
+        </TeamSelector>
           {/* <BreadcrumbText>
             &gt; <span>Work Order Management</span>
           </BreadcrumbText> */}
@@ -821,18 +821,18 @@ const WorkOrderManagement: React.FC = () => {
               style={{ cursor: 'pointer' }}
             >
               <TableCell>{order.Date}</TableCell>
-              <TableCell>{order.aircraft}</TableCell>
+            <TableCell>{order.aircraft}</TableCell>
               <TableCell>{order.inspection}</TableCell>
               <TableCell>
                 <PriorityBadge priority={order.priority}>
                   {order.priority}
                 </PriorityBadge>
               </TableCell>
-              <TableCell>
-                <StatusBadge status={order.status}>
+            <TableCell>
+              <StatusBadge status={order.status}>
                   {order.status}
-                </StatusBadge>
-              </TableCell>
+              </StatusBadge>
+            </TableCell>
               <TableCell>{order.compliance}</TableCell>
               <TableCell>
                 {index === 0 ? (
@@ -861,8 +861,8 @@ const WorkOrderManagement: React.FC = () => {
                   order.Approve
                 )}
               </TableCell>
-            </TableRow>
-          ))}
+          </TableRow>
+        ))}
           
           {/* Empty rows should have the same number of cells */}
           {Array.from({ length: 6 }).map((_, index) => (
