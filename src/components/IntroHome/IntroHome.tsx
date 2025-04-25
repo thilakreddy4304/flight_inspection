@@ -577,13 +577,21 @@ const StatusContainer = styled.div`
   border: 2px solid #444;
   width: 500px;
   height: 250px;
+
+  @media (min-width: 768px) {
+    width: 350px;
+    height: 170px;
+    margin-top: 60px;
+    padding: 12px;
+    border-radius: 12px;
+  }
   
   @media (min-width: 1366px) {
     border-radius: 14px;
     padding: 14px;
     margin-top: 85px;
-    width: 540px;
-    height: 270px;
+    width: 400px;
+    height: 220px;
   }
   
   @media (min-width: 1920px) {
@@ -620,9 +628,14 @@ const StatusTitle = styled.h3`
   margin-bottom: 30px;
   // gap: 15px;
   
+  @media (min-width: 768px) {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
+
   @media (min-width: 1366px) {
-    font-size: 2.2rem;
-    margin-bottom: 34px;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
   }
   
   @media (min-width: 1920px) {
@@ -647,10 +660,15 @@ const StatusList = styled.div`
   gap: 10px;
   font-size: 1rem;
   margin-bottom: 15px;
+
+  @media (min-width: 768px) {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
   
   @media (min-width: 1366px) {
-    gap: 12px;
-    margin-bottom: 18px;
+    gap: 10px;
+    margin-bottom: 16px;
   }
   
   @media (min-width: 1920px) {
@@ -674,10 +692,15 @@ const StatusItem = styled.div`
   align-items: center;
   gap: 8px;
   font-size: 1rem;
-  
+
+  @media (min-width: 768px) {
+    gap: 6px;
+    font-size: 0.8rem;
+  }
+
   @media (min-width: 1366px) {
     gap: 10px;
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   
   @media (min-width: 1920px) {
@@ -699,9 +722,13 @@ const StatusItem = styled.div`
 const StatusNumber = styled.span`
   font-weight: 600;
   font-size: 1rem;
-  
+
+  @media (min-width: 768px) {
+    font-size: 0.8rem;
+  }
+
   @media (min-width: 1366px) {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   
   @media (min-width: 1920px) {
