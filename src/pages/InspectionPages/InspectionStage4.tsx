@@ -183,7 +183,7 @@ const ImageContainer = styled.div`
   border-radius: 20px;
   overflow: hidden;
   background-color: rgb(40, 39, 39);
-  position: absolute;
+  position: relative;
   display: flex;
   flex-direction: column;
   margin-top: 1px;
