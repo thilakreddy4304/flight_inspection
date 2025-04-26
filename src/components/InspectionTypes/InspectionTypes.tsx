@@ -12,6 +12,10 @@ const Container = styled.div`
   overflow: hidden; /* Prevent scrolling */
   position: relative;
 
+  @media (min-width: 768px) {
+    width: 100%;
+  }
+
   @media (min-width: 1366px) {
     width: 100%;
   }
@@ -211,12 +215,12 @@ const PageTitle = styled.h1`
   margin: 0 0 4px 0;
 
   @media (min-width: 768px) {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin: 0 0 4px 0;
   }
   
   @media (min-width: 1366px) {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin: 0 0 6px 0;
   }
   
@@ -267,12 +271,12 @@ const InstructionText = styled.div`
   margin-bottom: 16px;
 
   @media (min-width: 768px) {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     margin-bottom: 8px;
   }
   
   @media (min-width: 1366px) {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     margin-bottom: 10px;
   }
   
@@ -454,49 +458,50 @@ const InspectionGrid = styled.div`
   flex: 1;
   margin-bottom: 5px;
   width: 100%;
-  justify-content: space-between; 
-  // margin-left: 1px;
-  // overflow-y: auto; /* Allow grid to scroll if needed */
-  // padding-right: 15px; /* Add padding for scrollbar */
+  justify-content: center; 
   
   @media (min-width: 768px) {
-    margin-left: 15px;
+    margin-left: 35px;
     gap: 5px;
-    margin-bottom: 0px;
-    margin-top: 10px;
+    margin-top: 5px;
   }
 
   @media (min-width: 1366px) {
     gap: 5px;
-    margin-bottom: 0px;
-    margin-left: 30px;
+    margin-left: 35px;
+    padding-right: 18px;
+  }
+
+  @media (min-width: 1440px) {
+    gap: 10px;
+    margin-left: 40px;
     padding-right: 18px;
   }
 
   @media (min-width: 1728px) {
     gap: 10px;
-    margin-left: 30px;
+    margin-left: 50px;
     padding-right: 18px;
   }
   
   @media (min-width: 1920px) {
     gap: 5px;
     margin-bottom: 20px;
-    margin-left: 34px;
+    margin-left: 55px;
     padding-right: 20px;
   }
   
   @media (min-width: 2560px) {
     gap: 42px;
     margin-bottom: 30px;
-    margin-left: 40px;
+    margin-left: 60px;
     padding-right: 24px;
   }
   
   @media (min-width: 3840px) {
     gap: 48px;
     margin-bottom: 40px;
-    margin-left: 52px;
+    margin-left: 90px;
     padding-right: 30px;
   }
 `;
@@ -507,10 +512,10 @@ const InspectionBox = styled.div`
   padding-bottom: 55px; /* Extra space at bottom for buttons */
   display: flex;
   flex-direction: column;
-  min-height: 180px;
+  height: 180px;
   border: 2px solid #444;
   border-radius: 12px;
-  width: 90%;
+  width: 80%;
   box-sizing: border-box;
   transition: border-color 0.2s, transform 0.2s;
   position: relative;
@@ -522,50 +527,65 @@ const InspectionBox = styled.div`
 
   @media (min-width: 768px) {
     padding: 10px;
-    padding-bottom: 65px;
-    height: 100px;
+    padding-bottom: 35px;
+    height: 160px;
     border-radius: 14px;
     border: 2px solid #444;
+    width: 80%;
   }
   
   @media (min-width: 1366px) {
     padding: 10px;
-    padding-bottom: 65px;
-    height: 100px;
+    padding-bottom: 50px;
+    height: 160px;
     border-radius: 14px;
     border: 2px solid #444;
+    width: 85%;
   }
+
+  // @media (min-width: 1440px) {
+  //   padding: 10px;
+  //   padding-bottom: 55px;
+  //   height: 180px;
+  //   border-radius: 14px;
+  //   border: 2px solid #444;
+  //   width: 85%;
+  // }
 
   @media (min-width: 1728px) {
     padding: 10px;
     padding-bottom: 65px; 
-    height: 250px;
-    border-radius: 16px;
-    border: 3px solid #444;
-}
-
-  @media (min-width: 1920px) {
-    padding: 22px;
-    padding-bottom: 75px;
     height: 220px;
     border-radius: 16px;
     border: 3px solid #444;
+    width: 85%;
+  }
+
+  @media (min-width: 1920px) {
+    padding: 22px;
+    padding-bottom: 55px;
+    height: 220px;
+    border-radius: 16px;
+    border: 3px solid #444;
+    width: 85%;
   }
   
   @media (min-width: 2560px) {
     padding: 28px;
-    padding-bottom: 90px;
-    height: 300px;
+    padding-bottom: 70px;
+    height: 260px;
     border-radius: 20px;
     border: 3px solid #444;
+    width: 85%;
   }
   
   @media (min-width: 3840px) {
     padding: 36px;
-    padding-bottom: 120px;
-    height: 480px;
+    padding-bottom: 100px;
+    height: 400px;
     border-radius: 28px;
     border: 4px solid #444;
+    width: 85%;
   }
 `;
 
@@ -596,7 +616,7 @@ const InspectionTitle = styled.h3`
   }
   
   @media (min-width: 3840px) {
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin: 0 0 28px 0;
   }
 `;
@@ -628,7 +648,7 @@ const InspectionDescription = styled.p`
   }
   
   @media (min-width: 3840px) {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     margin: 0 0 24px 0;
   }
 `;
@@ -659,7 +679,7 @@ const InspectionMetadata = styled.div`
   }
   
   @media (min-width: 3840px) {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     margin-bottom: 24px;
   }
 `;
@@ -667,17 +687,23 @@ const InspectionMetadata = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   gap: 12px;
-  // margin-top: auto;
   position: absolute;
   bottom: 10px;
   left: 10px;
   right: 10px;
+
+  @media (min-width: 768px) {
+    gap: 12px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+  }
   
   @media (min-width: 1366px) {
     gap: 14px;
-    bottom: 12px;
-    left: 12px;
-    right: 12px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
   }
 
   @media (min-width: 1728px) {
@@ -723,6 +749,13 @@ const RunButton = styled.button`
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
+
+  @media (min-width: 768px) {
+    font-size: 0.8rem;
+    padding: 4px 0;
+    border-radius: 5px;
+    border: 1px solid #555;
+  }
   
   @media (min-width: 1366px) {
     border-radius: 5px;
@@ -732,7 +765,7 @@ const RunButton = styled.button`
   }
 
   @media (min-width: 1728px) {
-    padding: 10px 0;
+    padding: 8px 0;
     border-radius: 10px;
     font-size: 0.9rem;
     border: 1px solid #555;
@@ -740,14 +773,14 @@ const RunButton = styled.button`
   
   @media (min-width: 1920px) {
     border-radius: 6px;
-    padding: 12px 0;
-    font-size: 1.1rem;
+    padding: 8px 0;
+    font-size: 1rem;
     border: 2px solid #555;
   }
   
   @media (min-width: 2560px) {
     border-radius: 8px;
-    padding: 14px 0;
+    padding: 10px 0;
     font-size: 1.3rem;
     border: 2px solid #555;
   }
@@ -775,6 +808,13 @@ const AddToFlowButton = styled.button`
     background-color: rgba(255, 255, 255, 0.1);
   }
   
+    @media (min-width: 768px) {
+    font-size: 0.8rem;
+    padding: 4px 0;
+    border-radius: 5px;
+    border: 1px solid #555;
+  }
+
   @media (min-width: 1366px) {
     border-radius: 5px;
     padding: 5px 0;
@@ -783,7 +823,7 @@ const AddToFlowButton = styled.button`
   }
 
   @media (min-width: 1728px) {
-    padding: 10px 0;
+    padding: 8px 0;
     border-radius: 10px;
     font-size: 0.9rem;
     border: 1px solid #555;
@@ -791,14 +831,14 @@ const AddToFlowButton = styled.button`
   
   @media (min-width: 1920px) {
     border-radius: 6px;
-    padding: 12px 0;
-    font-size: 1.1rem;
+    padding: 8px 0;
+    font-size: 1rem;
     border: 2px solid #555;
   }
   
   @media (min-width: 2560px) {
     border-radius: 8px;
-    padding: 14px 0;
+    padding: 10px 0;
     font-size: 1.3rem;
     border: 2px solid #555;
   }
@@ -827,6 +867,13 @@ const CarouselPagination = styled.div`
   margin-bottom: 10px;
   position: relative;
   z-index: 5;
+
+  @media (min-width: 768px) {
+    border-radius: 10px;
+    padding: 4px 8px;
+    gap: 6px;
+    margin-bottom: 5px;
+  }
   
   @media (min-width: 1366px) {
     border-radius: 12px;
@@ -835,32 +882,39 @@ const CarouselPagination = styled.div`
     margin-bottom: 5px;
   }
 
+  @media (min-width: 1440px) {
+    border-radius: 14px;
+    padding: 6px 12px;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
   @media (min-width: 1728px) {
     border-radius: 16px;
     padding: 10px 20px;
     gap: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
   }
   
   @media (min-width: 1920px) {
     border-radius: 38px;
     padding: 8px 16px;
     gap: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 50px;
   }
   
   @media (min-width: 2560px) {
     border-radius: 46px;
     padding: 10px 20px;
     gap: 16px;
-    margin-bottom: 24px;
+    margin-bottom: 60px;
   }
   
   @media (min-width: 3840px) {
     border-radius: 60px;
     padding: 14px 28px;
     gap: 20px;
-    margin-bottom: 32px;
+    margin-bottom: 90px;
   }
 `;
 
