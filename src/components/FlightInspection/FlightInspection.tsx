@@ -255,12 +255,12 @@ const PageTitle = styled.h1`
   margin: 0 0 12px 0;
 
   @media (min-width: 768px) {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin: 0 0 10px 0;
   }
   
   @media (min-width: 1366px) {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     margin: 0 0 15px 0;
   }
   
@@ -295,7 +295,7 @@ const SearchContainer = styled.div`
   
   @media (min-width: 1366px) {
     gap: 18px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
   
   @media (min-width: 1920px) {
@@ -335,14 +335,28 @@ const SearchInput = styled.input`
 
   @media (min-width: 768px) {
     font-size: 0.8rem;
-    padding: 12px 16px;
+    padding: 8px 12px;
     padding-right: 40px;
     border-radius: 24px;
   }
   
   @media (min-width: 1366px) {
-    padding: 13px 18px;
+    padding: 8px 14px;
     padding-right: 45px;
+    border-radius: 28px;
+    font-size: 1.1rem;
+  }
+
+  @media (min-width: 1440px) {
+    padding: 8px 14px;
+    padding-right: 45px;
+    border-radius: 28px;
+    font-size: 1.1rem;
+  }
+
+  @media (min-width: 1720px) {
+    padding: 10px 16px;
+    padding-right: 50px;
     border-radius: 28px;
     font-size: 1.1rem;
   }
@@ -472,13 +486,27 @@ const DropdownSelect = styled.div`
 
   @media (min-width: 768px) {
     font-size: 0.8rem;
-    padding: 5px 10px;
+    padding: 4px 8px;
     border-radius: 22px;
     min-width: 150px;
   }
   
   @media (min-width: 1366px) {
-    padding: 10px 12px;
+    padding: 5px 10px;
+    border-radius: 28px;
+    min-width: 170px;
+    font-size: 1.1rem;
+  }
+
+  @media (min-width: 1440px) {
+    padding: 6px 10px;
+    border-radius: 28px;
+    min-width: 170px;
+    font-size: 1.1rem;
+  }
+
+  @media (min-width: 1720px) {
+    padding: 10px 14px;
     border-radius: 28px;
     min-width: 170px;
     font-size: 1.1rem;
