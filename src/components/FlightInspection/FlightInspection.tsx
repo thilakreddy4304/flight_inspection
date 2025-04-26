@@ -11,6 +11,10 @@ import meshModel from '../../assets/images/mesh-model-aircraft.png';
 const MainContent = styled.div`
   width: 100%;
   
+  @media (min-width: 768px) {
+    width: 100%;
+  }
+  
   @media (min-width: 1366px) {
     width: 100%;
   }
@@ -33,6 +37,10 @@ const TopBar = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
+
+  @media (min-width: 768px) {
+    margin-bottom: 8px;
+  }
   
   @media (min-width: 1366px) {
     margin-bottom: 10px;
@@ -71,6 +79,16 @@ const TeamSelector = styled.div`
     width: 16px;
     height: 16px;
     
+    @media (min-width: 768px) {
+      width: 14px;
+      height: 14px;
+    }
+
+    @media (min-width: 1366px) {
+      width: 16px;
+      height: 16px;
+    }
+
     @media (min-width: 1920px) {
       width: 18px;
       height: 18px;
@@ -85,6 +103,13 @@ const TeamSelector = styled.div`
       width: 24px;
       height: 24px;
     }
+  }
+
+  @media (min-width: 768px) {
+    padding: 8px 8px;
+    border-radius: 4px;
+    gap: 4px;
+    font-size: 0.9rem;
   }
   
   @media (min-width: 1366px) {
@@ -119,6 +144,10 @@ const TeamSelector = styled.div`
 const TeamSelectorIcon = styled.span`
   font-size: 0.7rem;
   transition: transform 0.3s ease;
+
+  @media (min-width: 768px) {
+    font-size: 0.6rem;
+  }
   
   @media (min-width: 1366px) {
     font-size: 0.8rem;
@@ -158,6 +187,12 @@ const TeamDropdown = styled.div<{ isOpen: boolean }>`
   margin-top: 5px;
   z-index: 10;
   display: ${props => props.isOpen ? 'block' : 'none'};
+
+  @media (min-width: 768px) {
+    margin-top: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+  }
   
   @media (min-width: 1366px) {
     border-radius: 5px;
@@ -193,6 +228,10 @@ const TeamOption = styled.div`
     background-color: rgba(255, 255, 255, 0.1);
   }
   
+  @media (min-width: 768px) {
+    padding: 8px 16px;
+  }
+
   @media (min-width: 1366px) {
     padding: 9px 18px;
   }
@@ -214,6 +253,11 @@ const PageTitle = styled.h1`
   font-size: 2rem;
   font-weight: 600;
   margin: 0 0 12px 0;
+
+  @media (min-width: 768px) {
+    font-size: 1.8rem;
+    margin: 0 0 10px 0;
+  }
   
   @media (min-width: 1366px) {
     font-size: 2.2rem;
@@ -243,6 +287,11 @@ const SearchContainer = styled.div`
   margin-bottom: 10px;
   cursor: text;
   width: 80%;
+
+  @media (min-width: 768px) {
+    margin-bottom: 8px;
+    gap: 12px;
+  }
   
   @media (min-width: 1366px) {
     gap: 18px;
@@ -283,6 +332,13 @@ const SearchInput = styled.input`
   &:focus {
     outline: 1px solid #444;
   }
+
+  @media (min-width: 768px) {
+    font-size: 0.8rem;
+    padding: 12px 16px;
+    padding-right: 40px;
+    border-radius: 24px;
+  }
   
   @media (min-width: 1366px) {
     padding: 13px 18px;
@@ -292,21 +348,21 @@ const SearchInput = styled.input`
   }
   
   @media (min-width: 1920px) {
-    padding: 14px 20px;
+    padding: 16px 24px;
     padding-right: 50px;
     border-radius: 32px;
     font-size: 1.2rem;
   }
   
   @media (min-width: 2560px) {
-    padding: 16px 24px;
+    padding: 20px 30px;
     padding-right: 60px;
     border-radius: 40px;
     font-size: 1.4rem;
   }
   
   @media (min-width: 3840px) {
-    padding: 20px 30px;
+    padding: 24px 40px;
     padding-right: 80px;
     border-radius: 50px;
     font-size: 1.8rem;
@@ -326,6 +382,16 @@ const SearchIconButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (min-width: 768px) {
+    font-size: 1rem;
+    right: 10px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
   
   @media (min-width: 1366px) {
     right: 14px;
@@ -370,7 +436,11 @@ const SearchIconButton = styled.button`
 
 const OrText = styled.span`
   color: #777;
-  
+
+  @media (min-width: 768px) {
+    font-size: 0.8rem;
+  }
+
   @media (min-width: 1366px) {
     font-size: 1.1rem;
   }
@@ -399,9 +469,16 @@ const DropdownSelect = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
+
+  @media (min-width: 768px) {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 22px;
+    min-width: 150px;
+  }
   
   @media (min-width: 1366px) {
-    padding: 13px 18px;
+    padding: 10px 12px;
     border-radius: 28px;
     min-width: 170px;
     font-size: 1.1rem;
@@ -442,6 +519,11 @@ const DropdownSelect = styled.div`
 const AircraftInfoContainer = styled.div`
   margin-bottom: 20px;
   font-size: 1rem;
+
+  @media (min-width: 768px) {
+    margin-bottom: 20px;
+    font-size: 0.8rem;
+  }
   
   @media (min-width: 1366px) {
     margin-bottom: 30px;
@@ -520,17 +602,17 @@ const InfoRow = styled.div`
     }
   }
 
-  @media (min-width: 1366px) and (max-height: 768px) {
-    margin-bottom: 1px;
+  // @media (min-width: 1366px) and (max-height: 768px) {
+  //   margin-bottom: 1px;
 
-    .label {
-      font-size: 0.8rem;
-    }
-    .value {
-      font-size: 0.6rem;
-      font-weight: 200;
-    }
-  }
+  //   .label {
+  //     font-size: 0.8rem;
+  //   }
+  //   .value {
+  //     font-size: 0.6rem;
+  //     font-weight: 200;
+  //   }
+  // }
   
   @media (min-width: 1920px) {
     margin-bottom: 3px;
@@ -580,13 +662,11 @@ const ModelViewContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 50px;
-  // margin-bottom: 50px;
   justify-content: center;
-  text-align: center;
+  // text-align: center;
   width: 100%;
-  // max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 10px;
+  margin-right: 10px;
 
   > div {
     display: flex;
@@ -594,21 +674,47 @@ const ModelViewContainer = styled.div`
     margin: 0;
     padding: 0;
   }
+
+  @media (min-width: 768px) {
+    gap: 30px;
+    padding-left: 40px;
+    padding-right: 30px;
+  }
   
   @media (min-width: 1366px) {
     gap: 60px;
+    padding-left: 100px;
+    padding-right: 60px;
+  }
+
+  @media (min-width: 1440px) {
+    gap: 60px;
+    padding-left: 70px;
+    padding-right: 60px;
+  }
+
+  @media (min-width: 1720px) {
+    gap: 60px;
+    padding-left: 120px;
+    padding-right: 70px;
   }
   
   @media (min-width: 1920px) {
     gap: 70px;
+    padding-left: 120px;
+    padding-right: 70px;
   }
   
   @media (min-width: 2560px) {
     gap: 90px;
+    padding-left: 150px;
+    padding-right: 90px;
   }
   
   @media (min-width: 3840px) {
     gap: 120px;
+    padding-left: 180px;
+    padding-right: 120px;
   }
 `;
 
@@ -622,37 +728,51 @@ const ModelCard1 = styled.div`
   height: 280px;
   
 
-  @media (min-width: 1366px) and (max-width: 1700px) {
-    height: 330px;
+  @media (min-width: 768px) {
+    height: 250px;
+    width: 450px;
+    border-radius: 22px;
+    border: 2px solid #444;
+  }
+
+  @media (min-width: 1366px){
+    height: 250px;
+    width: 450px;
     border-radius: 22px;
     border: 2px solid #444;
   }
   
-    @media (min-width: 1366px) and (max-height: 768px) {
-    margin-top: -10px;
-    height: 290px;
+    @media (min-width: 1440px) {
+    height: 300px;
+    width: 550px;
+    border-radius: 22px;
+    border: 2px solid #444;
   }
 
   @media (min-width: 1720px) {
-    height: 400px;
+    height: 330px;
+    width: 600px;
     border-radius: 25px;
     border: 3px solid #444;
   }
   
   @media (min-width: 1920px) {
-    height: 450px;
+    height: 380px;
+    width: 700px;
     border-radius: 25px;
     border: 3px solid #444;
   }
   
   @media (min-width: 2560px) {
-    height: 600px;
+    height: 500px;
+    width: 900px;
     border-radius: 30px;
     border: 4px solid #444;
   }
   
   @media (min-width: 3840px) {
-    height: 900px;
+    height: 800px;
+    width: 1500px;
     border-radius: 40px;
     border: 5px solid #444;
   }
@@ -665,45 +785,53 @@ const ModelCard2 = styled.div`
   display: block;
   width: 100%;
   height: 280px;
-  
-  @media (min-width: 1366px) {
-    height: 330px;
-    border-radius: 12px;
+
+  @media (min-width: 768px) {
+    height: 250px;
+    width: 450px;
+    border-radius: 22px;
     border: 2px solid #444;
   }
-
-   @media (min-width: 1366px) and (max-width: 1700px) {
-    height: 330px;
+  
+  @media (min-width: 1366px){
+    height: 250px;
+    width: 450px;
     border-radius: 22px;
     border: 2px solid #444;
   }
 
-  @media (min-width: 1366px) and (max-height: 768px) {
-    margin-top: -10px;
-    height: 290px;
+   @media (min-width: 1440px) {
+    height: 300px;
+    width: 550px;
+    border-radius: 22px;
+    border: 2px solid #444;
   }
   
   @media (min-width: 1720px) {
-    height: 400px;
+    height: 330px;
+    width: 600px;
     border-radius: 25px;
     border: 3px solid #444;
   }
   
   @media (min-width: 1920px) {
-    height: 450px;
-    border-radius: 15px;
+    height: 380px;
+    width: 700px;
+    border-radius: 25px;
     border: 3px solid #444;
   }
   
   @media (min-width: 2560px) {
-    height: 600px;
-    border-radius: 18px;
+    height: 500px;
+    width: 900px;
+    border-radius: 30px;
     border: 4px solid #444;
   }
   
   @media (min-width: 3840px) {
-    height: 900px;
-    border-radius: 24px;
+    height: 800px;
+    width: 1500px;
+    border-radius: 40px;
     border: 5px solid #444;
   }
 `;
@@ -889,25 +1017,65 @@ const ModelCaption = styled.div`
       transform: translateX(0);
     }
   }
+
+  @media (min-width: 768px) {
+    font-size: 1rem;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  @media (min-width: 1280px) {
+    font-size: 1rem;
+    margin-top: 15px;
+    margin-right: 60px;
+    margin-bottom: 10px;
+  }
   
   @media (min-width: 1366px) {
     font-size: 1rem;
     margin-top: 15px;
+    margin-right: 40px;
+    margin-bottom: 10px;
+  }
+    
+  @media (min-width: 1440px) {
+    font-size: 1rem;
+    margin-top: 15px;
+    margin-left: 40px;
+    margin-bottom: 10px;
+  }
+
+  @media (min-width: 1500px) {
+    font-size: 1rem;
+    margin-top: 15px;
+    margin-right: 80px;
+    margin-bottom: 10px;
+  }
+  
+  @media (min-width: 1720px) {
+    font-size: 1rem;
+    margin-top: 15px;
+    margin-right: 100px;
+    margin-bottom: 20px;
   }
   
   @media (min-width: 1920px) {
     font-size: 1.2rem;
     margin-top: 28px;
+    margin-bottom: 20px;
   }
   
   @media (min-width: 2560px) {
     font-size: 1.4rem;
     margin-top: 34px;
+    margin-bottom: 25px;
   }
   
   @media (min-width: 3840px) {
     font-size: 1.8rem;
     margin-top: 44px;
+    margin-right: 120px;
+    margin-bottom: 30px;
   }
 `;
 
@@ -923,7 +1091,14 @@ const SearchDropdown = styled.div`
   z-index: 10;
   max-height: 200px;
   overflow-y: auto;
-  
+
+  @media (min-width: 768px) {
+    max-height: 150px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+
   @media (min-width: 1366px) {
     border-radius: 5px;
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
@@ -962,6 +1137,11 @@ const SearchResultItem = styled.div`
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
+
+  @media (min-width: 768px) {
+    padding: 10px 16px;
+    font-size: 0.8rem;
+  }
   
   @media (min-width: 1366px) {
     padding: 12px 18px;
@@ -991,7 +1171,11 @@ const EmptyStateContainer = styled.div`
   justify-content: center;
   margin-top: 100px;
   color: #777;
-  
+
+  @media (min-width: 768px) {
+    margin-top: 100px;
+  }
+
   @media (min-width: 1366px) {
     margin-top: 120px;
   }
@@ -1038,7 +1222,12 @@ const EmptyStateText = styled.p`
   font-size: 1.2rem;
   text-align: center;
   margin-top: 100px;
-  
+
+  @media (min-width: 768px) {
+    margin-top: 100px;
+    font-size: 1rem;
+  }
+
   @media (min-width: 1366px) {
     font-size: 1.3rem;
     margin-top: 120px;
@@ -1073,6 +1262,13 @@ const DropdownMenu = styled.div`
   z-index: 10;
   max-height: 200px;
   overflow-y: auto;
+
+  @media (min-width: 768px) {
+    max-height: 150px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    margin-top: 4px;
+  }
   
   @media (min-width: 1366px) {
     border-radius: 5px;
@@ -1113,6 +1309,11 @@ const DropdownMenuItem = styled.div`
     background-color: rgba(255, 255, 255, 0.1);
   }
   
+  @media (min-width: 768px) {
+    padding: 10px 16px;
+    font-size: 0.8rem;
+  }
+
   @media (min-width: 1366px) {
     padding: 12px 18px;
     font-size: 1.1rem;
@@ -1146,7 +1347,13 @@ const ClearFiltersButton = styled.button`
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
-  
+
+  @media (min-width: 768px) {
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+
   @media (min-width: 1366px) {
     padding: 9px 14px;
     border-radius: 5px;
@@ -1177,26 +1384,40 @@ const ActionButtonContainer = styled.div`
   justify-content: flex-end;
   width: 100%;
   margin-top: 40px;
-  margin-left: 0;
+
+  @media (min-width: 768px) {
+    margin-top: 20px;
+    padding-right: 20px;
+  }
   
   @media (min-width: 1366px) {
-    margin-top: 25px;
+    margin-top: 22px;
+    padding-right: 50px;
   }
 
-  @media (min-width: 1366px) and (max-height: 768px) {
-    margin-top: 10px;
+  @media (min-width: 1440px) {
+    margin-top: 25px;
+    padding-right: 20px;
   }
-  
+
+  @media (min-width: 1720px) {
+    margin-top: 27px;
+    padding-right: 40px;
+  }
+
   @media (min-width: 1920px) {
-    margin-top: 22px;
+    margin-top: 27px;
+    padding-right: 25px;
   }
   
   @media (min-width: 2560px) {
     margin-top: 36px;
+    padding-right: 50px;
   }
   
   @media (min-width: 3840px) {
     margin-top: 48px;
+    padding-right: 50px;
   }
 `;
 
@@ -1213,14 +1434,20 @@ const ActionButton = styled.button`
   &:hover {
     background-color: #444;
   }
-  
-  @media (min-width: 1366px) {
+
+  @media (min-width: 768px) {
     border-radius: 9px;
-    padding: 14px 28px;
-    font-size: 1rem;
+    padding: 8px 16px;
+    font-size: 0.8rem;
   }
 
-  @media (min-width: 1366px) and (max-height: 768px) {
+  @media (min-width: 1366px) {
+    border-radius: 9px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+
+  @media (min-width: 1440px) {
     border-radius: 9px;
     padding: 8px 16px;
     font-size: 0.8rem;
