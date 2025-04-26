@@ -53,27 +53,27 @@ const MainContainer = styled.div`
   overflow-x: hidden;
 
   @media (min-width: 768px) {
-    padding: 20px;
+    padding: 5px;
   }
   
   @media (min-width: 1366px) {
-    padding: 20px;
+    padding: 5px;
   }
 
   @media (min-width: 1440px) {
-    padding: 24px;
+    padding: 10px;
   }
   
   @media (min-width: 1920px) {
-    padding: 30px;
+    padding: 10px;
   }
   
   @media (min-width: 2560px) {
-    padding: 40px;
+    padding: 20px;
   }
 
   @media (min-width: 3840px) {
-    padding: 50px;
+    padding: 20px;
   }
 `;
 
@@ -126,7 +126,7 @@ const TeamSelector = styled.div`
   }
 
   @media (min-width: 768px) {
-    padding: 6px 12px;
+    padding: 5px 10px;
     font-size: 0.8rem;
     gap: 6px;
   }
@@ -424,25 +424,25 @@ const BackButton = styled.button`
   }
 
   @media (min-width: 768px) {
-    font-size: 1.2rem;
-    margin-bottom: 16px;
+    font-size: 1rem;
+    margin-bottom: 10px;
     gap: 6px;
   }
   
   @media (min-width: 1366px) {
-    font-size: 1.2rem;
-    margin-bottom: 16px;
+    font-size: 1rem;
+    margin-bottom: 10px;
     gap: 6px;
   }
 
   @media (min-width: 1440px) {
-    font-size: 1.4rem;
-    margin-bottom: 20px;
+    font-size: 1.2rem;
+    margin-bottom: 14px;
     gap: 8px;
   }
   
   @media (min-width: 1920px) {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     margin-bottom: 24px;
     gap: 10px;
   }
@@ -571,7 +571,7 @@ const StepTitle = styled.h3<{ isActive?: boolean }>`
   }
 
   @media (min-width: 768px) {
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin: 0 0 4px 0;
     
     &::before {
@@ -583,7 +583,7 @@ const StepTitle = styled.h3<{ isActive?: boolean }>`
   }
   
   @media (min-width: 1366px) {
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin: 0 0 4px 0;
     
     &::before {
@@ -595,7 +595,7 @@ const StepTitle = styled.h3<{ isActive?: boolean }>`
   }
 
   @media (min-width: 1440px) {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin: 0 0 6px 0;
 
     &::before {
@@ -607,7 +607,7 @@ const StepTitle = styled.h3<{ isActive?: boolean }>`
   }
   
   @media (min-width: 1920px) {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin: 0 0 6px 0;
     
     &::before {
@@ -631,7 +631,7 @@ const StepTitle = styled.h3<{ isActive?: boolean }>`
   }
 
   @media (min-width: 3840px) {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
     margin: 0 0 12px 0;
 
     &::before {
@@ -743,53 +743,57 @@ const ImageContainer = styled.div`
   width: calc(100% - 380px);
 
   @media (min-width: 768px) {
-    max-height: 500px;
+    max-height: 450px;
     border-radius: 16px;
-    top: -40px;
-    width: calc(100% - 300px);
+    top: -30px;
+    max-width: 700px;
+    // width: calc(100% - 300px);
     border-width: 1px;
   }
   
   @media (min-width: 1366px) {
-    max-height: 530px;
+    max-height: 450px;
     border-radius: 16px;
-    top: -40px;
-    width: calc(100% - 300px);
+    top: -25px;
+    max-width: 700px
+    // width: calc(100% - 300px);
     border-width: 1px;
   }
 
   @media (min-width: 1440px) {
-    max-height: 580px;
+    max-height: 500px;
     border-radius: 18px;
-    top: -50px;
-    width: calc(100% - 330px);
+    top: -30px;
+    max-width: 800px;
+    // width: calc(100% - 330px);
     border-width: 1px;
   }
   
   @media (min-width: 1920px) {
-    max-height: 750px;
-    max-width: 1200px;
+    max-height: 620px;
+    max-width: 1000px;
     border-radius: 24px;
-    top: -70px;
-    width: calc(100% - 410px);
+    top: -45px;
+    // width: calc(100% - 410px);
     border-width: 2px;
   }
   
   @media (min-width: 2560px) {
-    max-height: 900px;
+    max-height: 800px;
     max-width: 1400px;
     border-radius: 30px;
-    top: -80px;
-    width: calc(100% - 480px);
+    top: -60px;
+    // width: calc(100% - 480px);
     border-width: 3px;
   }
 
   @media (min-width: 3840px) {
-    max-height: 1200px;
+    max-height: 1100px;
     max-width: 2000px;
     border-radius: 40px;
-    top: -90px;
-    width: calc(100% - 550px);
+    top: -70px;
+    // width: calc(100% - 550px);
+    border-width: 4px;
   }
 `;
 
@@ -944,32 +948,32 @@ const TimeEstimate = styled.div`
   text-decoration: underline;
 
   @media (min-width: 768px) {
-    margin-top: 75px;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
+    margin-top: 60px;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
   }
   
   @media (min-width: 1366px) {
-    margin-top: 75px;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
+    margin-top: 60px;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
   }
 
   @media (min-width: 1440px) {
-    margin-top: 95px;
-    margin-bottom: 24px;
+    margin-top: 75px;
+    margin-bottom: 15px;
     font-size: 1rem;
   }
   
   @media (min-width: 1920px) {
-    margin-top: 115px;
-    margin-bottom: 30px;
+    margin-top: 95px;
+    margin-bottom: 20px;
     font-size: 1.2rem;
   }
   
   @media (min-width: 2560px) {
-    margin-top: 140px;
-    margin-bottom: 36px;
+    margin-top: 120px;
+    margin-bottom: 30px;
     font-size: 1.4rem;
   }
 
@@ -985,14 +989,14 @@ const ButtonContainer = styled.div`
   gap: 16px;
   margin-top: 10px;
 
-   @media (min-width: 768px) {
+  @media (min-width: 768px) {
     gap: 12px;
-    margin-top: 8px;
+    margin-top: 4px;
   }
   
   @media (min-width: 1366px) {
     gap: 16px;
-    margin-top: 10px;
+    margin-top: 4px;
   }
   
   @media (min-width: 1920px) {
