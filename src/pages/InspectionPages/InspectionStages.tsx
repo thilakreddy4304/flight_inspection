@@ -1100,7 +1100,7 @@ const InspectionPages: React.FC<InspectionPagesProps> = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowStage1(true);
-    }, 1000);
+    }, 5000);
     
     return () => clearTimeout(timer);
   }, []);

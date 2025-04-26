@@ -1148,7 +1148,7 @@ const InspectionStage1: React.FC<InspectionStage1Props> = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowStage2(true);
-    }, 1000);
+    }, 5000);
     
     return () => clearTimeout(timer);
   }, []);
