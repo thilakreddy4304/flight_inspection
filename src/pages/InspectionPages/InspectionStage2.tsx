@@ -923,7 +923,7 @@ const AircraftImage = styled.div`
     min-height: 450px;
   }
 
-  @media (min-width: 1920px) {
+  @media (min-width: 1920px) {        
     min-height: 550px;
   }
   
@@ -1150,7 +1150,7 @@ const InspectionStage2: React.FC<InspectionStage2Props> = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowStage3(true);
-    }, 1000);
+    }, 5000);
     
     return () => clearTimeout(timer);
   }, []);

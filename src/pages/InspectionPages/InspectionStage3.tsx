@@ -1471,7 +1471,7 @@ const InspectionStage3: React.FC<InspectionStage3Props> = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowStage4(true);
-    }, 5000000);
+    }, 5000);
     
     return () => clearTimeout(timer);
   }, []);
