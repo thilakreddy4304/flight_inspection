@@ -1035,7 +1035,7 @@ const ModelCaption = styled.div`
     font-size: 1rem;
     margin-top: 15px;
     margin-right: 40px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
     
   @media (min-width: 1440px) {
