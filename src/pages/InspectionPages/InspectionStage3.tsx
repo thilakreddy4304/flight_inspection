@@ -4,10 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import SideNavbar from '../../components/SideNavbar/sideNavbar';
 import InspectionStage4 from './InspectionStage4';
-
-// Import images (add these paths to your actual image assets)
-// import realisticModel from '../../assets/images/realistic-aircraft-model.png';
-// import meshModel from '../../assets/images/mesh-model-aircraft.png';
 import combinedModel from '../../assets/images/combined.png';
 
 const PageContainer = styled.div`
@@ -57,27 +53,27 @@ const MainContainer = styled.div`
   overflow-x: hidden;
 
   @media (min-width: 768px) {
-    padding: 20px;
+    padding: 5px;
   }
   
   @media (min-width: 1366px) {
-    padding: 20px;
+    padding: 5px;
   }
 
   @media (min-width: 1440px) {
-    padding: 24px;
+    padding: 10px;
   }
   
   @media (min-width: 1920px) {
-    padding: 30px;
+    padding: 10px;
   }
   
   @media (min-width: 2560px) {
-    padding: 40px;
+    padding: 20px;
   }
 
   @media (min-width: 3840px) {
-    padding: 50px;
+    padding: 20px;
   }
 `;
 
@@ -130,7 +126,7 @@ const TeamSelector = styled.div`
   }
 
   @media (min-width: 768px) {
-    padding: 6px 12px;
+    padding: 5px 10px;
     font-size: 0.8rem;
     gap: 6px;
   }
@@ -419,25 +415,25 @@ const BackButton = styled.button`
   }
 
   @media (min-width: 768px) {
-    font-size: 1.2rem;
-    margin-bottom: 16px;
+    font-size: 1rem;
+    margin-bottom: 10px;
     gap: 6px;
   }
   
   @media (min-width: 1366px) {
-    font-size: 1.2rem;
-    margin-bottom: 16px;
+    font-size: 1rem;
+    margin-bottom: 10px;
     gap: 6px;
   }
 
   @media (min-width: 1440px) {
-    font-size: 1.4rem;
-    margin-bottom: 20px;
+    font-size: 1.2rem;
+    margin-bottom: 14px;
     gap: 8px;
   }
   
   @media (min-width: 1920px) {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     margin-bottom: 24px;
     gap: 10px;
   }
@@ -566,7 +562,7 @@ const StepTitle = styled.h3<{ isActive?: boolean }>`
   }
 
   @media (min-width: 768px) {
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin: 0 0 4px 0;
     
     &::before {
@@ -578,7 +574,7 @@ const StepTitle = styled.h3<{ isActive?: boolean }>`
   }
   
   @media (min-width: 1366px) {
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin: 0 0 4px 0;
     
     &::before {
@@ -590,7 +586,7 @@ const StepTitle = styled.h3<{ isActive?: boolean }>`
   }
 
   @media (min-width: 1440px) {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin: 0 0 6px 0;
 
     &::before {
@@ -602,7 +598,7 @@ const StepTitle = styled.h3<{ isActive?: boolean }>`
   }
   
   @media (min-width: 1920px) {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin: 0 0 6px 0;
     
     &::before {
@@ -626,7 +622,7 @@ const StepTitle = styled.h3<{ isActive?: boolean }>`
   }
 
   @media (min-width: 3840px) {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
     margin: 0 0 12px 0;
 
     &::before {
@@ -721,8 +717,8 @@ const StepItem = styled.li<{ isActive?: boolean }>`
 
 const ImageContainer = styled.div`
   flex: 1;
-  height: 650px;
-  max-width: 1100px;
+  height: 1400px;
+  max-width: 1000px;
   border-radius: 20px;
   overflow: hidden;
   background-color: rgb(40, 39, 39);
@@ -738,316 +734,59 @@ const ImageContainer = styled.div`
   width: calc(100% - 380px);
 
   @media (min-width: 768px) {
-    max-height: 500px;
+    max-height: 470px;
     border-radius: 16px;
-    top: -40px;
-    width: calc(100% - 300px);
+    top: -30px;
+    max-width: 700px;
+    // width: calc(100% - 300px);
     border-width: 1px;
   }
   
   @media (min-width: 1366px) {
-    max-height: 530px;
+    max-height: 470px;
     border-radius: 16px;
-    top: -40px;
-    width: calc(100% - 300px);
+    top: -25px;
+    max-width: 700px;
+    // width: calc(100% - 300px);
     border-width: 1px;
   }
 
   @media (min-width: 1440px) {
-    max-height: 580px;
+    max-height: 530px;
     border-radius: 18px;
-    top: -50px;
-    width: calc(100% - 330px);
+    top: -30px;
+    max-width: 800px;
+    // width: calc(100% - 330px);
     border-width: 1px;
   }
   
   @media (min-width: 1920px) {
-    max-height: 750px;
-    max-width: 1200px;
+    max-height: 650px;
+    max-width: 1000px;
     border-radius: 24px;
-    top: -70px;
-    width: calc(100% - 410px);
+    top: -45px;
+    // width: calc(100% - 410px);
     border-width: 2px;
   }
   
   @media (min-width: 2560px) {
-    max-height: 900px;
+    max-height: 850px;
     max-width: 1400px;
     border-radius: 30px;
-    top: -80px;
-    width: calc(100% - 480px);
+    top: -60px;
+    // width: calc(100% - 480px);
     border-width: 3px;
   }
 
   @media (min-width: 3840px) {
-    max-height: 1200px;
+    max-height: 1180px;
     max-width: 2000px;
     border-radius: 40px;
-    top: -90px;
-    width: calc(100% - 550px);
+    top: -70px;
+    // width: calc(100% - 550px);
+    border-width: 4px;
   }
 `;
-
-const CompositeImageContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-  overflow: hidden;
-  // box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-
-  @media (min-width: 768px) {
-    width: 100%;
-    height: 100%;
-  }
-
-  @media (min-width: 1366px) {
-    width: 100%;
-    height: 100%;
-  }
-  
-  @media (min-width: 1440px) {
-    width: 100%;
-    height: 100%;
-  } 
-
-  @media (min-width: 1920px) {
-    width: 100%;
-    height: 100%;
-  }   
-
-  @media (min-width: 2560px) {
-    width: 100%;
-    height: 100%;
-  }   
-
-  @media (min-width: 3840px) {
-    width: 100%;
-    height: 100%;
-  }    
-  
-`;
-
-const ImageLeft = styled.div`
-  position: absolute;
-  width: 55%;
-  height: 100%;
-  background-color:rgb(40, 39, 39);
-  overflow: hidden;
-  
-  img {
-    height: 100%;
-    width: auto;
-    min-width: 200%;
-    object-fit: cover;
-    object-position: left center;
-  }
-
-  @media (min-width: 768px) {
-    width: 50%;
-    height: 100%;
-
-    img {
-      min-width: 200%;
-      object-fit: cover;
-      object-position: left center;
-      height: 100%;
-    }
-  }
-
-  @media (min-width: 1366px) {
-    width: 100%;
-    height: 100%;
-
-    img {
-      min-width: 100%;
-      object-fit: cover;
-      object-position: left center;
-      height: 100%;
-    }
-  }
-
-  @media (min-width: 1440px) {
-    width: 60%;
-    height: 100%;
-    overflow: hidden;
-
-    img {
-      min-width: 130%;
-      object-fit: cover;
-      object-position: left center;
-      height: 100%;
-    }
-  }
-  
-  @media (min-width: 1920px) {
-    width: 100%;
-    height: 100%;
-
-    img {
-      min-width: 100%;
-      object-fit: cover;
-      object-position: left center;
-      height: 100%;
-    }
-  }
-  
-  @media (min-width: 2560px) {
-    width: 100%;
-    height: 100%;
-
-    img {
-      min-width: 100%;
-      object-fit: cover;
-      object-position: left center;
-      height: 100%;
-    }
-  }
-
-  @media (min-width: 3840px) {
-    width: 100%;
-    height: 100%;
-
-    img {
-      min-width: 100%;
-      object-fit: cover;
-      object-position: left center;
-      height: 100%;
-    }
-  }
-  
-  
-`;
-
-const ImageRight = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  overflow: hidden;
-  
-  img {
-    height: 100%;
-    width: auto;
-    min-width: 200%;
-    object-fit: cover;
-    object-position: right center;
-    transform: translateX(-50%);
-  }
-
-  @media (min-width: 768px) {
-    width: 100%;
-    height: 100%;
-
-    img {
-      min-width: 100%;
-      object-fit: cover;
-      object-position: right center;
-      height: 100%;
-      transform: translateX(-50%);
-    }
-  }
-
-  @media (min-width: 1366px) {
-    width: 100%;
-    height: 100%;
-
-    img {
-      min-width: 100%;
-      object-fit: cover;
-      object-position: right center;
-      height: 100%;
-      transform: translateX(-50%);
-    }
-  }
-
-  @media (min-width: 1440px) {
-    width: 45%;
-    height: 100%;
-
-    img {
-      min-width: 100%;
-      object-fit: cover;
-      object-position: right center;
-      height: 100%;
-      transform: translateX(-50%);
-    }
-  }
-
-  @media (min-width: 1920px) {
-    width: 100%;
-    height: 100%;
-
-    img {
-      min-width: 100%;
-      object-fit: cover;
-      object-position: right center;
-      height: 100%;
-      transform: translateX(-50%);
-    }
-  }
-
-  @media (min-width: 2560px) {
-    width: 100%;
-    height: 100%;
-
-    img {
-      min-width: 100%;
-      object-fit: cover;
-      object-position: right center;
-      height: 100%;
-      transform: translateX(-50%);
-    }
-  }
-
-  @media (min-width: 3840px) {
-    width: 100%;
-    height: 100%;
-
-    img {
-      min-width: 100%;
-      object-fit: cover;
-      object-position: right center;
-      height: 100%;
-      transform: translateX(-50%);
-    }
-  }
-`;  
-
-// const DividerLine = styled.div`
-//   position: absolute;
-//   top: 0;
-//   left: 50%;
-//   width: 2px;
-//   height: 100%;
-//   background-color: rgba(255, 255, 255, 0.75);
-//   z-index: 2;
-//   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-// `;
-
-const ImageLabel = styled.div`
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white;
-  padding: 5px 8px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  z-index: 3;
-`;
-
-// const LeftLabel = styled(ImageLabel)`
-//   top: 20px;
-//   left: 20px;
-// `;
-
-// const RightLabel = styled(ImageLabel)`
-//   top: 20px;
-//   right: 20px;
-// `;
 
 const StageIndicator = styled.div`
   position: relative;
@@ -1159,103 +898,47 @@ const AircraftImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  // padding: 10px;
-  min-height: 450px;
-  position: relative;
+  padding: 20px;
+  max-height: 600px;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 
    @media (min-width: 768px) {
     min-height: 350px;
-
-    img {
-      width: 95%;
-      object-fit: cover;
-      height: 100%;
-    }
+    width: 105%;
+    margin-left: -2.5%;
   }
   
   @media (min-width: 1366px) {
     min-height: 350px;
-
-    img {
-      width: 90%;
-      object-fit: cover;
-      height: 100%;
-    }
   }
   
   @media (min-width: 1440px) {
     min-height: 450px;
-
-    img {
-      width: 90%;
-      object-fit: cover;
-      height: 100%;
-    }
   }
 
   @media (min-width: 1920px) {
     min-height: 550px;
-
-    img {
-      width: 90%;
-      object-fit: cover;
-      height: 100%;
-    }
+    max-width: 1000px;
+    margin-left: 0.5%;
   }
   
   @media (min-width: 2560px) {
-    min-height: 650px;
-
-    img {
-      width: 90%;
-      object-fit: cover;
-      height: 100%;
-    }
+    min-height: 750px;
+    max-width: 1400px;
+    margin-left: 0.5%;
   }
 
   @media (min-width: 3840px) {
-    min-height: 850px;
-
-    img {
-      width: 90%;
-      object-fit: cover;
-      height: 100%;
-    }
+    min-height: 1100px;
+    max-width: 2000px;
+    margin-left: 0.5%;
   }
 `;
-
-const ImageHalf = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  // padding: 10px;
-  
-  img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-  }
-`;
-
-// const ImageTitle = styled.div`
-//   font-size: 1rem;
-//   color: #ccc;
-//   margin-bottom: 10px;
-//   font-style: italic;
-// `;
-
-// const ImageDivider = styled.div`
-//   width: 1px;
-//   height: 80%;
-//   background-color: #444;
-//   margin: 0 5px;
-//   align-self: center;
-// `;
 
 const TimeEstimate = styled.div`
   font-style: italic;
@@ -1265,32 +948,32 @@ const TimeEstimate = styled.div`
   text-decoration: underline;
 
    @media (min-width: 768px) {
-    margin-top: 75px;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
+    margin-top: 60px;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
   }
   
   @media (min-width: 1366px) {
-    margin-top: 75px;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
+    margin-top: 60px;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
   }
 
   @media (min-width: 1440px) {
-    margin-top: 95px;
-    margin-bottom: 24px;
+    margin-top: 75px;
+    margin-bottom: 15px;
     font-size: 1rem;
   }
   
   @media (min-width: 1920px) {
-    margin-top: 115px;
-    margin-bottom: 30px;
+    margin-top: 95px;
+    margin-bottom: 20px;
     font-size: 1.2rem;
   }
   
   @media (min-width: 2560px) {
-    margin-top: 140px;
-    margin-bottom: 36px;
+    margin-top: 120px;
+    margin-bottom: 30px;
     font-size: 1.4rem;
   }
 
@@ -1308,12 +991,12 @@ const ButtonContainer = styled.div`
 
   @media (min-width: 768px) {
     gap: 12px;
-    margin-top: 8px;
+    margin-top: 4px;
   }
   
   @media (min-width: 1366px) {
     gap: 16px;
-    margin-top: 10px;
+    margin-top: 4px;
   }
   
   @media (min-width: 1920px) {
@@ -1611,20 +1294,6 @@ const InspectionStage3: React.FC<InspectionStage3Props> = ({
             </StageIndicator>
             <AircraftImage>
               <img src={combinedModel} alt="Combined Aircraft Model" />
-              {/* <CompositeImageContainer>
-                <ImageLeft>
-                  <img src={realisticModel} alt="3D Realistic Aircraft Model" />
-                </ImageLeft>
-                
-                <ImageRight>
-                  <img src={meshModel} alt="Aircraft Wireframe Model" />
-                </ImageRight>
-                
-                {/* <DividerLine />
-                
-                <LeftLabel>Realistic Model</LeftLabel>
-                <RightLabel>Wireframe Model</RightLabel> */}
-              
             </AircraftImage>
           </ImageContainer>
         </ContentContainer>
